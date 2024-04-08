@@ -13,6 +13,6 @@
   "author": "nsgpriyanshu",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.3"
+    "express": "^4.19.2"
   }
 }
