@@ -47,7 +47,6 @@
   --Ash-Color: rgb(28, 28, 30);
   --Back-Drop-White: rgb(0, 0, 0, 0.1);
   --Back-Drop-Black: rgb(255, 255, 255, 0.1);
-
 }
 
 * {
@@ -64,7 +63,6 @@ body {
   align-items: center;
   background-color: var(--Main-Color);
   min-height: 100vh;
-
 }
 
 .card {
@@ -156,17 +154,16 @@ body {
   color: var(--Blue-Color);
 }
 
-
 .card .headcard .profile .namehandle .verified-icon {
   color: var(--Blue-Color);
 }
 
 .material-symbols-outlined {
   font-variation-settings:
-    'FILL' 1,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 24;
+    "FILL" 1,
+    "wght" 400,
+    "GRAD" 0,
+    "opsz" 24;
   color: var(--Blue-Color);
 }
 
@@ -273,6 +270,179 @@ body {
 
 .card .midcard2 .work ul li span {
   color: var(--Ps-Red);
+}
+
+.card .midcard4 {
+  width: 700px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: var(--Back-Drop-White); */
+  border-radius: 30px;
+  margin-top: 30px;
+}
+
+.card .midcard4 .subcard {
+  height: 400px;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: start;
+  width: 100%;
+}
+
+.mc4 {
+  width: 80px;
+  background-size: cover;
+  cursor: pointer;
+  overflow: hidden;
+  margin: 0 10px;
+  border-radius: 2rem;
+  display: flex;
+  align-items: flex-end;
+  transition: 0.6s cubic-bezier(0.28, -0.03, 0, 0.99);
+  box-shadow: 0px 10px 30px -5px var(--Main-Color);
+}
+
+.mc4 > .row {
+  display: flex;
+  align-items: center;
+}
+
+.mc4 > .row > .mc4icon {
+  background: var(--Ps-Red);
+  color: var(--Basic-Color);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+  margin-left: 15px;
+}
+
+.mc4 > .row > .mc4description {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  overflow: hidden;
+  height: auto;
+  width: 300px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition-delay: 0.3s;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+  border-radius: 15px;
+}
+
+.mc4description h4 {
+  margin-bottom: 2.5px;
+  margin-left: 5px;
+  color: var(--Ps-Red);
+}
+
+.mc4description p {
+  color: var(--Basic-Color);
+  margin-left: 5px;
+  margin-top: 0px;
+  margin-bottom: 5px;
+}
+
+.mc4description ul li a {
+  text-decoration: none;
+  color: var(--Ps-Gold);
+  font-size: 1rem;
+  margin-top: 5px;
+  margin: 0;
+}
+
+input {
+  display: none;
+}
+
+input:checked + label {
+  width: 390px;
+}
+
+input:checked + label .mc4description {
+  opacity: 1 !important;
+  transform: translateY(-40px) !important;
+}
+
+.mc4[for="c1"] {
+  background-image: url(./images/nsgpriyanshubw.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+.mc4[for="c2"] {
+  background-image: url(./images/nsgcomingsoon.jpg);
+}
+
+.mc4[for="c3"] {
+  background-image: url(./images/nsgcomingsoon.jpg);
+}
+
+.mc4[for="c4"] {
+  background-image: url(./images/nsgcomingsoon.jpg);
+}
+
+/* Responsive styles for .midcard4 */
+@media only screen and (max-width: 767px) {
+  .card .midcard4 {
+    width: 99%;
+    margin: 20px 0;
+    padding: 10px;
+    border-radius: 20px;
+    height: 100%;
+  }
+
+  /* Adjust child elements of .midcard4 */
+  .card .midcard4 .subcard {
+    height: 400px;
+    width: 100%;
+  }
+
+  .mc4 {
+    width: 80px;
+    margin: 10px 5px;
+    flex-direction: row;
+  }
+
+  .mc4 > .row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .mc4 > .row > .mc4icon {
+    margin-right: 10px;
+    margin-left: 5px;
+    margin-bottom: 50px;
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+  }
+
+  .mc4 > .row > .mc4description {
+    width: auto;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-top: 10px;
+  }
+
+  .mc4[for="c2"] {
+    background-image: url(./images/nsgcoomingsoon.jpg);
+  }
+
+  .mc4[for="c3"] {
+    background-image: url(./images/nsgcoomingsoon.jpg);
+  }
+
+  .mc4[for="c4"] {
+    background-image: url(./images/nsgcoomingsoon.jpg);
+  }
 }
 
 .card .midcard3 {
@@ -500,7 +670,6 @@ body {
 }
 
 @media only screen and (max-width: 767px) {
-
   /* Apply smooth transition to midcard */
   .card .midcard {
     transition: all 0.5s ease;
@@ -526,6 +695,7 @@ body {
 .card,
 .midcard,
 .midcard2,
+.midcard4,
 .midcard3 {
   opacity: 0;
 }
@@ -534,15 +704,30 @@ body {
 .card,
 .midcard,
 .midcard2,
+.midcard4,
 .midcard3 {
   transition: opacity 0.5s ease-in-out;
-  ;
 }
 
 /* Add loaded class to reveal elements */
 .card.loaded,
 .midcard.loaded,
 .midcard2.loaded,
+.midcard4.loaded,
 .midcard3.loaded {
   opacity: 1;
+}
+
+/* Scroll bar */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(transparent, var(--Ps-Red));
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(transparent, var(--Ps-Gold));
 }
