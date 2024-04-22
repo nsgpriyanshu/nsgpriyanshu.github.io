@@ -423,8 +423,8 @@ input:checked + label .mc4description {
    .mc4 > .row > .mc4icon {
     margin-left: 3px;
     margin-bottom: 50px;
-    height: 40px;
-    width: 40px;
+    height: 30px;
+    width: 30px;
     border-radius: 50%;
   }
 
