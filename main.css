@@ -358,6 +358,10 @@ body {
   margin: 0;
 }
 
+.mc4description ul li a:hover {
+  color: var(--Blue-Color);
+}
+
 input {
   display: none;
 }
@@ -416,12 +420,11 @@ input:checked + label .mc4description {
     align-items: flex-start;
   }
 
-  .mc4 > .row > .mc4icon {
-    margin-right: 10px;
-    margin-left: 5px;
+   .mc4 > .row > .mc4icon {
+    margin-left: 3px;
     margin-bottom: 50px;
-    height: 45px;
-    width: 45px;
+    height: 40px;
+    width: 40px;
     border-radius: 50%;
   }
 
