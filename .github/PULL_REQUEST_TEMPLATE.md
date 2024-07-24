@@ -26,4 +26,4 @@ Feel free to add any additional comments or questions you have for the reviewers
 
 ---
 
-Thank you for your contribution! You rock!
+Thank you for your contribution! You rock and welcome!
