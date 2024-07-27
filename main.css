@@ -382,15 +382,17 @@ input:checked + label .mc4description {
 }
 
 .mc4[for="c2"] {
-  background-image: url(./images/nsgcomingsoon.jpg);
+  background-image: url(./images/nscore.jpg);
+  background-size: cover;
+  background-position: center;
 }
 
 .mc4[for="c3"] {
-  background-image: url(./images/nsgcomingsoon.jpg);
+  background-image: url(./images/comingsoonH.jpg);
 }
 
 .mc4[for="c4"] {
-  background-image: url(./images/nsgcomingsoon.jpg);
+  background-image: url(./images/comingsoonH.jpg);
 }
 
 /* Responsive styles for .midcard4 */
@@ -435,16 +437,12 @@ input:checked + label .mc4description {
     margin-top: 10px;
   }
 
-  .mc4[for="c2"] {
-    background-image: url(./images/nsgcoomingsoon.jpg);
-  }
-
   .mc4[for="c3"] {
-    background-image: url(./images/nsgcoomingsoon.jpg);
+    background-image: url(./images/comingsoonV.jpg);
   }
 
   .mc4[for="c4"] {
-    background-image: url(./images/nsgcoomingsoon.jpg);
+    background-image: url(./images/comingsoonV.jpg);
   }
 }
 
