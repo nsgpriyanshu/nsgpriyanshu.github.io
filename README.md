@@ -1,4 +1,4 @@
-# ŊʂƓ ᴾᴿᴵᵞᴬᴺˢᴴᵁ 's Portfolio
+# <img src="https://raw.githubusercontent.com/nsgpriyanshu/creatorsworld/main/public/icons/colourfull-pfp.jpg" alt="nsgpriyanshu" width="25" height="25" style="border-radius: 50%;" /> ŊʂƓ ᴾᴿᴵᵞᴬᴺˢᴴᵁ 's Portfolio
 
 Welcome to nsgpriyanshu's personal portfolio! This website showcases the work and skills of nsgpriyanshu, a dedicated developer proficient in Node.js, HTML, CSS, and Express.js for server-side programming.
 
