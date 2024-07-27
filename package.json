@@ -18,6 +18,8 @@
     "express": "^4.19.2"
   },
   "devDependencies": {
+    "@commitlint/config-angular": "^19.3.0",
+    "commitlint": "^19.3.0",
     "prettier": "^3.2.5"
   }
 }
