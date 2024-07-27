@@ -388,11 +388,13 @@ input:checked + label .mc4description {
 }
 
 .mc4[for="c3"] {
-  background-image: url(./images/comingsoonH.jpg);
+  background-image: url(./images/nsdocs.jpg);
+  background-size: cover;
+  background-position: center;
 }
 
 .mc4[for="c4"] {
-  background-image: url(./images/comingsoonH.jpg);
+  background-image: url(./images/comingsoonV.jpg);
 }
 
 /* Responsive styles for .midcard4 */
@@ -437,12 +439,8 @@ input:checked + label .mc4description {
     margin-top: 10px;
   }
 
-  .mc4[for="c3"] {
-    background-image: url(./images/comingsoonV.jpg);
-  }
-
   .mc4[for="c4"] {
-    background-image: url(./images/comingsoonV.jpg);
+    background-image: url(./images/comingsoonH.jpg);
   }
 }
 

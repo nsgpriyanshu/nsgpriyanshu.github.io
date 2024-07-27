@@ -17,3 +17,5 @@ Welcome to nsgpriyanshu's personal portfolio! This website showcases the work an
 - **Express.js**: Utilized for building robust and efficient server-side applications, highlighting nsgpriyanshu's backend development proficiency.
 
 Thank you for visiting nsgpriyanshu's portfolio!
+
+[![CodeQL](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/actions/workflows/codeql.yml/badge.svg)](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/actions/workflows/codeql.yml)
