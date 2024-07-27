@@ -420,7 +420,7 @@ input:checked + label .mc4description {
     align-items: flex-start;
   }
 
-   .mc4 > .row > .mc4icon {
+  .mc4 > .row > .mc4icon {
     margin-left: 3px;
     margin-bottom: 50px;
     height: 33px;
