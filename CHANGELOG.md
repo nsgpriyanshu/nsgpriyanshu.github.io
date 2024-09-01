@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.5.0](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/compare/1.4.1...1.5.0) - (2024-09-01)
+
+## Features
+
+- Add new plan components ([fe7214f](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/fe7214fdd149ce34931cd5e482b87d320c83efcc))
+
 # [1.4.0](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/tree/1.4.0) - (2024-08-04)
 
 ## Bug Fixes
