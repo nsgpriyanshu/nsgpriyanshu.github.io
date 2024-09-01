@@ -26,4 +26,3 @@ All notable changes to this project will be documented in this file.
 ## Styling
 
 - Update CSS files ([896ede5](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/896ede519191b8eaaf0acd0c6f6627ee33128873))
-
