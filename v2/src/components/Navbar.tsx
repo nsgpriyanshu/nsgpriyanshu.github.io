@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import MobileNav from '@/components/MobileNavbar';
+import { ModeToggle } from './global/theme-switcher';
 
 const Navbar = () => {
 

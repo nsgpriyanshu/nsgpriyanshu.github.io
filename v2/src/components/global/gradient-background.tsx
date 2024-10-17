@@ -31,9 +31,8 @@ const GradientBackground = ({ children }: { children: React.ReactNode }) => {
     return (
         <AnimationContainer>
             <div className="min-h-screen w-full">
-                <div className="absolute inset-0 bg-grid-neutral-600/20 hidden lg:flex"></div>
-
-                <div className="absolute inset-0 items-center justify-center [mask-image:radial-gradient(ellipse_at_center,transparent_5%,black)] hidden lg:flex"></div>
+                <div className="absolute inset-0 z-[20] hidden lg:flex"></div>
+                <div className="absolute inset-0 z-[20] items-center justify-center [mask-image:radial-gradient(ellipse_at_center,transparent_5%,black)] hidden lg:flex"></div>
 
                 {/* Red Gradient Blob */}
                 <motion.div

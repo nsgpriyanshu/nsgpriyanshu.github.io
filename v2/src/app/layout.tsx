@@ -29,10 +29,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={cn(
-      'antialiased min-h-screen transition !bg-[#080809] text-neutral-50'
+      'antialiased min-h-screen transition '
   )}>
       <body
-        className={`h-full bg-[#080809] text-neutral-50 ${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`h-full ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider
           attribute="class"
@@ -40,6 +40,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <ModeToggle/>
           <Navbar />
           {children}
         </ThemeProvider>

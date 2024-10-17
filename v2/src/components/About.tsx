@@ -1,16 +1,17 @@
 import React from 'react'
 import AnimationContainer from '@/components/global/animation'
+import { StarIcon } from '@radix-ui/react-icons'
 
 const AbuotMe = () => {
     return (
         <AnimationContainer customClassName='w-full py-12 lg:py-16'>
 
-            <h2 className='mb-8 text-2xl font-bold tracking-tight text-center text-white lg:text-start'>
+            <h2 className='mb-8 text-2xl font-bold tracking-tight text-center lg:text-start'>
                 About me
             </h2>
 
-            <p className='w-full text-base font-normal leading-7 text-justify text-neutral-200'>
-                I am currently on a thrilling journey pursuing my B.Tech degree in <strong>Mechanical Engineering</strong>. Beyond the world of gears and machines, I craft engaging and responsive web applications using <strong>React</strong> and delve into the realm of mobile app development with <strong>React Native</strong>. Apart from coding, I express my creative side by designing sleek interfaces using <strong>Figma</strong>. Let&apos;s build something amazing together! ✨
+            <p className='w-full text-base font-normal leading-7 text-justify'>
+            I am Priyanshu, also known as nsgpriyanshu. I am currently pursuing a diploma in Computer Science and Engineering. Alongside my studies, my passion for web development and AI continues to grow, and I strive to practice and learn every day.
             </p>
 
         </AnimationContainer>

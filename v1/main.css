@@ -22,9 +22,9 @@
   --Ash-Color: rgb(242, 242, 247);
   --Back-Drop-White: rgb(255, 255, 255, 0.1);
   --Back-Drop-Black: rgb(0, 0, 0, 0.1);
-  --Ps-Red: rgb(246 4 1);
+  --Ps-Red: rgb(246, 4, 1);
   --Ps-Teal: rgb(0 96 95);
-  --Ps-Gold: rgb(203 185 143);
+  --Ps-Gold: #cbb98f;
 }
 
 /*Light-Theme*/

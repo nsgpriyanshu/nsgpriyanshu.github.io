@@ -6,6 +6,7 @@ import { Squeeze as Hamburger } from 'hamburger-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { Button } from './ui/button';
+import { ModeToggle } from './global/theme-switcher';
 
 const MobileNav = () => {
 
@@ -35,13 +36,7 @@ const MobileNav = () => {
     return (
         <nav className="fixed top-0 left-0 right-0 flex w-full h-16 bg-black/20 backdrop-blur-md lg:hidden">
             <div className="relative flex items-center justify-between w-full px-5">
-
-                <Link href="/">
-                    <h2 className="text-lg font-semibold text-foreground">
-                        nsgpriyanshu
-                    </h2>
-                </Link>
-
+                <ModeToggle />
                 <div className="relative flex z-[99999] items-center">
                     <Hamburger
                         toggled={isOpen}
@@ -65,7 +60,7 @@ const MobileNav = () => {
                                 bounce: 0.15,
                                 duration: 0.5,
                             }}
-                            className="fixed z-[9999] rounded-lg w-full h-screen inset-0 backdrop-blur-md bg-black"
+                            className="fixed z-[9999] rounded-lg w-full h-screen inset-0 bg-neutral-100 dark:bg-neutral-950 backdrop-blur-4xl"
                         >
                             <ul className="flex flex-col items-start w-full px-6 py-3 pt-16 space-y-3">
                                 {links?.map((link, index) => (
@@ -81,7 +76,7 @@ const MobileNav = () => {
                                             delay: 0.1 * index
                                         }}
                                         onClick={() => setIsOpen(false)}
-                                        className="w-full px-4 py-2 text-lg font-normal text-white transition transform rounded-md cursor-pointer text-start active:scale-95 hover:bg-neutral-900 active:opacity-80"
+                                        className="w-full px-4 py-2 text-lg font-normal transition transform rounded-md cursor-pointer text-start active:scale-95 hover:bg-neutral-400 dark:hover:bg-neutral-900 active:opacity-80"
                                     >
                                         <Link href={link.hash} className="w-full text-start">
                                             {link.name}

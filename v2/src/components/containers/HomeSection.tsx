@@ -1,6 +1,10 @@
 import SectionContainer from '@/components/global/section-containers';
 import Hero from '../Hero';
 import AbuotMe from '../About';
+import Experience from '../Journey';
+import FeaturedProjects from '../FeaturedProjects';
+import Skills from '../Skill';
+import ContactForm from '../Contact';
 
 const HomeSection = () => {
     return (
@@ -8,6 +12,10 @@ const HomeSection = () => {
             <div className="flex flex-col items-start w-full">
                 <Hero />
                 <AbuotMe />
+                <Experience />
+                <FeaturedProjects/>
+                <Skills/>
+                <ContactForm/>
             </div>
         </SectionContainer>
     )
