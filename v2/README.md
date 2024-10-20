@@ -1,21 +1,29 @@
-# <img src="https://raw.githubusercontent.com/nsgpriyanshu/creatorsworld/main/public/icons/colourfull-pfp.jpg" alt="nsgpriyanshu" width="25" height="25" style="border-radius: 50%;" /> ŊʂƓ ᴾᴿᴵᵞᴬᴺˢᴴᵁ 's Portfolio
+# <img src="https://raw.githubusercontent.com/nsgpriyanshu/creatorsworld/main/public/icons/colourfull-pfp.jpg" alt="nsgpriyanshu" width="25" height="25" style="border-radius: 50%;" /> ŊʂƓ ᴾᴿᴵᵞᴬᴺˢᴴᵁ's Portfolio  
 
-Welcome to nsgpriyanshu's personal portfolio! This website showcases the work and skills of nsgpriyanshu, a dedicated developer proficient in Node.js, HTML, CSS, and Express.js for server-side programming.
+Welcome to nsgpriyanshu's personal portfolio! This website is a reflection of my journey as a developer, showcasing my skills, projects, and creativity. With expertise in **Node.js, HTML, CSS,** and **Express.js**, I focus on delivering efficient and scalable web solutions.  
 
-## Features
+## Features  
 
-- **Sleek Design**: The portfolio is designed with a clean and modern layout, providing an elegant showcase for nsgpriyanshu's work and skills.
-- **Responsive**: Built with responsive design principles, ensuring compatibility across various devices and screen sizes.
-- **Portfolio Showcase**: Displays a curated selection of projects undertaken by nsgpriyanshu, highlighting expertise and creativity.
-- **Technologies Used**: Demonstrates proficiency in Node.js, HTML, CSS, and Express.js, showcasing nsgpriyanshu's skills in these technologies.
-- **Contact Information**: Provides easy access for visitors to get in touch with nsgpriyanshu for collaboration or inquiries.
+- **Sleek Design**: A clean, modern layout crafted to elegantly present my work and skills.  
+- **Responsive Experience**: Built with responsive principles to ensure smooth performance on all devices and screen sizes.  
+- **Project Showcase**: A curated selection of my work that highlights both technical expertise and creative problem-solving.  
+- **Technology Stack**: Demonstrates my proficiency in Node.js, HTML, CSS, and Express.js, reflecting my backend and frontend capabilities.  
+- **Easy Contact Access**: Visitors can quickly reach out for collaborations or inquiries.  
 
-## Technologies Used
+## Technologies Used  
 
-- **Node.js**: Used for server-side scripting, demonstrating expertise in building scalable web applications.
-- **HTML/CSS**: Employed for creating the structure and styling of the portfolio, showcasing nsgpriyanshu's frontend development skills.
-- **Express.js**: Utilized for building robust and efficient server-side applications, highlighting nsgpriyanshu's backend development proficiency.
+- **Next.js**: For server-side rendering and seamless frontend performance.  
+- **shadcn**: A UI component library enhancing modularity and design consistency.  
+- **Tailwind CSS**: For utility-first styling with flexibility and simplicity.  
+- **Aceternity UI**: Adding refined components and enhancing user experience.  
 
-Thank you for visiting nsgpriyanshu's portfolio!
+## Acknowledgement  
 
-[![CodeQL](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/actions/workflows/codeql.yml/badge.svg)](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/actions/workflows/codeql.yml)
+I would like to express my gratitude to everyone who has supported and inspired me throughout this journey. Special thanks to:  
+
+- **Shreyas Sihasane** for the inspiration behind the design of my v2 portfolio.  
+- The developers and maintainers of **Next.js, shadcn, Tailwind CSS,** and **Aceternity UI** for creating powerful tools that made this project possible.  
+- The open-source community for fostering collaboration and sharing knowledge.  
+- My friends, family, and mentors for their continuous encouragement and support.  
+
+Thank you all for being part of this journey!  
