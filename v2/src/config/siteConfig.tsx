@@ -13,7 +13,7 @@ export const links = [
   },
   {
     name: 'Notes',
-    hash: '/Notes',
+    hash: '/notes',
   },
   {
     name: 'Contact',

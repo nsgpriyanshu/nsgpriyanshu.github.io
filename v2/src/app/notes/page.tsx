@@ -1,4 +1,3 @@
-import AboutSection from '@/components/containers/AboutSection'
 import NoteSection from '@/components/containers/NoteSection'
 import GradientBackground from '@/components/global/gradient-background'
 import React from 'react'
