@@ -1,27 +1,26 @@
 [
-    {
-      "id": 1,
-      "name": "Project One",
-      "description": "A cool open-source project.",
-      "git_url": "https://github.com/your-username/project-one"
-    },
-    {
-      "id": 2,
-      "name": "Project Two",
-      "description": "Another awesome project.",
-      "git_url": "https://github.com/your-username/project-two"
-    },
-    {
-      "id": 3,
-      "name": "Project Three",
-      "description": "A creative endeavor.",
-      "git_url": "https://github.com/your-username/project-three"
-    },
-    {
-      "id": 4,
-      "name": "Project Three",
-      "description": "A creative endeavor.",
-      "git_url": "https://github.com/your-username/project-three"
-    }
-  ]
-  
+  {
+    "id": 1,
+    "name": "Project One",
+    "description": "A cool open-source project.",
+    "git_url": "https://github.com/your-username/project-one"
+  },
+  {
+    "id": 2,
+    "name": "Project Two",
+    "description": "Another awesome project.",
+    "git_url": "https://github.com/your-username/project-two"
+  },
+  {
+    "id": 3,
+    "name": "Project Three",
+    "description": "A creative endeavor.",
+    "git_url": "https://github.com/your-username/project-three"
+  },
+  {
+    "id": 4,
+    "name": "Project Three",
+    "description": "A creative endeavor.",
+    "git_url": "https://github.com/your-username/project-three"
+  }
+]
