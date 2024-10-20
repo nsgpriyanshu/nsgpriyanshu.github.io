@@ -10,9 +10,9 @@ const ContactSection = () => {
           <h2 className="mb-8 text-center text-4xl font-semibold capitalize !leading-[1.5] tracking-wide md:text-5xl">
             Contact
           </h2>
-          {/* <p className='w-full text-base font-normal leading-7 text-justify'>
-                    
-                    </p> */}
+          <p className="w-full text-justify text-base font-normal leading-7">
+            Hey, thank you for reaching out to me. I will try to reply to you as soon as possible.
+          </p>
         </AnimationContainer>
         <AnimationContainer customClassName="w-full flex flex-col relative gap-5 mb-8">
           <Contact />
