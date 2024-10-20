@@ -1,26 +1,26 @@
 [
   {
     "id": 1,
-    "name": "Project One",
-    "description": "A cool open-source project.",
-    "git_url": "https://github.com/your-username/project-one"
+    "name": "nstypocolors",
+    "description": "A typescript color package specially for typescript developers",
+    "git_url": "https://github.com/nsgpriyanshu/nstypocolors"
   },
   {
     "id": 2,
-    "name": "Project Two",
-    "description": "Another awesome project.",
-    "git_url": "https://github.com/your-username/project-two"
+    "name": "nscore",
+    "description": "This is an informative open source discord app",
+    "git_url": "https://github.com/nsgpriyanshu/nscore"
   },
   {
     "id": 3,
-    "name": "Project Three",
-    "description": "A creative endeavor.",
-    "git_url": "https://github.com/your-username/project-three"
+    "name": "nsdocs",
+    "description": "A production level discord app guide",
+    "git_url": "https://github.com/nsgpriyanshu/nsdocs"
   },
   {
     "id": 4,
-    "name": "Project Three",
-    "description": "A creative endeavor.",
-    "git_url": "https://github.com/your-username/project-three"
+    "name": "Creator's World",
+    "description": "Its a hub for all the type of creator's",
+    "git_url": "https://nsgpriyanshu.github.io/creatorsworld/"
   }
 ]

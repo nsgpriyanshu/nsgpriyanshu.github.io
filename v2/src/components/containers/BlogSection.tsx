@@ -15,7 +15,10 @@ const BlogSection = () => {
           Blog
         </h2>
         <p className="w-full text-justify text-base font-normal leading-7">
-          Hey, thank you for reaching out to me. I will try to reply to you as soon as possible.
+          Welcome to my blog! Here, I share personal experiences, lessons learned, and insights from
+          my journey through academics, creativity, and life. From everyday stories to project
+          updates, this space reflects my thoughts, passions, and growth. Join me as I explore,
+          learn, and document moments that matter.
         </p>
       </AnimationContainer>
       <AnimationContainer customClassName="w-full flex flex-col relative gap-5 mb-8">
@@ -25,13 +28,13 @@ const BlogSection = () => {
               <Link href={`/blog/${post.slug}`} passHref>
                 <h3 className="text-xl font-bold">{post.title}</h3>
                 <p className="mt-2">{post.description}</p>
-                <Image
+                {/* <Image
                   width={30}
                   height={30}
                   src={post.profilePicture}
                   alt={post.author}
                   className="mt-4 rounded-md"
-                />
+                /> */}
                 <p className="mt-2">
                   {post.author}, {post.role}
                 </p>

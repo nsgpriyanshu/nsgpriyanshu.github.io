@@ -4,8 +4,8 @@ export const links = [
     hash: '/',
   },
   {
-    name: 'Skills',
-    hash: '/skills',
+    name: 'About',
+    hash: '/about',
   },
   {
     name: 'Blog',
@@ -22,13 +22,12 @@ export const links = [
 ] as const
 
 export const siteConfig = {
-  siteName: 'nsgpriyanshu', 
-  siteDescription: 'Personal portfolio of nsgpriyanshu', 
+  siteName: 'nsgpriyanshu',
+  siteDescription: 'Personal portfolio of nsgpriyanshu',
   links: {
-    siteUrl: 'https:///nsgpriyanshu.github.io', 
-    ogImage: '', 
-    twitterImage: '', 
+    siteUrl: 'https:///nsgpriyanshu.github.io',
+    ogImage: '',
+    twitterImage: '',
     twitter: '@nsgpriyanshu',
   },
-};
-
+}
