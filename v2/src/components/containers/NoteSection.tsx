@@ -11,7 +11,7 @@ const NoteSection = () => {
           </h2>
           <p className="w-full text-justify text-base font-normal leading-7">
             Welcome to my Notes page! This is where I capture thoughts, ideas, and observations as
-            they come—whether it’s brainstorming for a project, learning something new, or
+            they come—whether it&apos;s brainstorming for a project, learning something new, or
             reflecting on personal experiences. These notes are more spontaneous and unfiltered,
             giving you a glimpse into my evolving journey. It&apos;s a space for growth, creativity,
             and curiosity. Feel free to explore, and maybe you'll find something that resonates or
