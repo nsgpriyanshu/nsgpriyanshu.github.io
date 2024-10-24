@@ -24,7 +24,7 @@ const AboutSection = () => {
         <AnimationContainer customClassName="w-full flex flex-col relative gap-5 mb-8">
           <h2 className="mb-8 text-center text-2xl font-bold tracking-tight lg:text-start">Future Vision</h2>
           <p className="w-full text-justify text-base font-normal leading-7">
-           PASTE HERE
+           I am passionate about learning and researching more about web development. I aim to create innovative websites using 3D technologies like Three.js or React Fiber. Additionally, I aspire to build something impactful—something that could change the world, or at the very least, make a 1% difference in people's lives.
           </p>
         </AnimationContainer>
       </div>
