@@ -22,3 +22,9 @@ export interface Post {
   color: string
   link: string
 }
+
+export interface AnimationContainerProps {
+  children: React.ReactNode;
+  customClassName?: string;
+  customDelay?: number;
+}

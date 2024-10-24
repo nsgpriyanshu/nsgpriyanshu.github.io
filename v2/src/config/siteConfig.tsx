@@ -26,8 +26,8 @@ export const siteConfig = {
   siteDescription: 'Personal portfolio of nsgpriyanshu',
   links: {
     siteUrl: 'https:///nsgpriyanshu-ps.vercel.app',
-    ogImage: 'https:///nsgpriyanshu-ps.vercel.app/public/assets/preview.png',
-    twitterImage: 'https:///nsgpriyanshu-ps.vercel.app/public/assets/preview.png',
+    ogImage: 'https:///nsgpriyanshu-ps.vercel.app//assets/preview.png',
+    twitterImage: 'https:///nsgpriyanshu-ps.vercel.app//assets/preview.png',
     twitter: '@nsgpriyanshu',
   },
 }

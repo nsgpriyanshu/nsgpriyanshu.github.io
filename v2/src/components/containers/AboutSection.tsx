@@ -1,5 +1,5 @@
-import AnimationContainer from '../global/animation'
-import SectionContainer from '../global/section-containers'
+import AnimationContainer from '@/components/global/animation'
+import SectionContainer from '@/components/global/section-containers'
 import Skills from '../Skill'
 
 const AboutSection = () => {
@@ -20,6 +20,12 @@ const AboutSection = () => {
         </AnimationContainer>
         <AnimationContainer customClassName="w-full flex flex-col relative gap-5 mb-8">
           <Skills />
+        </AnimationContainer>
+        <AnimationContainer customClassName="w-full flex flex-col relative gap-5 mb-8">
+          <h2 className="mb-8 text-center text-2xl font-bold tracking-tight lg:text-start">Future Vision</h2>
+          <p className="w-full text-justify text-base font-normal leading-7">
+           PASTE HERE
+          </p>
         </AnimationContainer>
       </div>
     </SectionContainer>
