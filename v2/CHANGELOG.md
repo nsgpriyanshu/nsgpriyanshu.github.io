@@ -41,4 +41,3 @@ All notable changes to this project will be documented in this file.
 ## Styling
 
 - Fixed readme.md ([d2f215b](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/d2f215bf37833a02b1b751d891abaaa18eecac16))
-

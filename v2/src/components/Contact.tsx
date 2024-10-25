@@ -1,78 +1,79 @@
-"use client"
+'use client'
 
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import AnimationContainer from './global/animation';
-import { PaperPlaneIcon } from '@radix-ui/react-icons';
-import { useToast } from '@/hooks/use-toast';
-import { z } from 'zod';
+import React, { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import AnimationContainer from './global/animation'
+import { PaperPlaneIcon } from '@radix-ui/react-icons'
+import { useToast } from '@/hooks/use-toast'
+import { z } from 'zod'
 
-// Zod Schema for Validation
+// Zod Schema for Form Validation
 const contactSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
-  email: z.string().email({ message: 'Email must contain a valid "@" symbol.' }),
-  message: z.string().min(10, { message: 'Message must be at least 10 characters.' }),
-});
+  email: z.string().email({ message: "Enter a valid email address with '@'." }),
+  message: z.string().min(10, { message: 'Message must be at least 10 characters long.' }),
+})
 
 function ContactForm() {
-  const { toast } = useToast();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const [errors, setErrors] = useState<Record<string, string | undefined>>({});
+  const { toast } = useToast()
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [message, setMessage] = useState('')
+  const [errors, setErrors] = useState<Record<string, string>>({})
 
   const validateForm = () => {
-    const result = contactSchema.safeParse({ name, email, message });
+    const result = contactSchema.safeParse({ name, email, message })
+
     if (!result.success) {
-      const fieldErrors: Record<string, string> = {};
+      const fieldErrors: Record<string, string> = {}
       result.error.issues.forEach(issue => {
-        fieldErrors[issue.path[0]] = issue.message;
-      });
-      setErrors(fieldErrors);
-      return false;
+        fieldErrors[issue.path[0] as string] = issue.message
+      })
+      setErrors(fieldErrors) // Store validation errors
+      return false
     }
-    setErrors({});
-    return true;
-  };
+    setErrors({})
+    return true
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validateForm()) return;
+    e.preventDefault()
+    if (!validateForm()) return // Stop if validation fails
 
-    const payload = { name, email, message };
+    const payload = { name, email, message }
 
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
-      });
+      })
 
       if (response.ok) {
         toast({
           title: 'Success!',
           description: 'Your message has been sent successfully.',
-        });
-        setName('');
-        setEmail('');
-        setMessage('');
+        })
+        setName('')
+        setEmail('')
+        setMessage('')
       } else {
         toast({
           title: 'Error',
           description: 'Failed to submit form.',
-        });
+        })
       }
     } catch {
       toast({
         title: 'Error',
         description: 'An unexpected error occurred.',
-      });
+      })
     }
-  };
+  }
 
   return (
     <>
@@ -108,11 +109,8 @@ function ContactForm() {
                       value={name}
                       onChange={e => setName(e.target.value)}
                       className="text-neutral-900 dark:text-neutral-100"
-                      required
                     />
-                    {errors.name && (
-                      <p className="text-red-500 text-sm">{errors.name}</p>
-                    )}
+                    {errors.name && <p className="text-sm text-red-500">{errors.name}</p>}
                   </div>
 
                   {/* Email Field */}
@@ -127,11 +125,8 @@ function ContactForm() {
                       value={email}
                       onChange={e => setEmail(e.target.value)}
                       className="text-neutral-900 dark:text-neutral-100"
-                      required
                     />
-                    {errors.email && (
-                      <p className="text-red-500 text-sm">{errors.email}</p>
-                    )}
+                    {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
                   </div>
 
                   {/* Message Field */}
@@ -146,15 +141,11 @@ function ContactForm() {
                       onChange={e => setMessage(e.target.value)}
                       className="text-neutral-900 dark:text-neutral-100"
                       rows={5}
-                      required
                     />
-                    {errors.message && (
-                      <p className="text-red-500 text-sm">{errors.message}</p>
-                    )}
+                    {errors.message && <p className="text-sm text-red-500">{errors.message}</p>}
                   </div>
                 </CardContent>
 
-                {/* Submit Button */}
                 <CardFooter className="items-center justify-center px-8 pb-8">
                   <Button
                     variant="default"
@@ -170,7 +161,7 @@ function ContactForm() {
         </div>
       </AnimationContainer>
     </>
-  );
+  )
 }
 
-export default ContactForm;
+export default ContactForm
