@@ -25,9 +25,9 @@ export const siteConfig = {
   siteName: 'nsgpriyanshu',
   siteDescription: 'Personal portfolio of nsgpriyanshu',
   links: {
-    siteUrl: 'https://nsgpriyanshu-ps.vercel.app',
-    ogImage: 'https://nsgpriyanshu-ps.vercel.app/assets/preview.png',
-    twitterImage: 'https://nsgpriyanshu-ps.vercel.app/assets/preview.png',
+    siteUrl: 'https://priyanshu-ps.vercel.app',
+    ogImage: 'https://priyanshu-ps.vercel.app/assets/preview.png',
+    twitterImage: 'https://priyanshu-ps.vercel.app/assets/preview.png',
     twitter: '@nsgpriyanshu',
   },
 }
