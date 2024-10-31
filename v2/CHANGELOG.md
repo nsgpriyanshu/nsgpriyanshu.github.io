@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+# [2.1.0](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/compare/2.0.1...2.1.0) - (2024-10-31)
+
+## Bug Fixes
+
+- Og bug ([d839df2](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/d839df250746d9d809a0e3323f48c0ec475facde))
+- Og bug ([8bbc34d](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/8bbc34d106e6b7a44db912bae4a9cf11650595ea))
+
+## Features
+
+- Enhanced the over all dark mode, with new themes, styles and colors ([f13160e](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/f13160e8fb82870622a9393d0ee7eef0aa640344))
+
 # [2.0.1](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/compare/0.2.1...2.0.1) - (2024-10-25)
 
 ## Bug Fixes
