@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
 import { ThemeProvider } from 'next-themes'
@@ -19,6 +19,10 @@ const geistMono = localFont({
   variable: '--font-geist-mono',
   weight: '100 900',
 })
+
+export const viewport: Viewport = {
+  themeColor: '#1c1917',
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.links.siteUrl),
@@ -85,13 +89,33 @@ export default function RootLayout({
         <meta name="twitter:image" content={siteConfig.links.twitterImage} />
         <link rel="canonical" href={siteConfig.links.siteUrl} />
       </head>
-      <body className={`h-full ${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body
+        className={`h-full ${geistSans.variable} ${geistMono.variable} antialiased selection:bg-rose-600/90 dark:bg-[#1c1917] dark:text-rose-100/90`}
+      >
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+          <svg
+            className="pointer-events-none fixed isolate z-50 opacity-70 mix-blend-soft-light"
+            width="100%"
+            height="100%"
+          >
+            <filter id="noise">
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.80"
+                numOctaves="4"
+                stitchTiles="stitch"
+              />
+            </filter>
+            <rect width="100%" height="100%" filter="url(#noise)" />
+          </svg>
           <ModeToggle />
           <Navbar />
           {children}
           <Footer />
           <Toaster />
+          <div className="pointer-events-none absolute inset-0 overflow-hidden">
+            <div className="h-full bg-top bg-no-repeat opacity-[0.3] dark:bg-[url('https://res.cloudinary.com/delba/image/upload/h_500/bg_gradient_pfosr9')]" />
+          </div>
         </ThemeProvider>
       </body>
     </html>

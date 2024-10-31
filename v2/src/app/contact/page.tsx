@@ -4,11 +4,11 @@ import React from 'react'
 
 const Contact = () => {
   return (
-    <GradientBackground>
-      <main className="relative !z-[999] flex flex-col items-center justify-center px-4">
-        <ContactSection />
-      </main>
-    </GradientBackground>
+    // <GradientBackground>
+    <main className="relative !z-[999] flex flex-col items-center justify-center px-4">
+      <ContactSection />
+    </main>
+    // </GradientBackground>
   )
 }
 

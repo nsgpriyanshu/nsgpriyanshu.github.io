@@ -7,7 +7,7 @@ import React from 'react'
 
 const NotFound = () => {
   return (
-    <GradientBackground>
+    // <GradientBackground>
       <main className="relative !z-[999] flex flex-col items-center justify-center px-4 pt-20">
         <SectionContainer>
           <AnimationContainer customClassName="flex flex-col items-center justify-center mx-auto py-16">
@@ -33,7 +33,7 @@ const NotFound = () => {
           </AnimationContainer>
         </SectionContainer>
       </main>
-    </GradientBackground>
+    // </GradientBackground>
   )
 }
 

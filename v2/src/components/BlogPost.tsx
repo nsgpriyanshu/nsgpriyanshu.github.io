@@ -36,34 +36,34 @@ export default function BlogPost({ post }: BlogPostProps) {
       : 'Long Time Ago'
 
   return (
-    <GradientBackground>
-      <AnimationContainer customClassName="min-h-screen py-12">
-        <main className="container mx-auto max-w-3xl px-4 py-8">
-          <article>
-            <h1 className="mb-4 text-4xl font-bold">{post.title}</h1>
-            <div className="mb-4">
-              <p>
-                Written by {post.author} on {post.date}
-              </p>
-              <div className="mt-2 flex items-center space-x-4">
-                <span className="flex items-center">
-                  <CalendarDays className="mr-1 h-4 w-4" />
-                  {timeAgo} {/* Display dynamic time */}
-                </span>
-                {/* Uncomment the view count if needed */}
-                {/* <span className="flex items-center">
+    // <GradientBackground>
+    <AnimationContainer customClassName="min-h-screen py-12">
+      <main className="container mx-auto max-w-3xl px-4 py-8">
+        <article>
+          <h1 className="mb-4 text-4xl font-bold">{post.title}</h1>
+          <div className="mb-4">
+            <p>
+              Written by {post.author} on {post.date}
+            </p>
+            <div className="mt-2 flex items-center space-x-4">
+              <span className="flex items-center">
+                <CalendarDays className="mr-1 h-4 w-4" />
+                {timeAgo} {/* Display dynamic time */}
+              </span>
+              {/* Uncomment the view count if needed */}
+              {/* <span className="flex items-center">
                   <Eye className="w-4 h-4 mr-1" />
                   50 views
                 </span> */}
-              </div>
             </div>
-            <div className="mt-20">
-              {/* Use MarkdownRenderer to render the post content */}
-              <MarkdownRenderer content={post.content} />
-            </div>
-          </article>
-        </main>
-      </AnimationContainer>
-    </GradientBackground>
+          </div>
+          <div className="mt-20">
+            {/* Use MarkdownRenderer to render the post content */}
+            <MarkdownRenderer content={post.content} />
+          </div>
+        </article>
+      </main>
+    </AnimationContainer>
+    // </GradientBackground>
   )
 }

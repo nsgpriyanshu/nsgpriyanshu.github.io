@@ -14,7 +14,7 @@ const Hero = () => {
           </span>
         </h3>
         <HyperText
-          className="py-2 text-xl font-bold text-foreground sm:text-3xl lg:py-4 lg:text-5xl"
+          className="py-2 text-xl font-bold text-foreground dark:text-rose-100/90 sm:text-3xl lg:py-4 lg:text-5xl"
           text="Priyanshu"
         />
         <h3 className="text-center text-base text-neutral-800 dark:text-neutral-400 lg:text-start lg:text-lg">

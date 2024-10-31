@@ -89,7 +89,7 @@ function ContactForm() {
       <AnimationContainer customDelay={0.2} customClassName="w-full">
         <div className="relative mx-auto flex h-auto w-full flex-col items-center justify-center overflow-hidden rounded-lg">
           <div className="w-full">
-            <Card className="mx-auto w-full rounded-lg">
+            <Card className="mx-auto w-full rounded-lg dark:border-neutral-800 dark:bg-[#1c1917]">
               <CardHeader className="text-center">
                 <CardTitle className="text-2xl font-semibold text-neutral-800 dark:text-neutral-200">
                   Mail Box
