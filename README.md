@@ -2,6 +2,8 @@
 
 ## Introduction  
 
+<img src="https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/blob/main/v2%2Fpublic%2Fassets%2Fpreview.png" alt="preview"/>   
+
 Welcome to my portfolio monorepo! This collection showcases multiple iterations of my portfolio, each meticulously crafted with distinct technologies, frameworks, and design themes. Each version not only highlights my evolving skills but also reflects my commitment to innovation and creativity. By drawing inspiration from a variety of sources and incorporating diverse concepts, I aim to demonstrate how embracing variety can lead to unique solutions and meaningful impacts in the tech landscape.  
 
 Within this monorepo, you’ll find projects that illustrate my growth as a developer, the challenges I’ve overcome, and the technologies I’ve mastered along the way. I invite you to explore these versions and discover the journey that has shaped my work.  
