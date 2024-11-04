@@ -20,7 +20,7 @@ const Footer = () => {
 
   return (
     <footer className="mx-auto flex w-full flex-col items-center justify-center lg:max-w-screen-md">
-      <hr className="h-px w-full border bg-neutral-100 dark:border-neutral-900" />
+      <hr className="h-px w-full border bg-neutral-300 dark:border-neutral-800" />
 
       <AnimationContainer customClassName="w-full grid grid-cols-3 place-items-center gap-2 lg:gap-4 mx-4 py-12 lg:py-8">
         <div className="flex flex-col space-y-4">
