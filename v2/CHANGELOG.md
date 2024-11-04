@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [2.1.1](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/compare/2.1.0...2.1.1) - (2024-11-04)
+
+## Bug Fixes
+
+- Minor layouts bugs ([17949e9](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/17949e9c5d1e9eb97985ff63159125f378512f93))
+
 # [2.1.0](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/compare/2.0.1...2.1.0) - (2024-10-31)
 
 ## Bug Fixes
