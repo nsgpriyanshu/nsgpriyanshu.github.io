@@ -1,54 +1,42 @@
 import { NextRequest, NextResponse } from 'next/server'
-
-const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL
+import axios from 'axios'
 
 export async function POST(req: NextRequest) {
+  const webhookUrl = process.env.DISCORD_WEBHOOK_URL as string
+  const discordId = process.env.DISCORD_ID as string
+  // Parse form data
+  const formData = await req.formData()
+  const name = formData.get('name')?.toString() || ''
+  const email = formData.get('email')?.toString() || ''
+  const message = formData.get('message')?.toString() || ''
+
+  // Prepare message for Discord
+  const discordMessage = {
+    content: `<@${discordId}>\nFROM PROTFOLIO\n**New Contact Form Submission**\n\n**Name:** ${name}\n**Email:** ${email}\n**Message:** ${message}`,
+  }
+
   try {
-    // Parse the JSON request body
-    const { name, email, message } = await req.json()
+    // Send message to Discord
+    await axios.post(webhookUrl, discordMessage)
 
-    // Validate the request body
-    if (!name || !email || !message) {
-      return NextResponse.json({ success: false, message: 'Missing fields' }, { status: 400 })
+    // Handle attachments if they exist
+    const attachments = formData.getAll('attachments') as File[]
+
+    for (const attachment of attachments) {
+      const fileData = new FormData()
+      fileData.append('file', attachment, attachment.name)
+
+      // Send each attachment as a separate message to Discord
+      await axios.post(webhookUrl, fileData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
     }
 
-    // Check if the webhook URL is available
-    if (!DISCORD_WEBHOOK_URL) {
-      return NextResponse.json(
-        { success: false, message: 'Discord Webhook URL is not defined' },
-        { status: 500 },
-      )
-    }
-
-    // Prepare the message for Discord
-    const discordMessage = {
-      content: `**New Contact Form Submission**\n\n**Name:** ${name}\n**Email:** ${email}\n**Message:**\n${message}`,
-    }
-
-    // Send the message to Discord
-    const discordResponse = await fetch(DISCORD_WEBHOOK_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(discordMessage),
-    })
-
-    // Check if the response was successful
-    if (discordResponse.ok) {
-      return NextResponse.json({ success: true, message: 'Message sent successfully' })
-    } else {
-      return NextResponse.json(
-        { success: false, message: 'Failed to send message to Discord' },
-        { status: 500 },
-      )
-    }
+    return NextResponse.json({ message: 'Message sent successfully' }, { status: 200 })
   } catch (error) {
     console.error('Error sending message to Discord:', error)
-
-    return NextResponse.json(
-      { success: false, message: 'Error sending message to Discord' },
-      { status: 500 },
-    )
+    return NextResponse.json({ message: 'Failed to send message' }, { status: 500 })
   }
 }

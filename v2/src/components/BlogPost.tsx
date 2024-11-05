@@ -57,7 +57,7 @@ export default function BlogPost({ post }: BlogPostProps) {
                 </span> */}
             </div>
           </div>
-          <div className="mt-20">
+          <div className="z-[999999] mt-20">
             {/* Use MarkdownRenderer to render the post content */}
             <MarkdownRenderer content={post.content} />
           </div>

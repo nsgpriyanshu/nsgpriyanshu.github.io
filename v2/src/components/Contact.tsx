@@ -42,21 +42,23 @@ function ContactForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!validateForm()) return // Stop if validation fails
+    if (!validateForm()) return
 
-    const payload = { name, email, message }
+    const formData = new FormData()
+    formData.append('name', name)
+    formData.append('email', email)
+    formData.append('message', message)
 
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        body: formData,
       })
 
       if (response.ok) {
         toast({
           title: 'Success!',
-          description: 'Your message has been sent successfully.',
+          description: 'Your message and attachments have been sent.',
         })
         setName('')
         setEmail('')
@@ -86,79 +88,67 @@ function ContactForm() {
         </p>
       </AnimationContainer>
 
-      <AnimationContainer customDelay={0.2} customClassName="w-full">
-        <div className="relative mx-auto flex h-auto w-full flex-col items-center justify-center overflow-hidden rounded-lg">
-          <div className="w-full">
-            <Card className="mx-auto w-full rounded-lg dark:border-neutral-800 dark:bg-[#1c1917]">
+      <AnimationContainer customDelay={0.2}>
+        <form onSubmit={handleSubmit}>
+          <div className="mx-4 flex h-auto flex-col items-center justify-center overflow-hidden rounded-lg">
+            <Card className="w-full max-w-2xl rounded-lg dark:border-neutral-800 dark:bg-transparent">
               <CardHeader className="text-center">
                 <CardTitle className="text-2xl font-semibold text-neutral-800 dark:text-neutral-200">
                   Mail Box
                 </CardTitle>
               </CardHeader>
+              <CardContent>
+                {/* Form Fields */}
+                <Label htmlFor="name" className="text-neutral-800 dark:text-rose-100/90">
+                  Name
+                </Label>
+                <Input
+                  id="name"
+                  placeholder="Enter your name"
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                  className="text-neutral-900 dark:text-neutral-100"
+                />
+                {errors.name && <p className="text-sm text-red-500">{errors.name}</p>}
 
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <CardContent className="space-y-6 px-8 py-6">
-                  {/* Name Field */}
-                  <div className="space-y-2">
-                    <Label htmlFor="name" className="text-neutral-800 dark:text-neutral-400">
-                      Name
-                    </Label>
-                    <Input
-                      id="name"
-                      placeholder="Enter your name"
-                      value={name}
-                      onChange={e => setName(e.target.value)}
-                      className="text-neutral-900 dark:text-neutral-100"
-                    />
-                    {errors.name && <p className="text-sm text-red-500">{errors.name}</p>}
-                  </div>
+                <Label htmlFor="email" className="text-neutral-800 dark:text-rose-100/90">
+                  Email
+                </Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  className="text-neutral-900 dark:text-neutral-100"
+                />
+                {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
 
-                  {/* Email Field */}
-                  <div className="space-y-2">
-                    <Label htmlFor="email" className="text-neutral-800 dark:text-neutral-400">
-                      Email
-                    </Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      placeholder="Enter your email"
-                      value={email}
-                      onChange={e => setEmail(e.target.value)}
-                      className="text-neutral-900 dark:text-neutral-100"
-                    />
-                    {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
-                  </div>
-
-                  {/* Message Field */}
-                  <div className="space-y-2">
-                    <Label htmlFor="message" className="text-neutral-800 dark:text-neutral-400">
-                      Message
-                    </Label>
-                    <Textarea
-                      id="message"
-                      placeholder="Enter your message"
-                      value={message}
-                      onChange={e => setMessage(e.target.value)}
-                      className="text-neutral-900 dark:text-neutral-100"
-                      rows={5}
-                    />
-                    {errors.message && <p className="text-sm text-red-500">{errors.message}</p>}
-                  </div>
-                </CardContent>
-
-                <CardFooter className="items-center justify-center px-8 pb-8">
-                  <Button
-                    variant="default"
-                    type="submit"
-                    className="w-2xl gap-2 py-3 text-sm font-bold"
-                  >
-                    <PaperPlaneIcon className="h-6 w-6" /> Send Message
-                  </Button>
-                </CardFooter>
-              </form>
+                <Label htmlFor="message" className="text-neutral-800 dark:text-rose-100/90">
+                  Message
+                </Label>
+                <Textarea
+                  id="message"
+                  placeholder="Enter your message"
+                  value={message}
+                  onChange={e => setMessage(e.target.value)}
+                  className="text-neutral-900 dark:text-neutral-100"
+                  rows={10}
+                />
+                {errors.message && <p className="text-sm text-red-500">{errors.message}</p>}
+              </CardContent>
+              <CardFooter>
+                <Button
+                  variant="default"
+                  type="submit"
+                  className="w-full gap-2 py-3 text-sm font-bold dark:bg-rose-200 dark:text-neutral-900"
+                >
+                  <PaperPlaneIcon className="h-6 w-6" /> Send Message
+                </Button>
+              </CardFooter>
             </Card>
           </div>
-        </div>
+        </form>
       </AnimationContainer>
     </>
   )
