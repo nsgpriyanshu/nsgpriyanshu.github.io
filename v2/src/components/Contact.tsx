@@ -93,7 +93,7 @@ function ContactForm() {
           <div className="mx-4 flex h-auto flex-col items-center justify-center overflow-hidden rounded-lg">
             <Card className="w-full max-w-2xl rounded-lg dark:border-neutral-800 dark:bg-transparent">
               <CardHeader className="text-center">
-                <CardTitle className="text-2xl font-semibold text-neutral-800 dark:text-neutral-200">
+                <CardTitle className="text-2xl font-semibold text-neutral-800 dark:text-rose-100/90">
                   Mail Box
                 </CardTitle>
               </CardHeader>
