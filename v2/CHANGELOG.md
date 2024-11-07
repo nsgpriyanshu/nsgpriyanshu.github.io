@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+# [2.2.0](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/compare/2.1.1...2.2.0) - (2024-11-07)
+
+## Features
+
+- Upgrade to next v 15, and fixed the api error ([2ac10e8](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/2ac10e859e22be8c5da97ba9372571ce285147a0))
+
+## Styling
+
+- Fixed some color varients ([204d886](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/204d886143c368daae2038b2466ec239b526138c))
+- **readme.md:** Add preview image ([4e222cc](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/4e222cc0879bc19ad49dba0f8b3e02b4b852f06b))
+
 # [2.1.1](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/compare/2.1.0...2.1.1) - (2024-11-04)
 
 ## Bug Fixes
