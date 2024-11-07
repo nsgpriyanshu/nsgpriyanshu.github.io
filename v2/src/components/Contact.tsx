@@ -88,7 +88,7 @@ function ContactForm() {
         </p>
       </AnimationContainer>
 
-      <AnimationContainer customDelay={0.2}>
+      <AnimationContainer customDelay={0.2} customClassName='w-full justify-center items-center'>
         <form onSubmit={handleSubmit}>
           <div className="mx-4 flex h-auto flex-col items-center justify-center overflow-hidden rounded-lg">
             <Card className="w-full max-w-2xl rounded-lg dark:border-neutral-800 dark:bg-transparent">
