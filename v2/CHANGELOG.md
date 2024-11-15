@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [2.2.1](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/compare/2.2.0...2.2.1) - (2024-11-15)
+
+## Bug Fixes
+
+- Contact form and its layout ([b0dd2c8](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/b0dd2c897c2c8453435579fd9c21548609ededa5))
+
 # [2.2.0](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/compare/2.1.1...2.2.0) - (2024-11-07)
 
 ## Features

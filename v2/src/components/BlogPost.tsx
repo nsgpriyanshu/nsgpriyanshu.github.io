@@ -37,7 +37,7 @@ export default function BlogPost({ post }: BlogPostProps) {
 
   return (
     // <GradientBackground>
-    <AnimationContainer customClassName="min-h-screen py-12">
+    <AnimationContainer customClassName="z-[9999] min-h-screen py-12">
       <main className="container mx-auto max-w-3xl px-4 py-8">
         <article>
           <h1 className="mb-4 text-4xl font-bold">{post.title}</h1>
