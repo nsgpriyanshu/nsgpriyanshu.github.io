@@ -1,10 +1,11 @@
+import { Particles } from '@/components/ui/particles'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: `${process.env.NEXT_PUBLIC_APP_NAME} - ${process.env.NEXT_PUBLIC_APP_DESCRIPTION}`,
+  title: `Home - ${process.env.NEXT_PUBLIC_APP_DESCRIPTION}`,
   description: `${process.env.NEXT_PUBLIC_APP_DESCRIPTION}`,
   openGraph: {
-    title: `${process.env.NEXT_PUBLIC_APP_NAME} - ${process.env.NEXT_PUBLIC_APP_DESCRIPTION}`,
+    title: `Home - ${process.env.NEXT_PUBLIC_APP_DESCRIPTION}`,
     description: `${process.env.NEXT_PUBLIC_APP_DESCRIPTION}`,
     images: [
       {
@@ -18,5 +19,10 @@ export const metadata: Metadata = {
 }
 
 export default function HomeLayout({ children }: { children: React.ReactNode }) {
-  return <main className="relative w-full">{children}</main>
+  return (
+    <main className="relative w-full">
+      <Particles className="absolute inset-0 z-0" quantity={100} ease={80} refresh />
+      {children}
+    </main>
+  )
 }

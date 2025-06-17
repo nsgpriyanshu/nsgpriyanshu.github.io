@@ -5,6 +5,7 @@ import { ThemeProvider } from 'next-themes'
 import { Toaster } from 'sonner'
 import { Geist_Mono } from 'next/font/google'
 import FloatingDock from '@/components/floating-dock'
+import { Cursor } from '@/components/cursor'
 
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
@@ -18,7 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          `${geistMono.variable} text-foreground min-h-screen overflow-x-hidden font-mono antialiased dark:bg-[#000000]`,
+          `${geistMono.variable} text-foreground dark:bg-backgorund min-h-screen overflow-x-hidden font-mono antialiased`,
         )}
       >
         <ThemeProvider
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           <Toaster richColors theme="dark" position="bottom-center" />
           {children}
+          <Cursor />
           <FloatingDock />
         </ThemeProvider>
       </body>
