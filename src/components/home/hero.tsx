@@ -30,7 +30,7 @@ const Hero = () => {
 
   // Select image based on theme
   const profileImageSrc =
-    resolvedTheme === 'light' ? '/icons/intro_profile_pic.png' : '/icons/intro_profile_pic.png'
+    resolvedTheme === 'light' ? '/assets/intro_profile_pic.png' : '/assets/intro_profile_pic.png'
   const profileImageAlt = resolvedTheme === 'light' ? 'Profile Pic (Light)' : 'Profile Pic (Dark)'
 
   return (
@@ -57,9 +57,8 @@ const Hero = () => {
 
             <AnimationContainer animation="fadeUp" delay={0.6}>
               <p className="text-muted-foreground text-sm md:text-base lg:text-lg">
-                Hi, I am passionate about creating innovative solutions that bridge the gap between
-                the past and the future. My journey is a blend of nostalgia and forward-thinking,
-                where I strive to bring the best of both worlds into my work.
+                Hello there, you just stepped into my digital realm! I'm ŊʂƓ ᴾᴿᴵᵞᴬᴺˢᴴᵁ or you can
+                call Priyanshu.
               </p>
             </AnimationContainer>
             <AnimationContainer animation="fadeUp" delay={0.8}>

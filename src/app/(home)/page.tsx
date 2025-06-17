@@ -1,5 +1,7 @@
 import About from '@/components/home/about'
+import Projects from '@/components/home/featured-project'
 import HeroSection from '@/components/home/hero'
+import Pricing from '@/components/home/pricing'
 
 const HomePage = () => {
   return (
@@ -7,9 +9,15 @@ const HomePage = () => {
       <section className="w-full">
         <HeroSection />
       </section>
-      {/* <section className="w-full">
+      <section className="w-full">
         <About />
-      </section> */}
+      </section>
+      <section className="w-full">
+        <Projects />
+      </section>
+      <section className="w-full">
+        <Pricing />
+      </section>
     </div>
   )
 }
