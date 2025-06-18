@@ -20,7 +20,7 @@ interface AboutProps {
 export default function About({ onClose }: AboutProps) {
   return (
     <Dialog open onOpenChange={onClose}>
-      <DialogContent className="border-primary/10 bg-primary/10 dark:border-primary/10 dark:bg-background/10 max-w-2xl rounded-2xl border shadow-lg backdrop-blur-md">
+      <DialogContent className="border-primary/10 bg-primary/10 dark:border-primary/10 dark:bg-background/10 w-96 md:w-2xl rounded-2xl border shadow-lg backdrop-blur-md">
         <div className="scrollbar-hidden relative h-[500px] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-foreground text-3xl font-bold">About Me</DialogTitle>
