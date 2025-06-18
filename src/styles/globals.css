@@ -120,3 +120,14 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* 1. Hide the default cursor globally */
+* {
+  cursor: none;
+}
+
+/* 2. Customize selection styles */
+::selection {
+  color: black; /* Text color when selected */
+  background-color: rgba(255, 255, 255, 0.5); /* 50% opaque white */
+}
