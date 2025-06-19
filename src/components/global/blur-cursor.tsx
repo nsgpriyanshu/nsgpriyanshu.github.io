@@ -32,7 +32,7 @@ export default function BlurCursor() {
   return (
     <div
       ref={cursorRef}
-      className="pointer-events-none fixed top-0 left-0 z-[9999] h-6 w-6 rounded-full border border-white/20 bg-white/10 shadow-lg backdrop-blur-md dark:bg-white/10"
+      className="pointer-events-none fixed top-0 left-0 z-[9999] h-12 w-12 rounded-full border border-white/20 bg-white/10 shadow-lg backdrop-blur-md dark:bg-white/10"
     />
   )
 }

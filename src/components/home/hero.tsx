@@ -109,7 +109,7 @@ export default function Hero() {
 
           {/* Right side: Social Links */}
           <div className="text-muted-foreground flex flex-col items-end space-y-2 text-sm">
-            <p>Connect with me:</p>
+            <p>Social Handles:</p>
             <div className="flex space-x-4">
               {socialLinks.map(link => (
                 <a
