@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { ModeToggle } from '../global/theme-toggle'
 import AnimationContainer from '../global/animation-container'
@@ -11,11 +11,24 @@ import About from './about'
 
 export default function Hero() {
   const [isSoundOn, setIsSoundOn] = useState(false)
-  const [play] = useSound('/sounds/click_one.wav', { volume: 1.0 })
+  const [playClick] = useSound('/sounds/click_one.wav', { volume: 1.0 })
+  const [playMusic, { stop }] = useSound('/sounds/background_music_one.mp3', {
+    volume: 0.5, // Lower volume for background music
+    loop: true, // Loop the music
+  })
   const [isAboutOpen, setIsAboutOpen] = useState(false)
 
+  // Handle background music playback based on isSoundOn
+  useEffect(() => {
+    if (isSoundOn) {
+      playMusic()
+    } else {
+      stop()
+    }
+  }, [isSoundOn, playMusic, stop])
+
   const handleClick = () => {
-    if (isSoundOn) play()
+    if (isSoundOn) playClick()
   }
 
   return (

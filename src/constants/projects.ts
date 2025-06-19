@@ -6,6 +6,12 @@ export const featuredProjects = [
     private: 'false',
   },
   {
+    name: 'nsMail - Open Source',
+    githubUrl: 'https://github.com/nsgpriyanshu/nsmail',
+    description: 'An easier way to create contact pages, effortlessly!',
+    private: 'false',
+  },
+  {
     name: 'nsCore - Open Source',
     githubUrl: 'https://github.com/nsgpriyanshu/nscore',
     description: 'This is an informative open source discord app',
@@ -19,6 +25,12 @@ export const featuredProjects = [
   {
     name: 'MathOEase - Closed Source',
     githubUrl: 'https://github.com/nsgpriyanshu',
-    description: 'An personal resource management app for teachers, with academic functionalities.',
+    description: 'A personal resource management app for teachers, with academic functionalities.',
+  },
+  {
+    name: 'nsDocs - Open Source',
+    githubUrl: 'https://github.com/nsgpriyanshu/nsdocs',
+    description: 'A production level discord app guide, with a focus on TypeScript and Discord.js.',
+    private: 'false',
   },
 ]
