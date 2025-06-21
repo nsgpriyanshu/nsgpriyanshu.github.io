@@ -1,4 +1,5 @@
 import BlurCursor from '@/components/global/blur-cursor'
+import { SoundProvider } from '@/context/sound-context'
 import { cn } from '@/lib/utils'
 import '@/styles/globals.css'
 import { generateMetadata } from '@/utils'
@@ -17,7 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          `${geistMono.variable} dark:text-foreground dark:bg-backgorund min-h-screen overflow-x-hidden font-mono antialiased`,
+          `${geistMono.variable} dark:text-foreground dark:bg-background max-h-screen overflow-x-hidden font-mono antialiased`,
         )}
       >
         <ThemeProvider
@@ -26,7 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <SoundProvider>{children}</SoundProvider>
           <BlurCursor />
         </ThemeProvider>
       </body>

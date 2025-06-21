@@ -2,8 +2,8 @@ import Hero from '@/components/home/hero'
 
 const HomePage = () => {
   return (
-    <div className="relative flex w-full flex-col">
-      <section className="w-full">
+    <div className="flex max-h-screen flex-col">
+      <section>
         <Hero />
       </section>
     </div>
