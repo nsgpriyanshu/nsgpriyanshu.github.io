@@ -1,4 +1,3 @@
-import FloatingDock from '@/components/floating-dock'
 import { Toaster } from '@/components/ui/sonner'
 import { Metadata } from 'next'
 
