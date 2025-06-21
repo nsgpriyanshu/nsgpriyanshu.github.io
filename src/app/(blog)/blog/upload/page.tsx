@@ -2,8 +2,8 @@ import UploadBlogPage from '@/components/blog/upload'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: `${process.env.NEXT_PUBLIC_APP_NAME} - Upload Blog`,
-  description: 'Upload your blog posts to yor thoughts',
+  title: `Stranger — Upload Blog`,
+  description: 'Share your ideas and publish blog posts that reflect your thoughts and creativity.',
 }
 
 const BlogUploadPage = () => {

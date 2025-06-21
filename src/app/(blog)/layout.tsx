@@ -3,8 +3,8 @@ import Header from '@/components/header'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: `Blog - Dive into the the articles and stories written by the me`,
-  description: `Dive into the the articles and stories written by the me`,
+  title: `Blog — Explore articles and stories written by me`,
+  description: `Discover thoughtful articles and engaging stories authored by me on a range of topics.`,
 }
 
 export default function BlogLayout({ children }: { children: React.ReactNode }) {

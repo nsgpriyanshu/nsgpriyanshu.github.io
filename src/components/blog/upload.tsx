@@ -2,32 +2,50 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-
+import { createClient } from '@/lib/supabase/client'
 import { toast } from 'sonner'
 import TiptapEditor from './editor'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { createClient } from '@/lib/supabase/client'
+import { Badge } from '@/components/ui/badge'
+import { X } from 'lucide-react'
 
 function generateSlug(title: string): string {
-  return title
-    .toLowerCase()
+  const sanitized = title
+    .normalize('NFKD')
+    .replace(/[^\w\s-]/g, '')
     .trim()
-    .replace(/[^\x00-\x7F]+/g, '')
-    .replace(/[\s\W-]+/g, '-')
+    .toLowerCase()
+    .replace(/[\s_-]+/g, '-')
     .replace(/^-+|-+$/g, '')
+  return encodeURIComponent(sanitized)
 }
 
 export default function UploadBlogPage() {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
+  const [tagInput, setTagInput] = useState('')
+  const [tags, setTags] = useState<string[]>([])
   const [loading, setLoading] = useState(false)
+
   const router = useRouter()
   const supabase = createClient()
 
+  const addTag = () => {
+    const trimmed = tagInput.trim()
+    if (trimmed && !tags.includes(trimmed)) {
+      setTags([...tags, trimmed])
+      setTagInput('')
+    }
+  }
+
+  const removeTag = (tag: string) => {
+    setTags(tags.filter(t => t !== tag))
+  }
+
   const handleUpload = async () => {
     if (!title.trim() || !content.trim()) {
-      toast.error('Title and content are required')
+      toast.error('❌ Title and content are required')
       return
     }
 
@@ -45,22 +63,26 @@ export default function UploadBlogPage() {
       return
     }
 
-    const { error } = await supabase.from('blog').insert([
+    const { data, error } = await supabase.from('blog').insert([
       {
         title,
         slug,
         content,
         author_id: user.id,
+        tags,
       },
     ])
 
+    console.log({ data, error })
+
     if (error) {
-      toast.error('Failed to upload blog')
+      toast.error(`Failed to upload blog: ${error.message}`)
       console.error(error)
     } else {
       toast.success('Blog uploaded successfully!')
       router.push(`/blog/${slug}`)
     }
+
     setLoading(false)
   }
 
@@ -77,8 +99,35 @@ export default function UploadBlogPage() {
           placeholder="Enter your blog title"
           value={title}
           onChange={e => setTitle(e.target.value)}
-          className="w-full"
         />
+      </div>
+
+      <div className="space-y-2">
+        <label htmlFor="tags" className="text-muted-foreground text-sm">
+          Tags (press Enter to add)
+        </label>
+        <Input
+          id="tags"
+          placeholder="Add tags like tech, frontend, etc."
+          value={tagInput}
+          onChange={e => setTagInput(e.target.value)}
+          onKeyDown={e => {
+            if (e.key === 'Enter') {
+              e.preventDefault()
+              addTag()
+            }
+          }}
+        />
+        <div className="flex flex-wrap gap-2">
+          {tags.map(tag => (
+            <Badge key={tag} variant="secondary" className="flex items-center gap-1 text-sm">
+              {tag}
+              <button onClick={() => removeTag(tag)}>
+                <X className="h-3 w-3" />
+              </button>
+            </Badge>
+          ))}
+        </div>
       </div>
 
       <div className="space-y-2">

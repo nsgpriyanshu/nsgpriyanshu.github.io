@@ -15,7 +15,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu'
-import { useTheme } from 'next-themes'
 import { cn } from '@/lib/utils'
 
 // Utility function for image upload
@@ -32,7 +31,6 @@ interface MenuBarProps {
 }
 
 const MenuBar = ({ editor }: MenuBarProps) => {
-  const { resolvedTheme } = useTheme()
   if (!editor) return null
 
   const HeadingDropdown = () => {
@@ -49,20 +47,20 @@ const MenuBar = ({ editor }: MenuBarProps) => {
             variant="outline"
             size="sm"
             className={cn(
-              'h-8 rounded-lg px-2 text-xs backdrop-blur-md transition-all duration-200',
-              resolvedTheme === 'dark'
-                ? 'border-primary/20 bg-primary/10 text-muted-foreground hover:bg-primary hover:text-foreground'
-                : 'border-primary/20 bg-primary/10 text-muted-foreground hover:bg-primary hover:text-foreground',
+              'bg-secondary text-muted-foreground hover:bg-primary hover:text-primary-foreground border-primary/10 h-8 rounded-lg px-2 text-xs',
             )}
             aria-label="Select heading level"
           >
             {currentLabel}
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-[120px] p-1 text-xs">
+        <DropdownMenuContent className="bg-secondary text-muted-foreground w-[120px] p-1 text-xs">
           <DropdownMenuItem
             onClick={() => editor.chain().focus().setParagraph().run()}
-            className={currentLevel === 0 ? 'bg-primary text-foreground' : ''}
+            className={cn(
+              'hover:bg-primary hover:text-primary-foreground',
+              currentLevel === 0 && 'bg-primary text-primary-foreground',
+            )}
           >
             Paragraph
           </DropdownMenuItem>
@@ -70,7 +68,10 @@ const MenuBar = ({ editor }: MenuBarProps) => {
             <DropdownMenuItem
               key={level}
               onClick={() => editor.chain().focus().setNode('heading', { level }).run()}
-              className={currentLevel === level ? 'bg-primary text-foreground' : ''}
+              className={cn(
+                'hover:bg-primary hover:text-primary-foreground',
+                currentLevel === level && 'bg-primary text-primary-foreground',
+              )}
             >
               Heading {level}
             </DropdownMenuItem>
@@ -96,20 +97,20 @@ const MenuBar = ({ editor }: MenuBarProps) => {
             variant="outline"
             size="sm"
             className={cn(
-              'h-8 rounded-lg px-2 text-xs backdrop-blur-md transition-all duration-200',
-              resolvedTheme === 'dark'
-                ? 'border-primary/20 bg-primary/10 text-muted-foreground hover:bg-primary hover:text-foreground'
-                : 'border-primary/20 bg-primary/10 text-muted-foreground hover:bg-primary hover:text-foreground',
+              'bg-secondary text-muted-foreground hover:bg-primary hover:text-primary-foreground border-primary/10 h-8 rounded-lg px-2 text-xs',
             )}
             aria-label="Select highlight color"
           >
             {currentColor === 'No Highlight' ? 'Highlight' : currentColor}
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-[140px] p-1 text-xs">
+        <DropdownMenuContent className="bg-secondary text-muted-foreground w-[140px] p-1 text-xs">
           <DropdownMenuItem
             onClick={() => editor.chain().focus().unsetHighlight().run()}
-            className={currentColor === 'No Highlight' ? 'bg-primary text-foreground' : ''}
+            className={cn(
+              'hover:bg-primary hover:text-primary-foreground',
+              currentColor === 'No Highlight' && 'bg-primary text-primary-foreground',
+            )}
           >
             No Highlight
           </DropdownMenuItem>
@@ -117,7 +118,10 @@ const MenuBar = ({ editor }: MenuBarProps) => {
             <DropdownMenuItem
               key={value}
               onClick={() => editor.chain().focus().setHighlight({ color: value }).run()}
-              className={currentColor === value ? 'bg-primary text-foreground' : ''}
+              className={cn(
+                'hover:bg-primary hover:text-primary-foreground',
+                currentColor === value && 'bg-primary text-primary-foreground',
+              )}
             >
               {label}
             </DropdownMenuItem>
@@ -149,10 +153,7 @@ const MenuBar = ({ editor }: MenuBarProps) => {
         input.click()
       }}
       className={cn(
-        'h-8 rounded-lg px-2 text-xs transition-all duration-200',
-        resolvedTheme === 'dark'
-          ? 'border-primary/20 bg-primary/10 text-muted-foreground hover:bg-primary hover:text-foreground'
-          : 'border-primary/20 bg-primary/10 text-muted-foreground hover:bg-primary hover:text-foreground',
+        'bg-secondary text-muted-foreground hover:bg-primary hover:text-primary-foreground border-primary/10 h-8 rounded-lg px-2 text-xs',
       )}
       aria-label="Upload image"
     >
@@ -240,13 +241,7 @@ const MenuBar = ({ editor }: MenuBarProps) => {
 
   return (
     <AnimationContainer animation="fadeUp" delay={0.2}>
-      <div
-        className={cn(
-          'border-primary/20 bg-background/10 sticky bottom-0 z-10 mt-3 flex flex-wrap gap-1 rounded-lg border p-2 shadow-lg backdrop-blur-md',
-          resolvedTheme === 'light' && 'bg-primary/10',
-          resolvedTheme === 'dark' && 'bg-background/10',
-        )}
-      >
+      <div className="border-primary/10 bg-background/50 sticky bottom-0 z-10 mt-3 flex flex-wrap gap-1 rounded-lg border p-2">
         <HeadingDropdown />
         {buttons.map((button, index) => (
           <Button
@@ -256,12 +251,10 @@ const MenuBar = ({ editor }: MenuBarProps) => {
             size="sm"
             variant={button.isActive ? 'default' : 'outline'}
             className={cn(
-              'h-8 rounded-lg px-2 text-xs transition-all duration-200',
+              'h-8 rounded-lg px-2 text-xs',
               button.isActive
-                ? 'bg-primary text-foreground hover:bg-primary/90'
-                : resolvedTheme === 'dark'
-                  ? 'border-primary/20 bg-primary/10 text-muted-foreground hover:bg-primary hover:text-foreground'
-                  : 'border-primary/20 bg-primary/10 text-muted-foreground hover:bg-primary hover:text-foreground',
+                ? 'bg-primary text-primary-foreground hover:bg-primary/50'
+                : 'bg-secondary text-muted-foreground hover:bg-primary hover:text-muted-background border-primary/10',
             )}
             aria-label={button.ariaLabel}
           >
@@ -281,8 +274,6 @@ interface EditorProps {
 }
 
 export default function TiptapEditor({ content, setContent }: EditorProps) {
-  const { resolvedTheme } = useTheme()
-
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -309,20 +300,10 @@ export default function TiptapEditor({ content, setContent }: EditorProps) {
 
   return (
     <AnimationContainer animation="fadeUp" delay={0.3}>
-      <div
-        className={cn(
-          'relative rounded-2xl border p-4 backdrop-blur-md',
-          resolvedTheme === 'dark'
-            ? 'border-primary/20 bg-primary/10'
-            : 'border-primary/20 bg-primary/10',
-        )}
-      >
+      <div className="border-primary/10 bg-background rounded-2xl border p-4">
         <EditorContent
           editor={editor}
-          className={cn(
-            'prose prose-sm min-h-[300px] max-w-full text-sm md:text-base',
-            resolvedTheme === 'dark' ? 'text-foreground' : 'text-foreground',
-          )}
+          className={cn('prose prose-sm text-primary min-h-[300px] max-w-full')}
         />
         <MenuBar editor={editor} />
       </div>

@@ -27,8 +27,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           enableSystem
           disableTransitionOnChange
         >
-          <SoundProvider>{children}</SoundProvider>
-          <BlurCursor />
+          <SoundProvider>
+            {children}
+            <BlurCursor />
+          </SoundProvider>
         </ThemeProvider>
       </body>
     </html>

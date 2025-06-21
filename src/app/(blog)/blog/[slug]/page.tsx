@@ -1,50 +1,50 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
-
+import { useParams } from 'next/navigation'
 import { Loader2 } from 'lucide-react'
 import AnimationContainer from '@/components/global/animation-container'
-import { cn } from '@/lib/utils'
-import parse from 'html-react-parser'
 import { createClient } from '@/lib/supabase/client'
+import { Badge } from '@/components/ui/badge'
+import { format } from 'date-fns'
+import parse from 'html-react-parser'
 
 interface Blog {
   title: string
   slug: string
   content: string
   created_at: string
-  author: {
-    name: string
-  }
+  author_name: string
+  tags: string[]
 }
 
 export default function BlogDetailPage() {
-  const router = useRouter()
-  const { slug } = router.query
+  const params = useParams()
+  const slug = params?.slug as string
   const [blog, setBlog] = useState<Blog | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchBlog = async () => {
-      if (!slug) return
+      if (!slug || !/^[a-z0-9-]+$/.test(slug)) {
+        setLoading(false)
+        return
+      }
 
       const supabase = createClient()
       const { data, error } = await supabase
         .from('blog')
-        .select('title, slug, content, created_at, author(name)')
+        .select('title, slug, content, created_at, author_name, tags')
         .eq('slug', slug)
         .single()
 
-      if (error) {
-        console.error('Error fetching blog:', error)
-      } else {
-        // Supabase returns author as an array, extract the first element
-        setBlog({
-          ...data,
-          author: Array.isArray(data.author) ? data.author[0] : data.author,
-        })
+      if (error || !data) {
+        console.error('Error fetching blog:', error?.message)
+        setLoading(false)
+        return
       }
+
+      setBlog(data)
       setLoading(false)
     }
 
@@ -68,19 +68,45 @@ export default function BlogDetailPage() {
   }
 
   return (
-    <AnimationContainer animation="fadeUp" delay={0.1} className="mx-auto max-w-3xl p-6">
-      <div
-        className={cn(
-          'border-primary/10 bg-primary/5 rounded-2xl border p-6 shadow-xl backdrop-blur-md',
-          'dark:border-primary/10 dark:bg-background/10',
-        )}
-      >
+    <AnimationContainer
+      animation="fadeUp"
+      delay={0.1}
+      className="bg-primary/5 mx-auto max-w-3xl rounded-lg p-6 transition-colors"
+    >
+      <div>
+        {/* Heading */}
         <h1 className="text-foreground mb-4 text-3xl font-bold md:text-4xl">{blog.title}</h1>
-        <div className="text-muted-foreground mb-6 text-sm">
-          By <span className="text-foreground font-medium">{blog.author?.name}</span> •{' '}
-          {new Date(blog.created_at).toLocaleDateString()}
+
+        {/* Description */}
+        <p className="text-muted-foreground mb-4 text-sm">This is my personal portfolio.</p>
+
+        {/* Tags */}
+        {blog.tags && blog.tags.length > 0 && (
+          <div className="mb-4 flex flex-wrap gap-2">
+            {blog.tags.map(tag => (
+              <Badge key={tag} variant="secondary" className="text-xs">
+                {tag}
+              </Badge>
+            ))}
+          </div>
+        )}
+
+        {/* Separator */}
+        <hr className="border-primary/10 my-6 border-t" />
+
+        {/* Content */}
+        <div className="prose prose-sm dark:prose-invert mb-6 max-w-none">
+          {parse(blog.content)}
         </div>
-        <div className="prose prose-sm dark:prose-invert max-w-none">{parse(blog.content)}</div>
+
+        {/* Separator */}
+        <hr className="border-primary/10 my-6 border-t" />
+
+        {/* Author Name and Date */}
+        <div className="text-muted-foreground text-sm">
+          By <span className="text-foreground font-medium">{blog.author_name || 'Anonymous'}</span>{' '}
+          <br /> {format(new Date(blog.created_at), 'dd MMM yyyy')}
+        </div>
       </div>
     </AnimationContainer>
   )
