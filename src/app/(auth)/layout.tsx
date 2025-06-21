@@ -23,7 +23,6 @@ export default function AuthenticationLayout({ children }: { children: React.Rea
   return (
     <main className="relative w-full">
       {children}
-      <FloatingDock />
       <Toaster richColors />
     </main>
   )
