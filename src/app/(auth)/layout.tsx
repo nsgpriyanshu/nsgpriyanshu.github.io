@@ -1,4 +1,3 @@
-import { Toaster } from '@/components/ui/sonner'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -19,10 +18,5 @@ export const metadata: Metadata = {
 }
 
 export default function AuthenticationLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <main className="relative w-full">
-      {children}
-      <Toaster richColors />
-    </main>
-  )
+  return <main className="relative w-full">{children}</main>
 }

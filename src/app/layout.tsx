@@ -5,6 +5,7 @@ import '@/styles/globals.css'
 import { generateMetadata } from '@/utils'
 import { ThemeProvider } from 'next-themes'
 import { Geist_Mono } from 'next/font/google'
+import { Toaster } from 'sonner'
 
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <SoundProvider>
             {children}
             <BlurCursor />
+            <Toaster richColors={true} />
           </SoundProvider>
         </ThemeProvider>
       </body>

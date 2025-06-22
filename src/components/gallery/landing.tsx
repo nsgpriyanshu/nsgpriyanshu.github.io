@@ -10,6 +10,7 @@ import { createClient } from '@/lib/supabase/client'
 import Image from 'next/image'
 import { format } from 'date-fns'
 import { useRouter } from 'next/navigation'
+import { LucideMapPin } from 'lucide-react'
 
 interface GalleryItem {
   id: string
@@ -136,7 +137,14 @@ export default function GalleryPage() {
                 By <span className="font-medium">{item.photographer_name}</span> •{' '}
                 {format(new Date(item.created_at), 'dd MMM yyyy')}
               </p>
-              {item.location && <p className="text-muted-foreground text-xs">📍 {item.location}</p>}
+              {item.location && (
+                <p className="text-muted-foreground flex items-center gap-1 text-xs">
+                  <span className="text-primary">
+                    <LucideMapPin size={14} />
+                  </span>
+                  {item.location}
+                </p>
+              )}
               <div className="mt-2 flex flex-wrap gap-2">
                 {item.tags.map(tag => (
                   <Badge key={tag} variant="secondary" className="text-xs">
@@ -163,7 +171,7 @@ export default function GalleryPage() {
                   src={getImageUrl(selectedImage.image_path)}
                   alt={selectedImage.title}
                   fill={true}
-                  className="rounded-lg border object-cover" // Changed to object-cover for full fill
+                  className="rounded-lg border object-cover"
                   priority
                   onError={() =>
                     console.error('Dialog image failed to load:', selectedImage.image_path)
@@ -173,10 +181,17 @@ export default function GalleryPage() {
               <div className="dark:text-muted-foreground mt-4 space-y-2 text-sm">
                 <h2 className="text-foreground text-2xl font-bold">{selectedImage.title}</h2>
                 <p>
-                  By <span className="font-medium">{selectedImage.photographer_name}</span> •{' '}
+                  Shot by <span className="font-medium">{selectedImage.photographer_name}</span> •{' '}
                   {format(new Date(selectedImage.created_at), 'dd MMM yyyy')}
                 </p>
-                {selectedImage.location && <p>📍 {selectedImage.location}</p>}
+                {selectedImage.location && (
+                  <p className="flex items-center gap-1">
+                    <span className="text-primary">
+                      <LucideMapPin size={16} />
+                    </span>
+                    {selectedImage.location}
+                  </p>
+                )}
                 <div className="flex flex-wrap gap-2">
                   {selectedImage.tags.map(tag => (
                     <Badge key={tag} variant="secondary" className="text-xs">

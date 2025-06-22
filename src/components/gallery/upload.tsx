@@ -7,7 +7,7 @@ import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
-import { X } from 'lucide-react'
+import { ImageUpIcon, Loader2Icon, X } from 'lucide-react'
 
 export default function UploadGalleryPage() {
   const [title, setTitle] = useState('')
@@ -170,8 +170,22 @@ export default function UploadGalleryPage() {
         {image && <p className="text-muted-foreground text-sm">{image.name}</p>}
       </div>
 
-      <Button onClick={handleUpload} disabled={loading} className="w-full">
-        {loading ? 'Uploading...' : 'Upload Image'}
+      <Button
+        onClick={handleUpload}
+        disabled={loading}
+        className="flex w-full items-center justify-center gap-2"
+      >
+        {loading ? (
+          <>
+            <Loader2Icon className="h-4 w-4 animate-spin" />
+            Uploading...
+          </>
+        ) : (
+          <>
+            <ImageUpIcon className="h-4 w-4" />
+            Upload Image
+          </>
+        )}
       </Button>
     </div>
   )

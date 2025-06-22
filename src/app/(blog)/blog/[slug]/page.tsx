@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { Loader2, ArrowLeft } from 'lucide-react'
+import { Loader2, ArrowLeft, PenToolIcon } from 'lucide-react'
 import AnimationContainer from '@/components/global/animation-container'
 import { createClient } from '@/lib/supabase/client'
 import { Badge } from '@/components/ui/badge'
@@ -109,9 +109,14 @@ export default function BlogDetailPage() {
         <hr className="border-primary/10 my-6 border-t" />
 
         {/* Author Name and Date */}
-        <div className="text-muted-foreground text-sm">
-          By <span className="text-foreground font-medium">{blog.author_name || 'Anonymous'}</span>{' '}
-          <br /> {format(new Date(blog.created_at), 'dd MMM yyyy')}
+        <div className="text-muted-foreground flex items-center gap-2 text-sm">
+          <PenToolIcon className="h-4 w-4" />
+          <span>
+            Written By{' '}
+            <span className="text-foreground font-medium">{blog.author_name || 'Anonymous'}</span>
+            <br />
+            {format(new Date(blog.created_at), 'dd MMM yyyy')}
+          </span>
         </div>
       </div>
     </AnimationContainer>

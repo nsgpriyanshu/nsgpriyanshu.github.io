@@ -8,7 +8,7 @@ import TiptapEditor from './editor'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
-import { X } from 'lucide-react'
+import { CloudUploadIcon, Loader2Icon, X } from 'lucide-react'
 
 function generateSlug(title: string): string {
   const sanitized = title
@@ -45,7 +45,7 @@ export default function UploadBlogPage() {
 
   const handleUpload = async () => {
     if (!title.trim() || !content.trim()) {
-      toast.error('❌ Title and content are required')
+      toast.error('Title and content are required')
       return
     }
 
@@ -137,8 +137,22 @@ export default function UploadBlogPage() {
         <TiptapEditor content={content} setContent={setContent} />
       </div>
 
-      <Button onClick={handleUpload} disabled={loading} className="w-full">
-        {loading ? 'Uploading...' : 'Upload Blog'}
+      <Button
+        onClick={handleUpload}
+        disabled={loading}
+        className="flex w-full items-center justify-center gap-2"
+      >
+        {loading ? (
+          <>
+            <Loader2Icon className="h-4 w-4 animate-spin" />
+            Uploading...
+          </>
+        ) : (
+          <>
+            <CloudUploadIcon className="h-4 w-4" />
+            Upload Blog
+          </>
+        )}
       </Button>
     </div>
   )
