@@ -1,8 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useParams } from 'next/navigation'
-import { Loader2 } from 'lucide-react'
+import { useParams, useRouter } from 'next/navigation'
+import { Loader2, ArrowLeft } from 'lucide-react'
 import AnimationContainer from '@/components/global/animation-container'
 import { createClient } from '@/lib/supabase/client'
 import { Badge } from '@/components/ui/badge'
@@ -20,6 +20,7 @@ interface Blog {
 
 export default function BlogDetailPage() {
   const params = useParams()
+  const router = useRouter()
   const slug = params?.slug as string
   const [blog, setBlog] = useState<Blog | null>(null)
   const [loading, setLoading] = useState(true)
@@ -74,12 +75,17 @@ export default function BlogDetailPage() {
       className="bg-primary/5 mx-auto max-w-3xl rounded-lg p-6 transition-colors"
     >
       <div>
+        {/* Return to Blog Link */}
+        <button
+          onClick={() => router.push('/blog')}
+          className="text-foreground mb-6 flex items-center gap-2 text-sm font-medium hover:underline"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Return to Blog
+        </button>
+
         {/* Heading */}
         <h1 className="text-foreground mb-4 text-3xl font-bold md:text-4xl">{blog.title}</h1>
-
-        {/* Description */}
-        <p className="text-muted-foreground mb-4 text-sm">This is my personal portfolio.</p>
-
         {/* Tags */}
         {blog.tags && blog.tags.length > 0 && (
           <div className="mb-4 flex flex-wrap gap-2">
