@@ -54,7 +54,7 @@ export default function BlogDetailPage() {
 
   if (loading) {
     return (
-      <div className="flex h-screen items-center justify-center">
+      <div className="text-foreground flex h-screen items-center justify-center">
         <Loader2 className="animate-spin" />
       </div>
     )
@@ -72,7 +72,7 @@ export default function BlogDetailPage() {
     <AnimationContainer
       animation="fadeUp"
       delay={0.1}
-      className="bg-primary/5 mx-auto max-w-3xl rounded-lg p-6 transition-colors"
+      className="bg-primary/5 text-foreground mx-auto max-w-3xl rounded-lg p-6 transition-colors"
     >
       <div>
         {/* Return to Blog Link */}
@@ -86,11 +86,16 @@ export default function BlogDetailPage() {
 
         {/* Heading */}
         <h1 className="text-foreground mb-4 text-3xl font-bold md:text-4xl">{blog.title}</h1>
+
         {/* Tags */}
         {blog.tags && blog.tags.length > 0 && (
           <div className="mb-4 flex flex-wrap gap-2">
             {blog.tags.map(tag => (
-              <Badge key={tag} variant="secondary" className="text-xs">
+              <Badge
+                key={tag}
+                variant="secondary"
+                className="bg-muted text-muted-foreground text-xs"
+              >
                 {tag}
               </Badge>
             ))}
@@ -108,7 +113,7 @@ export default function BlogDetailPage() {
         {/* Separator */}
         <hr className="border-primary/10 my-6 border-t" />
 
-        {/* Author Name and Date */}
+        {/* Author and Date */}
         <div className="text-muted-foreground flex items-center gap-2 text-sm">
           <PenToolIcon className="h-4 w-4" />
           <span>

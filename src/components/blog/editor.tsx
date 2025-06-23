@@ -17,12 +17,10 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { cn } from '@/lib/utils'
 
-// Utility function for image upload
-const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5MB
+const MAX_FILE_SIZE = 5 * 1024 * 1024
+
 const handleImageUpload = async (file: File): Promise<string> => {
-  if (file.size > MAX_FILE_SIZE) {
-    throw new Error('File size exceeds 5MB')
-  }
+  if (file.size > MAX_FILE_SIZE) throw new Error('File size exceeds 5MB')
   return URL.createObjectURL(file)
 }
 
@@ -46,20 +44,17 @@ const MenuBar = ({ editor }: MenuBarProps) => {
           <Button
             variant="outline"
             size="sm"
-            className={cn(
-              'bg-secondary text-muted-foreground hover:bg-primary hover:text-primary-foreground border-primary/10 h-8 rounded-lg px-2 text-xs',
-            )}
-            aria-label="Select heading level"
+            className="bg-secondary text-muted-foreground hover:bg-primary hover:text-primary border-border h-8 rounded-lg border px-2 text-xs"
           >
             {currentLabel}
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="bg-secondary text-muted-foreground w-[120px] p-1 text-xs">
+        <DropdownMenuContent className="border-primary/10 bg-primary/10 dark:border-primary/10 dark:bg-background/10 boredr text-muted-foreground w-[120px] rounded-lg border p-1 text-xs shadow-xl backdrop-blur-md">
           <DropdownMenuItem
             onClick={() => editor.chain().focus().setParagraph().run()}
             className={cn(
-              'hover:bg-primary hover:text-primary-foreground',
-              currentLevel === 0 && 'bg-primary text-primary-foreground',
+              'hover:bg-primary hover:text-primary rounded-md px-2 py-1',
+              currentLevel === 0 && 'bg-primary text-background',
             )}
           >
             Paragraph
@@ -69,8 +64,8 @@ const MenuBar = ({ editor }: MenuBarProps) => {
               key={level}
               onClick={() => editor.chain().focus().setNode('heading', { level }).run()}
               className={cn(
-                'hover:bg-primary hover:text-primary-foreground',
-                currentLevel === level && 'bg-primary text-primary-foreground',
+                'hover:bg-primary hover:text-background rounded-md px-2 py-1',
+                currentLevel === level && 'bg-primary text-background',
               )}
             >
               Heading {level}
@@ -96,19 +91,16 @@ const MenuBar = ({ editor }: MenuBarProps) => {
           <Button
             variant="outline"
             size="sm"
-            className={cn(
-              'bg-secondary text-muted-foreground hover:bg-primary hover:text-primary-foreground border-primary/10 h-8 rounded-lg px-2 text-xs',
-            )}
-            aria-label="Select highlight color"
+            className="bg-secondary text-muted-foreground hover:text-primary hover:bg-primary border-border h-8 rounded-lg border px-2 text-xs"
           >
             {currentColor === 'No Highlight' ? 'Highlight' : currentColor}
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="bg-secondary text-muted-foreground w-[140px] p-1 text-xs">
+        <DropdownMenuContent className="border-primary/10 bg-primary/10 dark:border-primary/10 dark:bg-background/10 w-[140px] rounded-lg p-1 text-xs shadow-xl backdrop-blur-md">
           <DropdownMenuItem
             onClick={() => editor.chain().focus().unsetHighlight().run()}
             className={cn(
-              'hover:bg-primary hover:text-primary-foreground',
+              'hover:bg-primary hover:text-primary-foreground rounded-md px-2 py-1',
               currentColor === 'No Highlight' && 'bg-primary text-primary-foreground',
             )}
           >
@@ -119,7 +111,7 @@ const MenuBar = ({ editor }: MenuBarProps) => {
               key={value}
               onClick={() => editor.chain().focus().setHighlight({ color: value }).run()}
               className={cn(
-                'hover:bg-primary hover:text-primary-foreground',
+                'hover:text-primary hover:bg-primary rounded-md px-2 py-1',
                 currentColor === value && 'bg-primary text-primary-foreground',
               )}
             >
@@ -152,115 +144,74 @@ const MenuBar = ({ editor }: MenuBarProps) => {
         }
         input.click()
       }}
-      className={cn(
-        'bg-secondary text-muted-foreground hover:bg-primary hover:text-primary-foreground border-primary/10 h-8 rounded-lg px-2 text-xs',
-      )}
-      aria-label="Upload image"
+      className="bg-secondary text-muted-foreground hover:bg-primary hover:text-primary-foreground border-border h-8 rounded-lg border px-2 text-xs"
     >
       Image
     </Button>
   )
 
   const buttons = [
-    {
-      label: 'Bold',
-      action: () => editor.chain().focus().toggleBold().run(),
-      disabled: !editor.can().chain().focus().toggleBold().run(),
-      isActive: editor.isActive('bold'),
-      ariaLabel: 'Toggle bold',
-    },
-    {
-      label: 'Italic',
-      action: () => editor.chain().focus().toggleItalic().run(),
-      disabled: !editor.can().chain().focus().toggleItalic().run(),
-      isActive: editor.isActive('italic'),
-      ariaLabel: 'Toggle italic',
-    },
-    {
-      label: 'Underline',
-      action: () => editor.chain().focus().toggleUnderline().run(),
-      disabled: !editor.can().chain().focus().toggleUnderline().run(),
-      isActive: editor.isActive('underline'),
-      ariaLabel: 'Toggle underline',
-    },
-    {
-      label: 'Strike',
-      action: () => editor.chain().focus().toggleStrike().run(),
-      disabled: !editor.can().chain().focus().toggleStrike().run(),
-      isActive: editor.isActive('strike'),
-      ariaLabel: 'Toggle strikethrough',
-    },
-    {
-      label: 'Bullet',
-      action: () => editor.chain().focus().toggleBulletList().run(),
-      disabled: !editor.can().chain().focus().toggleBulletList().run(),
-      isActive: editor.isActive('bulletList'),
-      ariaLabel: 'Toggle bullet list',
-    },
-    {
-      label: 'Numbered',
-      action: () => editor.chain().focus().toggleOrderedList().run(),
-      disabled: !editor.can().chain().focus().toggleOrderedList().run(),
-      isActive: editor.isActive('orderedList'),
-      ariaLabel: 'Toggle numbered list',
-    },
-    {
-      label: 'Quote',
-      action: () => editor.chain().focus().toggleBlockquote().run(),
-      disabled: !editor.can().chain().focus().toggleBlockquote().run(),
-      isActive: editor.isActive('blockquote'),
-      ariaLabel: 'Toggle blockquote',
-    },
-    {
-      label: 'Code',
-      action: () => editor.chain().focus().toggleCodeBlock().run(),
-      disabled: !editor.can().chain().focus().toggleCodeBlock().run(),
-      isActive: editor.isActive('codeBlock'),
-      ariaLabel: 'Toggle code block',
-    },
+    { label: 'Bold', mark: 'bold' },
+    { label: 'Italic', mark: 'italic' },
+    { label: 'Underline', mark: 'underline' },
+    { label: 'Strike', mark: 'strike' },
+    { label: 'Bullet', command: 'toggleBulletList' },
+    { label: 'Numbered', command: 'toggleOrderedList' },
+    { label: 'Quote', command: 'toggleBlockquote' },
+    { label: 'Code', command: 'toggleCodeBlock' },
     {
       label: 'Link',
-      action: () => {
+      command: () => {
         const url = window.prompt('Enter URL')
-        if (url) {
-          editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run()
-        }
+        if (url) editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run()
       },
-      disabled: false,
-      isActive: editor.isActive('link'),
-      ariaLabel: 'Add link',
     },
     {
       label: 'Unlink',
-      action: () => editor.chain().focus().unsetLink().run(),
+      command: () => editor.chain().focus().unsetLink().run(),
       disabled: !editor.isActive('link'),
-      isActive: false,
-      ariaLabel: 'Remove link',
     },
   ]
 
   return (
     <AnimationContainer animation="fadeUp" delay={0.2}>
-      <div className="border-primary/10 bg-background/50 sticky bottom-0 z-10 mt-3 flex flex-wrap gap-1 rounded-lg border p-2">
+      <div className="bg-background/60 border-border flex flex-wrap gap-1 rounded-xl border p-2 backdrop-blur-md">
         <HeadingDropdown />
-        {buttons.map((button, index) => (
-          <Button
-            key={index}
-            onClick={button.action}
-            disabled={button.disabled}
-            size="sm"
-            variant={button.isActive ? 'default' : 'outline'}
-            className={cn(
-              'h-8 rounded-lg px-2 text-xs',
-              button.isActive
-                ? 'bg-primary text-primary-foreground hover:bg-primary/50'
-                : 'bg-secondary text-muted-foreground hover:bg-primary hover:text-muted-background border-primary/10',
-            )}
-            aria-label={button.ariaLabel}
-          >
-            {button.label}
-          </Button>
-        ))}
+        {buttons.map(({ label, mark, command, disabled }, i) => {
+          const isActive = mark ? editor.isActive(mark) : false
+          const canRun = command || (mark && editor.can().chain().focus().toggleMark?.(mark).run())
+          return (
+            <Button
+              key={i}
+              onClick={() =>
+                command
+                  ? typeof command === 'function'
+                    ? command()
+                    : command === 'toggleBulletList'
+                      ? editor.chain().focus().toggleBulletList().run()
+                      : command === 'toggleOrderedList'
+                        ? editor.chain().focus().toggleOrderedList().run()
+                        : command === 'toggleBlockquote'
+                          ? editor.chain().focus().toggleBlockquote().run()
+                          : command === 'toggleCodeBlock'
+                            ? editor.chain().focus().toggleCodeBlock().run()
+                            : undefined
+                  : editor.chain().focus().toggleMark(mark!).run()
+              }
+              disabled={disabled || !canRun}
+              size="sm"
+              variant={isActive ? 'default' : 'outline'}
+              className={cn(
+                'h-8 rounded-lg px-2 text-xs',
+                isActive
+                  ? 'bg-primary text-primary-foreground hover:bg-primary/80'
+                  : 'bg-secondary text-muted-foreground hover:bg-primary hover:text-primary border-border border',
+              )}
+            >
+              {label}
+            </Button>
+          )
+        })}
         <ImageUploadButton />
         <HighlightDropdown />
       </div>
@@ -277,16 +228,8 @@ export default function TiptapEditor({ content, setContent }: EditorProps) {
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
-        bulletList: {
-          keepMarks: true,
-          keepAttributes: false,
-          HTMLAttributes: { class: 'list-disc pl-6' },
-        },
-        orderedList: {
-          keepMarks: true,
-          keepAttributes: false,
-          HTMLAttributes: { class: 'list-decimal pl-6' },
-        },
+        bulletList: { keepMarks: true },
+        orderedList: { keepMarks: true },
         heading: { levels: [1, 2, 3, 4] },
       }),
       Underline,
@@ -300,10 +243,10 @@ export default function TiptapEditor({ content, setContent }: EditorProps) {
 
   return (
     <AnimationContainer animation="fadeUp" delay={0.3}>
-      <div className="border-primary/10 bg-background rounded-2xl border p-4">
+      <div className="border-border bg-background rounded-2xl border p-4">
         <EditorContent
           editor={editor}
-          className={cn('prose prose-sm text-primary min-h-[300px] max-w-full')}
+          className="prose prose-sm text-foreground dark:prose-invert min-h-[300px] max-w-full"
         />
         <MenuBar editor={editor} />
       </div>

@@ -56,16 +56,21 @@ export default function LandingPage() {
   const allTags = Array.from(new Set(blogs.flatMap(blog => blog.tags)))
 
   return (
-    <div className="mx-auto w-full max-w-5xl px-4 py-10 sm:px-6">
+    <div className="bg-background text-foreground mx-auto w-full max-w-5xl px-4 py-10 sm:px-6">
       <AnimationContainer animation="fadeUp" delay={0.1}>
         <div className="mb-4 flex flex-row items-center justify-between gap-4">
           <div className="flex flex-col items-start">
-            <h1 className="text-foreground text-center text-4xl font-bold sm:text-left">Blogs</h1>
-            <p className="text-muted-foreground mb-2 text-sm">Read the insights, share by me</p>
+            <h1 className="text-foreground text-4xl font-bold sm:text-left">Blogs</h1>
+            <p className="text-muted-foreground mb-2 text-sm">Read the insights, shared by me</p>
           </div>
 
           {isAuthenticated && (
-            <Button onClick={() => router.push('/blog/upload')}>Write Blog</Button>
+            <Button
+              className="bg-primary text-primary-foreground hover:bg-primary/90"
+              onClick={() => router.push('/blog/upload')}
+            >
+              Write Blog
+            </Button>
           )}
         </div>
 
@@ -75,7 +80,7 @@ export default function LandingPage() {
             placeholder="Search blogs..."
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
-            className="max-w-md"
+            className="bg-input border-border text-foreground placeholder:text-muted-foreground max-w-md border"
           />
           <div className="mt-2 flex flex-wrap gap-2 sm:mt-0">
             <Badge
@@ -114,7 +119,11 @@ export default function LandingPage() {
                 <div className="text-muted-foreground mb-2 text-xs">By {blog.author_name}</div>
                 <div className="flex flex-wrap gap-2">
                   {blog.tags.map(tag => (
-                    <Badge key={tag} variant="secondary" className="text-xs">
+                    <Badge
+                      key={tag}
+                      variant="secondary"
+                      className="bg-muted text-muted-foreground text-xs"
+                    >
                       {tag}
                     </Badge>
                   ))}

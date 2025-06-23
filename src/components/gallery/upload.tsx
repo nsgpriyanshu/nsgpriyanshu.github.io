@@ -8,10 +8,12 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { ImageUpIcon, Loader2Icon, X } from 'lucide-react'
+import Image from 'next/image'
 
 export default function UploadGalleryPage() {
   const [title, setTitle] = useState('')
   const [image, setImage] = useState<File | null>(null)
+  const [imagePreview, setImagePreview] = useState<string | null>(null)
   const [tagInput, setTagInput] = useState('')
   const [tags, setTags] = useState<string[]>([])
   const [location, setLocation] = useState('')
@@ -34,8 +36,10 @@ export default function UploadGalleryPage() {
   }
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setImage(e.target.files[0])
+    const file = e.target.files?.[0]
+    if (file) {
+      setImage(file)
+      setImagePreview(URL.createObjectURL(file))
     }
   }
 
@@ -47,7 +51,7 @@ export default function UploadGalleryPage() {
 
     setLoading(true)
     const imageExtension = image.name.split('.').pop()
-    const imagePath = `image-${Date.now()}.${imageExtension}` // Simplified image path
+    const imagePath = `image-${Date.now()}.${imageExtension}`
 
     const {
       data: { user },
@@ -60,7 +64,6 @@ export default function UploadGalleryPage() {
       return
     }
 
-    // Upload image to Supabase storage
     const { error: uploadError } = await supabase.storage.from('gallery').upload(imagePath, image)
 
     if (uploadError) {
@@ -69,8 +72,7 @@ export default function UploadGalleryPage() {
       return
     }
 
-    // Insert metadata into gallery table
-    const { data, error: insertError } = await supabase.from('gallery').insert([
+    const { error: insertError } = await supabase.from('gallery').insert([
       {
         title,
         image_path: imagePath,
@@ -84,21 +86,19 @@ export default function UploadGalleryPage() {
       toast.error(`Failed to save gallery entry: ${insertError.message}`)
       await supabase.storage.from('gallery').remove([imagePath])
     } else {
-      console.log('Insert successful:', data) // Debug log
-      toast.success('Image uploaded successfully!', {
-        duration: 5000, // Ensure toast stays visible longer
-      })
-      router.push('/gallery') // Redirect to gallery list
+      toast.success('Image uploaded successfully!')
+      router.push('/gallery')
     }
 
     setLoading(false)
   }
 
   return (
-    <div className="mx-auto mt-8 w-full max-w-3xl space-y-6 px-4">
+    <div className="mx-auto mt-10 w-full max-w-3xl space-y-6 px-4">
       <h1 className="text-foreground text-3xl font-bold">Upload to Gallery</h1>
 
-      <div className="space-y-2">
+      {/* Title */}
+      <div className="space-y-1">
         <label htmlFor="title" className="text-muted-foreground text-sm">
           Image Title
         </label>
@@ -110,7 +110,8 @@ export default function UploadGalleryPage() {
         />
       </div>
 
-      <div className="space-y-2">
+      {/* Photographer */}
+      <div className="space-y-1">
         <label htmlFor="photographer" className="text-muted-foreground text-sm">
           Photographer Name
         </label>
@@ -122,19 +123,21 @@ export default function UploadGalleryPage() {
         />
       </div>
 
-      <div className="space-y-2">
+      {/* Location */}
+      <div className="space-y-1">
         <label htmlFor="location" className="text-muted-foreground text-sm">
           Location (Optional)
         </label>
         <Input
           id="location"
-          placeholder="Enter location where photo was taken"
+          placeholder="Where was this photo taken?"
           value={location}
           onChange={e => setLocation(e.target.value)}
         />
       </div>
 
-      <div className="space-y-2">
+      {/* Tags */}
+      <div className="space-y-1">
         <label htmlFor="tags" className="text-muted-foreground text-sm">
           Tags (press Enter to add)
         </label>
@@ -150,9 +153,13 @@ export default function UploadGalleryPage() {
             }
           }}
         />
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 pt-1">
           {tags.map(tag => (
-            <Badge key={tag} variant="secondary" className="flex items-center gap-1 text-sm">
+            <Badge
+              key={tag}
+              variant="secondary"
+              className="hover:bg-primary hover:text-background flex items-center gap-1 text-xs transition"
+            >
               {tag}
               <button onClick={() => removeTag(tag)}>
                 <X className="h-3 w-3" />
@@ -162,18 +169,30 @@ export default function UploadGalleryPage() {
         </div>
       </div>
 
+      {/* Image Upload */}
       <div className="space-y-2">
         <label htmlFor="image" className="text-muted-foreground text-sm">
           Upload Image
         </label>
         <Input id="image" type="file" accept="image/*" onChange={handleImageChange} />
-        {image && <p className="text-muted-foreground text-sm">{image.name}</p>}
+        {image && imagePreview && (
+          <div className="border-primary/10 bg-primary/5 mt-3 overflow-hidden rounded-lg border p-2">
+            <Image
+              src={imagePreview}
+              alt="Preview"
+              width={800}
+              height={600}
+              className="h-auto w-full rounded-lg object-cover"
+            />
+          </div>
+        )}
       </div>
 
+      {/* Submit Button */}
       <Button
         onClick={handleUpload}
         disabled={loading}
-        className="flex w-full items-center justify-center gap-2"
+        className="hover:bg-primary/90 flex w-full items-center justify-center gap-2 transition"
       >
         {loading ? (
           <>

@@ -24,7 +24,7 @@ export default function Hero() {
       {/* Hero Section */}
       <AnimationContainer animation="fadeUp" delay={1} className="w-full max-w-5xl text-center">
         <main className="flex flex-col items-center">
-          <div className="relative mb-6 h-56 w-56 overflow-hidden rounded-full md:h-72 md:w-72">
+          <div className="relative mb-6 h-56 w-56 overflow-hidden rounded-full shadow-lg md:h-72 md:w-72">
             <Image
               src="/assets/stranger_head.png"
               alt="ŊʂƓ PRIYANSHU"
@@ -33,20 +33,23 @@ export default function Hero() {
               priority
             />
           </div>
-          <h1 className="text-foreground mb-6 text-4xl font-bold md:text-6xl">
+
+          <h1 className="text-primary mb-6 text-4xl font-bold md:text-6xl">
             ŊʂƓ
             <br />
             Priyanshu
           </h1>
+
           <p className="text-muted-foreground mx-auto mb-8 max-w-lg text-lg md:text-xl">
-            Behold the <span className="text-foreground font-semibold">Future</span>
+            Behold the <span className="text-primary font-semibold">Future</span>
             <br />
             back to the Past
           </p>
+
           <AnimationContainer animation="scaleUp" delay={2} className="inline-block">
             <button
               onClick={() => setIsAboutOpen(true)}
-              className="text-foreground rounded-lg border border-black/10 bg-white/10 px-6 py-2 text-sm backdrop-blur-sm transition-all hover:bg-white/20 sm:text-base dark:border-white/10 dark:bg-black/10 dark:hover:bg-black/20"
+              className="border-border bg-background/20 text-primary hover:bg-primary/10 hover:text-primary rounded-xl border px-6 py-2 text-sm backdrop-blur-md transition-all sm:text-base"
             >
               Explore
             </button>
@@ -60,7 +63,7 @@ export default function Hero() {
           <p>Want to connect with me?</p>
           <a
             href="https://contact-priyanshu-ps.vercel.app/"
-            className="hover:text-foreground underline underline-offset-4 transition-colors"
+            className="text-primary hover:text-primary/80 underline underline-offset-4 transition-colors"
             target="_blank"
             rel="noopener noreferrer"
           >

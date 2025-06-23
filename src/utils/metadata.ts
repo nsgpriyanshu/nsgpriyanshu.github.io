@@ -10,8 +10,8 @@ const siteConfig = {
     discord: 'https://discord.gg/VUMVuArkst',
     twitter: '@nsgpriyanshu',
     siteUrl: process.env.NEXT_PUBLIC_APP_URL || 'https://nsgpriyanshu.vercel.app/',
-    ogImage: '/assets/og-main.png',
-    twitterImage: '/assets/og-main.png',
+    ogImage: '/assets/og_main.png',
+    twitterImage: '/assets/og_main.png',
   },
 }
 
@@ -23,12 +23,12 @@ export const generateMetadata = ({
     {
       rel: 'apple-touch-icon',
       sizes: '32x32',
-      url: '/icons/cwfavicon_dark.ico',
+      url: '/icons/favicon.ico',
     },
     {
       rel: 'icon',
       sizes: '32x32',
-      url: '/icons/cwfavicon_dark.ico',
+      url: '/icons/favicon.ico',
     },
   ],
   noIndex = false,

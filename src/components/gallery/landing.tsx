@@ -25,6 +25,7 @@ interface GalleryItem {
 export default function GalleryPage() {
   const supabase = createClient()
   const router = useRouter()
+
   const [gallery, setGallery] = useState<GalleryItem[]>([])
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedTag, setSelectedTag] = useState('')
@@ -38,12 +39,8 @@ export default function GalleryPage() {
         .select('*')
         .order('created_at', { ascending: false })
 
-      if (error) {
-        console.error('Error fetching gallery:', error)
-      } else if (data) {
-        setGallery(data)
-        console.log('Fetched gallery data:', data) // Debug log
-      }
+      if (error) console.error('Error fetching gallery:', error)
+      else setGallery(data || [])
     }
 
     const checkAuth = async () => {
@@ -67,7 +64,6 @@ export default function GalleryPage() {
 
   const getImageUrl = (path: string) => {
     const { data } = supabase.storage.from('gallery').getPublicUrl(path)
-    console.log('Image URL:', data.publicUrl) // Debug log
     return data.publicUrl
   }
 
@@ -98,7 +94,7 @@ export default function GalleryPage() {
             <Badge
               variant={selectedTag === '' ? 'default' : 'outline'}
               onClick={() => setSelectedTag('')}
-              className="cursor-pointer"
+              className="hover:bg-primary hover:text-primary-foreground cursor-pointer transition"
             >
               All
             </Badge>
@@ -107,7 +103,7 @@ export default function GalleryPage() {
                 key={tag}
                 variant={selectedTag === tag ? 'default' : 'outline'}
                 onClick={() => setSelectedTag(tag)}
-                className="cursor-pointer"
+                className="hover:bg-primary hover:text-primary-foreground cursor-pointer transition"
               >
                 {tag}
               </Badge>
@@ -119,17 +115,17 @@ export default function GalleryPage() {
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {filteredGallery.map(item => (
           <AnimationContainer key={item.id} animation="fadeUp" delay={0.15}>
-            <div className="bg-primary/5 hover:bg-primary/10 rounded-xl p-3 shadow transition-all">
+            <div className="group bg-primary/5 hover:bg-primary/10 rounded-xl p-3 shadow transition-all duration-200">
               <div
-                className="bg-muted relative mb-3 aspect-[4/3] w-full cursor-pointer overflow-hidden rounded-lg"
+                className="relative mb-3 aspect-[4/3] w-full cursor-pointer overflow-hidden rounded-lg"
                 onClick={() => setSelectedImage(item)}
               >
                 <Image
                   src={getImageUrl(item.image_path)}
                   alt={item.title}
                   fill
-                  className="object-cover"
-                  onError={e => console.error('Image failed to load:', item.image_path)}
+                  className="rounded-lg object-cover transition-transform duration-200 group-hover:scale-105"
+                  onError={() => console.error('Image failed to load:', item.image_path)}
                 />
               </div>
               <h2 className="text-foreground text-lg font-semibold">{item.title}</h2>
@@ -139,15 +135,17 @@ export default function GalleryPage() {
               </p>
               {item.location && (
                 <p className="text-muted-foreground flex items-center gap-1 text-xs">
-                  <span className="text-primary">
-                    <LucideMapPin size={14} />
-                  </span>
+                  <LucideMapPin size={14} className="text-primary" />
                   {item.location}
                 </p>
               )}
               <div className="mt-2 flex flex-wrap gap-2">
                 {item.tags.map(tag => (
-                  <Badge key={tag} variant="secondary" className="text-xs">
+                  <Badge
+                    key={tag}
+                    variant="secondary"
+                    className="bg-muted text-muted-foreground text-xs"
+                  >
                     {tag}
                   </Badge>
                 ))}
@@ -161,16 +159,16 @@ export default function GalleryPage() {
         )}
       </div>
 
-      {/* Glassmorphic Dialog for expanded image */}
+      {/* Glassmorphic Dialog */}
       <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
-        <DialogContent className="border-primary/10 bg-primary/10 dark:border-primary/10 dark:bg-background/10 w-96 rounded-2xl border shadow-lg backdrop-blur-md md:w-2xl">
+        <DialogContent className="border-primary/10 bg-primary/10 dark:border-primary/10 dark:bg-background/10 w-full max-w-3xl rounded-2xl border shadow-2xl backdrop-blur-md">
           {selectedImage && (
             <>
               <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg">
                 <Image
                   src={getImageUrl(selectedImage.image_path)}
                   alt={selectedImage.title}
-                  fill={true}
+                  fill
                   className="rounded-lg border object-cover"
                   priority
                   onError={() =>
@@ -178,23 +176,28 @@ export default function GalleryPage() {
                   }
                 />
               </div>
-              <div className="dark:text-muted-foreground mt-4 space-y-2 text-sm">
+              <div className="text-muted-foreground mt-4 space-y-2 text-sm">
                 <h2 className="text-foreground text-2xl font-bold">{selectedImage.title}</h2>
                 <p>
-                  Shot by <span className="font-medium">{selectedImage.photographer_name}</span> •{' '}
-                  {format(new Date(selectedImage.created_at), 'dd MMM yyyy')}
+                  Shot by{' '}
+                  <span className="text-foreground font-medium">
+                    {selectedImage.photographer_name}
+                  </span>{' '}
+                  • {format(new Date(selectedImage.created_at), 'dd MMM yyyy')}
                 </p>
                 {selectedImage.location && (
                   <p className="flex items-center gap-1">
-                    <span className="text-primary">
-                      <LucideMapPin size={16} />
-                    </span>
+                    <LucideMapPin size={16} className="text-primary" />
                     {selectedImage.location}
                   </p>
                 )}
                 <div className="flex flex-wrap gap-2">
                   {selectedImage.tags.map(tag => (
-                    <Badge key={tag} variant="secondary" className="text-xs">
+                    <Badge
+                      key={tag}
+                      variant="secondary"
+                      className="bg-muted text-muted-foreground text-xs"
+                    >
                       {tag}
                     </Badge>
                   ))}

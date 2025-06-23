@@ -42,13 +42,13 @@ export default function SignInPage() {
   return (
     <Wrapper className="flex min-h-screen items-center justify-center py-12">
       <AnimationContainer animation="fadeUp" delay={0.2} className="w-auto">
-        <div className="border-primary/20 bg-primary/10 dark:border-primary/20 dark:bg-secondary/10 relative grid grid-cols-1 overflow-hidden rounded-[30px] border backdrop-blur-md">
+        <div className="border-primary/20 bg-primary/5 dark:bg-background/20 dark:border-primary/20 relative grid grid-cols-1 overflow-hidden rounded-[30px] border backdrop-blur-lg">
           <div className="flex items-center justify-center px-6 py-8">
             <form onSubmit={handleSubmit} className="w-full max-w-xs space-y-4">
               <div className="space-y-2 text-left">
                 <h2 className="text-foreground text-2xl font-bold">Sign in</h2>
-                <p className="text-primary text-sm">
-                  Enter your credentials to access your Account
+                <p className="text-muted-foreground text-sm">
+                  Enter your credentials to access your account
                 </p>
               </div>
 
@@ -59,24 +59,23 @@ export default function SignInPage() {
                 value={form.email}
                 onChange={handleChange}
                 required
-                className="border-primary/20 bg-primary/10 text-primary focus:ring-primary dark:border-primary/20 dark:bg-primary/10 w-full rounded-lg border px-3 py-1.5 backdrop-blur-sm focus:ring-2"
+                className="bg-background/20 border-border focus:ring-primary text-foreground placeholder:text-muted-foreground border focus:ring-2"
               />
-              <div>
-                <Input
-                  placeholder="Password"
-                  type="password"
-                  name="password"
-                  value={form.password}
-                  onChange={handleChange}
-                  minLength={8}
-                  required
-                  className="border-primary/20 bg-primary/10 text-primary focus:ring-primary dark:border-primary/20 dark:bg-primary/10 w-full rounded-lg border px-3 py-1.5 backdrop-blur-sm focus:ring-2"
-                />
-              </div>
+
+              <Input
+                placeholder="Password"
+                type="password"
+                name="password"
+                value={form.password}
+                onChange={handleChange}
+                minLength={8}
+                required
+                className="bg-background/20 border-border focus:ring-primary text-foreground placeholder:text-muted-foreground border focus:ring-2"
+              />
 
               <Button
                 type="submit"
-                className="bg-primary/10 hover:bg-primary/20 text-foreground dark:bg-primary/10 dark:hover:bg-primary/20 h-10 w-full rounded-lg backdrop-blur-sm transition-colors"
+                className="bg-primary/10 hover:bg-primary/20 text-foreground border-primary/20 border backdrop-blur-sm transition-colors"
               >
                 <LogIn className="mr-2 h-4 w-4" />
                 Sign In

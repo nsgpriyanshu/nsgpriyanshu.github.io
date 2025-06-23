@@ -73,8 +73,6 @@ export default function UploadBlogPage() {
       },
     ])
 
-    console.log({ data, error })
-
     if (error) {
       toast.error(`Failed to upload blog: ${error.message}`)
       console.error(error)
@@ -87,8 +85,8 @@ export default function UploadBlogPage() {
   }
 
   return (
-    <div className="mx-auto mt-8 w-full max-w-3xl space-y-6 px-4">
-      <h1 className="text-foreground text-3xl font-bold">Write a Blog</h1>
+    <div className="text-foreground mx-auto mt-8 w-full max-w-3xl space-y-6 px-4">
+      <h1 className="text-3xl font-bold">Write a Blog</h1>
 
       <div className="space-y-2">
         <label htmlFor="title" className="text-muted-foreground text-sm">
@@ -99,6 +97,7 @@ export default function UploadBlogPage() {
           placeholder="Enter your blog title"
           value={title}
           onChange={e => setTitle(e.target.value)}
+          className="bg-input border-border text-foreground placeholder:text-muted-foreground border"
         />
       </div>
 
@@ -117,10 +116,15 @@ export default function UploadBlogPage() {
               addTag()
             }
           }}
+          className="bg-input border-border text-foreground placeholder:text-muted-foreground border"
         />
         <div className="flex flex-wrap gap-2">
           {tags.map(tag => (
-            <Badge key={tag} variant="secondary" className="flex items-center gap-1 text-sm">
+            <Badge
+              key={tag}
+              variant="secondary"
+              className="bg-secondary text-secondary-foreground flex items-center gap-1 text-sm"
+            >
               {tag}
               <button onClick={() => removeTag(tag)}>
                 <X className="h-3 w-3" />
@@ -140,7 +144,7 @@ export default function UploadBlogPage() {
       <Button
         onClick={handleUpload}
         disabled={loading}
-        className="flex w-full items-center justify-center gap-2"
+        className="bg-primary text-primary-foreground hover:bg-primary/90 flex w-full items-center justify-center gap-2"
       >
         {loading ? (
           <>

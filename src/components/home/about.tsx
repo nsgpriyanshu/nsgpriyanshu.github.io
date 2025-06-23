@@ -35,130 +35,86 @@ export default function About({ onClose }: AboutProps) {
           <DialogHeader>
             <DialogTitle className="text-foreground text-3xl font-bold">About Me</DialogTitle>
           </DialogHeader>
-          <div className="dark:text-muted-foreground mt-4 text-sm">
+          <div className="text-muted-foreground mt-4 text-sm">
             <p>
-              Hey there! I’m <span className="text-foreground font-medium">ŊʂƓ PRIYANSHU</span>, a
+              Hey there! I’m <span className="text-primary font-medium">ŊʂƓ PRIYANSHU</span>, a
               B.Tech CSE student and the CEO of{' '}
-              <span className="text-foreground font-semibold">Creator's World</span> — a creative
-              space for creative people. I love writing clean code, building beautiful websites, and
+              <span className="text-primary font-semibold">Creator's World</span> — a creative space
+              for creative people. I love writing clean code, building beautiful websites, and
               pushing the boundaries of front-end development using{' '}
-              <span className="text-foreground font-semibold">Next.js</span>,{' '}
-              <span className="text-foreground font-semibold">Tailwind CSS</span>, and{' '}
-              <span className="text-foreground font-semibold">TypeScript</span>. I’ve worked on
-              Discord bots, developer tools, and open-source projects — all while blending
-              creativity with precision. Let’s connect, collaborate, and create something meaningful
-              together!
+              <span className="text-primary font-semibold">Next.js</span>,{' '}
+              <span className="text-primary font-semibold">Tailwind CSS</span>, and{' '}
+              <span className="text-primary font-semibold">TypeScript</span>. I’ve worked on Discord
+              bots, developer tools, and open-source projects — all while blending creativity with
+              precision. Let’s connect, collaborate, and create something meaningful together!
             </p>
           </div>
 
           <DialogHeader className="mt-6">
             <DialogTitle className="text-foreground text-3xl font-bold">Skills</DialogTitle>
           </DialogHeader>
-          <div className="dark:text-muted-foreground mt-4 space-y-6 text-2xl">
+
+          <div className="text-muted-foreground mt-4 space-y-6 text-2xl">
             <div>
-              <p className="text-foreground mb-2 text-center text-sm font-semibold">Languages</p>
+              <p className="text-primary mb-2 text-center text-sm font-semibold">Languages</p>
               <div className="flex flex-wrap justify-center gap-4">
-                <motion.div whileHover={{ scale: 1.2 }}>
-                  <SiTypescript
-                    title="TypeScript"
-                    className="hover:text-foreground transition-colors"
-                  />
-                </motion.div>
-                <motion.div whileHover={{ scale: 1.2 }}>
-                  <SiJavascript
-                    title="JavaScript"
-                    className="hover:text-foreground transition-colors"
-                  />
-                </motion.div>
-                <motion.div whileHover={{ scale: 1.2 }}>
-                  <SiPython title="Python" className="hover:text-foreground transition-colors" />
-                </motion.div>
-                <motion.div whileHover={{ scale: 1.2 }}>
-                  <SiC title="C" className="hover:text-foreground transition-colors" />
-                </motion.div>
-                <motion.div whileHover={{ scale: 1.2 }}>
-                  <SiHtml5 title="HTML5" className="hover:text-foreground transition-colors" />
-                </motion.div>
-                <motion.div whileHover={{ scale: 1.2 }}>
-                  <SiCss3 title="CSS3" className="hover:text-foreground transition-colors" />
-                </motion.div>
+                {[SiTypescript, SiJavascript, SiPython, SiC, SiHtml5, SiCss3].map((Icon, i) => (
+                  <motion.div whileHover={{ scale: 1.2 }} key={i}>
+                    <Icon className="hover:text-primary transition-colors" />
+                  </motion.div>
+                ))}
               </div>
             </div>
 
             <div>
-              <p className="text-foreground mb-2 text-center text-sm font-semibold">
-                Frontend Frameworks
-              </p>
+              <p className="text-primary mb-2 text-center text-sm font-semibold">Frontend</p>
+              <div className="flex justify-center gap-4">
+                {[SiReact, SiNextdotjs].map((Icon, i) => (
+                  <motion.div whileHover={{ scale: 1.2 }} key={i}>
+                    <Icon className="hover:text-primary transition-colors" />
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <p className="text-primary mb-2 text-center text-sm font-semibold">Backend</p>
               <div className="flex justify-center gap-4">
                 <motion.div whileHover={{ scale: 1.2 }}>
-                  <SiReact title="React" className="hover:text-foreground transition-colors" />
-                </motion.div>
-                <motion.div whileHover={{ scale: 1.2 }}>
-                  <SiNextdotjs
-                    title="Next.js"
-                    className="hover:text-foreground transition-colors"
-                  />
+                  <SiNodedotjs className="hover:text-primary transition-colors" />
                 </motion.div>
               </div>
             </div>
 
             <div>
-              <p className="text-foreground mb-2 text-center text-sm font-semibold">Backend</p>
+              <p className="text-primary mb-2 text-center text-sm font-semibold">UI / Motion</p>
               <div className="flex justify-center gap-4">
-                <motion.div whileHover={{ scale: 1.2 }}>
-                  <SiNodedotjs
-                    title="Node.js"
-                    className="hover:text-foreground transition-colors"
-                  />
-                </motion.div>
+                {[SiShadcnui, SiFramer, SiNextui].map((Icon, i) => (
+                  <motion.div whileHover={{ scale: 1.2 }} key={i}>
+                    <Icon className="hover:text-primary transition-colors" />
+                  </motion.div>
+                ))}
               </div>
             </div>
 
             <div>
-              <p className="text-foreground mb-2 text-center text-sm font-semibold">
-                UI / Motion Libraries
-              </p>
+              <p className="text-primary mb-2 text-center text-sm font-semibold">Database</p>
               <div className="flex justify-center gap-4">
-                <motion.div whileHover={{ scale: 1.2 }}>
-                  <SiShadcnui
-                    title="shadcn/ui"
-                    className="hover:text-foreground transition-colors"
-                  />
-                </motion.div>
-                <motion.div whileHover={{ scale: 1.2 }}>
-                  <SiFramer
-                    title="Framer-motion"
-                    className="hover:text-foreground transition-colors"
-                  />
-                </motion.div>
-                <motion.div whileHover={{ scale: 1.2 }}>
-                  <SiNextui title="NextUi" className="hover:text-foreground transition-colors" />
-                </motion.div>
+                {[SiSupabase, SiMysql].map((Icon, i) => (
+                  <motion.div whileHover={{ scale: 1.2 }} key={i}>
+                    <Icon className="hover:text-primary transition-colors" />
+                  </motion.div>
+                ))}
               </div>
             </div>
 
             <div>
-              <p className="text-foreground mb-2 text-center text-sm font-semibold">Database</p>
-              <div className="flex justify-center gap-4">
-                <motion.div whileHover={{ scale: 1.2 }}>
-                  <SiSupabase
-                    title="Supabase"
-                    className="hover:text-foreground transition-colors"
-                  />
-                </motion.div>
-                <motion.div whileHover={{ scale: 1.2 }}>
-                  <SiMysql title="MySQL" className="hover:text-foreground transition-colors" />
-                </motion.div>
-              </div>
-            </div>
-
-            <div>
-              <p className="text-foreground mb-2 text-center text-sm font-semibold">
+              <p className="text-primary mb-2 text-center text-sm font-semibold">
                 CI / Integration
               </p>
               <div className="flex justify-center gap-4">
                 <motion.div whileHover={{ scale: 1.2 }}>
-                  <SiGit title="Git" className="hover:text-foreground transition-colors" />
+                  <SiGit className="hover:text-primary transition-colors" />
                 </motion.div>
               </div>
             </div>
@@ -169,11 +125,11 @@ export default function About({ onClose }: AboutProps) {
               Featured Projects
             </DialogTitle>
           </DialogHeader>
-          <div className="dark:text-muted-foreground mt-4 space-y-3 text-sm">
+          <div className="text-muted-foreground mt-4 space-y-3 text-sm">
             {featuredProjects.map(project => (
               <div
                 key={project.githubUrl}
-                className={`block rounded-lg border px-4 py-3 transition-colors ${
+                className={`block rounded-lg border px-4 py-3 transition-all ${
                   project.private
                     ? 'border-primary/10 hover:border-primary/20 bg-primary/5 hover:bg-primary/10 dark:hover:bg-background/20'
                     : 'border-muted bg-muted cursor-not-allowed opacity-60'
@@ -186,7 +142,7 @@ export default function About({ onClose }: AboutProps) {
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="hover:underline"
+                        className="text-primary hover:underline"
                       >
                         {project.name}
                       </a>
@@ -194,9 +150,9 @@ export default function About({ onClose }: AboutProps) {
                       <span>{project.name}</span>
                     )}
                   </span>
-                  <FaGithub className="text-lg" />
+                  <FaGithub className="text-foreground/80 text-lg" />
                 </div>
-                <p className="dark:text-muted-foreground mt-1 text-xs">{project.description}</p>
+                <p className="mt-1 text-xs">{project.description}</p>
               </div>
             ))}
           </div>
