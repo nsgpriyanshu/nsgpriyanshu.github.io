@@ -12,9 +12,9 @@ export default function NotFound() {
   return (
     <Wrapper className="flex min-h-screen items-center justify-center px-4">
       <AnimationContainer animation="fadeUp" delay={0.2}>
-        <div className="border-primary/20 bg-primary/5 dark:bg-background/10 backdrop-blur-md px-10 py-8 rounded-3xl border shadow-xl text-center max-w-md w-full">
-          <Ghost className="mx-auto mb-4 h-12 w-12 text-primary" />
-          <h1 className="text-foreground text-3xl font-bold mb-2">Page Not Found</h1>
+        <div className="bg-primary/5 dark:bg-background/10 w-full max-w-md rounded-3xl px-10 py-8 text-center shadow-xl backdrop-blur-md">
+          <Ghost className="text-primary mx-auto mb-4 h-12 w-12" />
+          <h1 className="text-foreground mb-2 text-3xl font-bold">Page Not Found</h1>
           <p className="text-muted-foreground mb-6 text-sm">
             The page you're looking for doesn't exist or has been moved.
           </p>
