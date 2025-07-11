@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import AnimationContainer from '@/components/global/animation-container'
 import { format } from 'date-fns'
 import { createClient } from '@/lib/supabase/client'
+import { Trash2, AlertTriangle, X, Check } from 'lucide-react'
 
 interface Blog {
   id: number
@@ -26,6 +27,8 @@ export default function LandingPage() {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedTag, setSelectedTag] = useState('')
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [selectedBlogId, setSelectedBlogId] = useState<number | null>(null)
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -33,6 +36,7 @@ export default function LandingPage() {
         .from('blog')
         .select('*')
         .order('created_at', { ascending: false })
+
       if (!error && data) setBlogs(data)
     }
 
@@ -46,6 +50,20 @@ export default function LandingPage() {
     fetchBlogs()
     checkAuth()
   }, [])
+
+  const handleDelete = async () => {
+    if (selectedBlogId === null) return
+
+    const { error } = await supabase.from('blog').delete().eq('id', selectedBlogId)
+
+    if (!error) {
+      setBlogs(prev => prev.filter(blog => blog.id !== selectedBlogId))
+      setShowDeleteConfirm(false)
+      setSelectedBlogId(null)
+    } else {
+      console.error('Delete failed:', error.message)
+    }
+  }
 
   const filteredBlogs = blogs.filter(blog => {
     const matchesSearch = blog.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -129,6 +147,23 @@ export default function LandingPage() {
                   ))}
                 </div>
               </div>
+
+              {/* Delete icon for authenticated users */}
+              {isAuthenticated && (
+                <div className="mt-2 flex justify-end">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="text-destructive hover:bg-destructive/10"
+                    onClick={() => {
+                      setSelectedBlogId(blog.id)
+                      setShowDeleteConfirm(true)
+                    }}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
+              )}
             </AnimationContainer>
             {index < filteredBlogs.length - 1 && <hr className="border-primary/10 my-6 border-t" />}
           </div>
@@ -138,6 +173,39 @@ export default function LandingPage() {
           <p className="text-muted-foreground text-center">No blogs found.</p>
         )}
       </div>
+
+      {/* Confirmation Modal */}
+      {showDeleteConfirm && (
+        <div className="bg-background/10 fixed inset-0 z-50 flex items-center justify-center">
+          <div className="border-primary/10 bg-primary/10 dark:border-primary/10 dark:bg-background/10 w-96 rounded-2xl border p-6 text-center shadow-lg backdrop-blur-md md:w-2xl">
+            <div className="flex flex-col items-center">
+              <AlertTriangle className="text-destructive mb-4 h-8 w-8" />
+              <h3 className="text-foreground mb-2 text-lg font-semibold">Confirm Delete</h3>
+              <p className="text-muted-foreground mb-6">
+                Are you sure you want to delete this blog?
+              </p>
+              <div className="flex justify-center gap-4">
+                <Button
+                  variant="outline"
+                  onClick={() => setShowDeleteConfirm(false)}
+                  className="flex items-center gap-1"
+                >
+                  <X className="h-4 w-4" />
+                  Cancel
+                </Button>
+                <Button
+                  variant="destructive"
+                  onClick={handleDelete}
+                  className="flex items-center gap-1"
+                >
+                  <Check className="h-4 w-4" />
+                  Delete
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

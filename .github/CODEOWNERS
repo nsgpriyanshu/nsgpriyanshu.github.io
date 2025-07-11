@@ -1,0 +1,6 @@
+# CODEOWNERS
+# This file defines who owns which parts of the repository.
+# When someone opens a PR that touches owned code, the owners will be requested for review.
+
+# Global owner (default for entire repo)
+* @nsgpriyanshu

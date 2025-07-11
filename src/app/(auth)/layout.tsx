@@ -1,3 +1,5 @@
+import Footer from '@/components/footer'
+import Header from '@/components/header'
 import { Metadata } from 'next'
 
 const siteName = process.env.NEXT_PUBLIC_APP_NAME || 'nsgpriyanshu'
@@ -34,5 +36,11 @@ export const metadata: Metadata = {
 }
 
 export default function AuthenticationLayout({ children }: { children: React.ReactNode }) {
-  return <main className="relative w-full">{children}</main>
+  return (
+    <main className="relative w-full">
+      <Header />
+      {children}
+      <Footer />
+    </main>
+  )
 }

@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <SoundProvider>
             {children}
             <BlurCursor />
-            <Toaster richColors={true} />
+            <Toaster richColors={true} theme="dark" />
           </SoundProvider>
         </ThemeProvider>
       </body>

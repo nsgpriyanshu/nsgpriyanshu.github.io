@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import Wrapper from '@/components/global/wrapper'
 import AnimationContainer from '@/components/global/animation-container'
-import { Ghost } from 'lucide-react'
+import { Ghost, TriangleAlertIcon } from 'lucide-react'
 
 export default function NotFound() {
   const router = useRouter()
@@ -13,7 +13,7 @@ export default function NotFound() {
     <Wrapper className="flex min-h-screen items-center justify-center px-4">
       <AnimationContainer animation="fadeUp" delay={0.2}>
         <div className="bg-primary/5 dark:bg-background/10 w-full max-w-md rounded-3xl px-10 py-8 text-center shadow-xl backdrop-blur-md">
-          <Ghost className="text-primary mx-auto mb-4 h-12 w-12" />
+          <TriangleAlertIcon className="mx-auto mb-4 h-12 w-12 text-red-400" />
           <h1 className="text-foreground mb-2 text-3xl font-bold">Page Not Found</h1>
           <p className="text-muted-foreground mb-6 text-sm">
             The page you're looking for doesn't exist or has been moved.

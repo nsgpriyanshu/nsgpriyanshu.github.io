@@ -1,0 +1,35 @@
+name: Feature Request
+description: Suggest a new feature or enhancement
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Got a cool idea? Let’s hear it.
+
+  - type: input
+    id: title
+    attributes:
+      label: Feature Title
+      description: One-liner to summarize your request
+      placeholder: e.g., Add dark mode toggle
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or Motivation
+      description: Why is this feature needed or useful?
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: How do you suggest implementing it?
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Any other approaches or features you thought of?

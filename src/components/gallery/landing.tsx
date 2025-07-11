@@ -10,7 +10,7 @@ import { createClient } from '@/lib/supabase/client'
 import Image from 'next/image'
 import { format } from 'date-fns'
 import { useRouter } from 'next/navigation'
-import { LucideMapPin } from 'lucide-react'
+import { LucideMapPin, Trash2, AlertTriangle, X, Check } from 'lucide-react'
 
 interface GalleryItem {
   id: string
@@ -31,6 +31,8 @@ export default function GalleryPage() {
   const [selectedTag, setSelectedTag] = useState('')
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null)
+  const [confirmDelete, setConfirmDelete] = useState(false)
+  const [targetToDelete, setTargetToDelete] = useState<GalleryItem | null>(null)
 
   useEffect(() => {
     const fetchGallery = async () => {
@@ -65,6 +67,20 @@ export default function GalleryPage() {
   const getImageUrl = (path: string) => {
     const { data } = supabase.storage.from('gallery').getPublicUrl(path)
     return data.publicUrl
+  }
+
+  const handleDelete = async () => {
+    if (!targetToDelete) return
+    const { error } = await supabase.from('gallery').delete().eq('id', targetToDelete.id)
+
+    if (error) {
+      console.error('Failed to delete:', error)
+    } else {
+      setGallery(prev => prev.filter(item => item.id !== targetToDelete.id))
+    }
+
+    setConfirmDelete(false)
+    setTargetToDelete(null)
   }
 
   return (
@@ -125,7 +141,6 @@ export default function GalleryPage() {
                   alt={item.title}
                   fill
                   className="rounded-lg object-cover transition-transform duration-200 group-hover:scale-105"
-                  onError={() => console.error('Image failed to load:', item.image_path)}
                 />
               </div>
               <h2 className="text-foreground text-lg font-semibold">{item.title}</h2>
@@ -150,6 +165,22 @@ export default function GalleryPage() {
                   </Badge>
                 ))}
               </div>
+
+              {isAuthenticated && (
+                <div className="mt-3 flex justify-end">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="text-destructive hover:bg-destructive/10"
+                    onClick={() => {
+                      setTargetToDelete(item)
+                      setConfirmDelete(true)
+                    }}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
+              )}
             </div>
           </AnimationContainer>
         ))}
@@ -159,7 +190,7 @@ export default function GalleryPage() {
         )}
       </div>
 
-      {/* Glassmorphic Dialog */}
+      {/* Glassmorphic Dialog for Image Preview */}
       <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
         <DialogContent className="border-primary/10 bg-primary/10 dark:border-primary/10 dark:bg-background/10 w-full max-w-3xl rounded-2xl border shadow-2xl backdrop-blur-md">
           {selectedImage && (
@@ -171,9 +202,6 @@ export default function GalleryPage() {
                   fill
                   className="rounded-lg border object-cover"
                   priority
-                  onError={() =>
-                    console.error('Dialog image failed to load:', selectedImage.image_path)
-                  }
                 />
               </div>
               <div className="text-muted-foreground mt-4 space-y-2 text-sm">
@@ -207,6 +235,39 @@ export default function GalleryPage() {
           )}
         </DialogContent>
       </Dialog>
+
+      {/* Confirmation Dialog for Delete */}
+      {confirmDelete && targetToDelete && (
+        <div className="bg-background/10 fixed inset-0 z-50 flex items-center justify-center">
+          <div className="border-primary/10 bg-primary/10 dark:border-primary/10 dark:bg-background/10 w-96 rounded-2xl border p-6 text-center shadow-lg backdrop-blur-md md:w-2xl">
+            <div className="flex flex-col items-center">
+              <AlertTriangle className="text-destructive mb-4 h-8 w-8" />
+              <h3 className="text-foreground mb-2 text-lg font-semibold">Confirm Delete</h3>
+              <p className="text-muted-foreground mb-6">
+                Are you sure you want to delete this photo?
+              </p>
+              <div className="flex justify-center gap-4">
+                <Button
+                  variant="outline"
+                  onClick={() => setConfirmDelete(false)}
+                  className="flex items-center gap-1"
+                >
+                  <X className="h-4 w-4" />
+                  Cancel
+                </Button>
+                <Button
+                  variant="destructive"
+                  onClick={handleDelete}
+                  className="flex items-center gap-1"
+                >
+                  <Check className="h-4 w-4" />
+                  Delete
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
