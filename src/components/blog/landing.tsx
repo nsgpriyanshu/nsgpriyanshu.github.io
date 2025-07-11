@@ -9,6 +9,7 @@ import AnimationContainer from '@/components/global/animation-container'
 import { format } from 'date-fns'
 import { createClient } from '@/lib/supabase/client'
 import { Trash2, AlertTriangle, X, Check } from 'lucide-react'
+import { RiVerifiedBadgeFill } from 'react-icons/ri'
 
 interface Blog {
   id: number
@@ -134,7 +135,10 @@ export default function LandingPage() {
                   {format(new Date(blog.created_at), 'dd MMM yyyy')}
                 </div>
                 <h2 className="text-foreground mb-1 text-xl font-semibold">{blog.title}</h2>
-                <div className="text-muted-foreground mb-2 text-xs">By {blog.author_name}</div>
+                <div className="text-muted-foreground mb-2 flex items-center gap-1 text-xs">
+                  By {blog.author_name}
+                  <RiVerifiedBadgeFill className="text-muted-foreground flex items-center gap-1 text-xs" />
+                </div>
                 <div className="flex flex-wrap gap-2">
                   {blog.tags.map(tag => (
                     <Badge

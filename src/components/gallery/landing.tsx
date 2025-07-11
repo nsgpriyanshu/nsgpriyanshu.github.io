@@ -11,6 +11,7 @@ import Image from 'next/image'
 import { format } from 'date-fns'
 import { useRouter } from 'next/navigation'
 import { LucideMapPin, Trash2, AlertTriangle, X, Check } from 'lucide-react'
+import { RiVerifiedBadgeFill } from 'react-icons/ri'
 
 interface GalleryItem {
   id: string
@@ -144,10 +145,15 @@ export default function GalleryPage() {
                 />
               </div>
               <h2 className="text-foreground text-lg font-semibold">{item.title}</h2>
-              <p className="text-muted-foreground text-sm">
-                By <span className="font-medium">{item.photographer_name}</span> •{' '}
-                {format(new Date(item.created_at), 'dd MMM yyyy')}
+              <p className="text-muted-foreground flex items-center gap-1 text-sm">
+                By{' '}
+                <span className="text-muted-foreground flex items-center gap-1 font-medium">
+                  {item.photographer_name}
+                  <RiVerifiedBadgeFill className="text-muted-foreground h-4 w-4" />
+                </span>{' '}
+                • {format(new Date(item.created_at), 'dd MMM yyyy')}
               </p>
+
               {item.location && (
                 <p className="text-muted-foreground flex items-center gap-1 text-xs">
                   <LucideMapPin size={14} className="text-primary" />
@@ -208,10 +214,11 @@ export default function GalleryPage() {
                 <h2 className="text-foreground text-2xl font-bold">{selectedImage.title}</h2>
                 <p>
                   Shot by{' '}
-                  <span className="text-foreground font-medium">
-                    {selectedImage.photographer_name}
+                  <span className="text-foreground flex items-center gap-1 font-medium">
+                    {selectedImage.photographer_name}{' '}
+                    <RiVerifiedBadgeFill className="text-foreground h-4 w-4" />
                   </span>{' '}
-                  • {format(new Date(selectedImage.created_at), 'dd MMM yyyy')}
+                  On: {format(new Date(selectedImage.created_at), 'dd MMM yyyy')}
                 </p>
                 {selectedImage.location && (
                   <p className="flex items-center gap-1">

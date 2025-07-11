@@ -8,6 +8,7 @@ import { createClient } from '@/lib/supabase/client'
 import { Badge } from '@/components/ui/badge'
 import { format } from 'date-fns'
 import parse from 'html-react-parser'
+import { RiVerifiedBadgeFill } from 'react-icons/ri'
 
 interface Blog {
   title: string
@@ -116,11 +117,9 @@ export default function BlogDetailPage() {
         {/* Author and Date */}
         <div className="text-muted-foreground flex items-center gap-2 text-sm">
           <PenToolIcon className="h-4 w-4" />
-          <span>
-            Written By{' '}
-            <span className="text-foreground font-medium">{blog.author_name || 'Anonymous'}</span>
-            <br />
-            {format(new Date(blog.created_at), 'dd MMM yyyy')}
+          <span className="text-foreground flex items-center gap-1 font-medium">
+            {blog.author_name || 'Anonymous'}
+            <RiVerifiedBadgeFill className="text-primary h-4 w-4" />
           </span>
         </div>
       </div>
