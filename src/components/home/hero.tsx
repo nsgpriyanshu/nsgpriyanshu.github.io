@@ -24,7 +24,7 @@ export default function Hero() {
       {/* Hero Section */}
       <AnimationContainer animation="fadeUp" delay={1} className="w-full max-w-5xl text-center">
         <main className="flex flex-col items-center">
-          <div className="relative mb-6 h-56 w-56 overflow-hidden rounded-full shadow-lg md:h-72 md:w-72">
+          <div className="relative mb-6 h-56 w-56 overflow-hidden rounded-full md:h-72 md:w-72">
             <Image
               src="/assets/stranger_head.png"
               alt="ŊʂƓ PRIYANSHU"
