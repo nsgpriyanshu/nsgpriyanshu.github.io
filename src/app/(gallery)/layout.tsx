@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     url: `${siteUrl}/gallery`,
     images: [
       {
-        url: '/assets/gallery-og.png',
+        url: '/assets/og-gallery.png',
         width: 1200,
         height: 630,
         alt: `Gallery Preview – ${siteName}`,
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: `Gallery – My Visual Journey | ${siteName}`,
     description: `A look into my visual world—photos I’ve taken, things I’ve designed, and snapshots of life’s best moments.`,
-    images: ['/assets/gallery-og.png'],
+    images: ['/assets/og-gallery.png'],
   },
   metadataBase: new URL(siteUrl),
 }

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     url: `${siteUrl}/sign-in`,
     images: [
       {
-        url: '/assets/signin-og.png',
+        url: '/assets/og-signin.png',
         width: 1200,
         height: 630,
         alt: `Sign In – ${siteName}`,
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: `Sign In – ${siteName}`,
     description: `Access your personal dashboard on ${siteName} by securely logging in.`,
-    images: ['/assets/signin-og.png'],
+    images: ['/assets/og-signin.png'],
   },
   metadataBase: new URL(siteUrl),
 }
