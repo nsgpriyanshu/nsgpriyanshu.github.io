@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `Upload to Gallery – Showcase Your Visuals | ${siteName}`,
     description: `Add photos, designs, and creative visuals to your personal gallery on ${siteName}. A space to express visually.`,
-    url: `${siteUrl}/gallery/upload`,
+    url: `${siteUrl}gallery/upload`,
     images: [
       {
         url: '/assets/gallery-pload-og.png', // Use or create this OG image

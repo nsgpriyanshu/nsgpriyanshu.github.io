@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `Upload Blog – Create & Share Posts | ${siteName}`,
     description: `Use the blog editor to write and publish meaningful posts on ${siteName}. Share your stories, ideas, and creativity.`,
-    url: `${siteUrl}/blog/upload`,
+    url: `${siteUrl}blog/upload`,
     images: [
       {
         url: '/assets/blog-upload-og.png',

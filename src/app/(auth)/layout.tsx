@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `${siteName} - Authentication`,
     description: `Log in or sign up to explore my projects, skills, and experience. Get a personalized view of my developer journey on ${siteName}.`,
-    url: `${siteUrl}/auth`,
+    url: `${siteUrl}auth`,
     images: [
       {
         url: '/assets/og-auth.png',

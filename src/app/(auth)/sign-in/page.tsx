@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `Sign In – ${siteName}`,
     description: `Log in to your personal portfolio account on ${siteName} to view saved content, uploads, and settings.`,
-    url: `${siteUrl}/sign-in`,
+    url: `${siteUrl}sign-in`,
     images: [
       {
         url: '/assets/og-signin.png',

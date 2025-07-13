@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `Blog – Writings by ${siteName}`,
     description: `Explore a collection of posts, essays, and reflections by ${siteName}—on development, design, creativity, and personal growth.`,
-    url: `${siteUrl}/blog`,
+    url: `${siteUrl}blog`,
     images: [
       {
         url: '/assets/og-blog.png',

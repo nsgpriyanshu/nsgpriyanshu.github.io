@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `Gallery – Visual Memories & Designs | ${siteName}`,
     description: `Step into my world through pictures and projects. This gallery showcases personal moments, creative designs, and memories that matter.`,
-    url: `${siteUrl}/gallery`,
+    url: `${siteUrl}gallery`,
     images: [
       {
         url: '/assets/og-gallery.png',

@@ -12,10 +12,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: `Sign Up – ${siteName}`,
     description: `Create your personal account on ${siteName} to start publishing blogs, uploading visuals, and saving your work.`,
-    url: `${siteUrl}/sign-up`,
+    url: `${siteUrl}sign-up`,
     images: [
       {
-        url: '/assets/0g-signup.png',
+        url: '/assets/og-signup.png',
         width: 1200,
         height: 630,
         alt: `Sign Up – ${siteName}`,
