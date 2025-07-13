@@ -9,8 +9,8 @@ const siteConfig = {
   links: {
     discord: 'https://discord.gg/VUMVuArkst',
     twitter: '@nsgpriyanshu',
-    siteUrl: process.env.NEXT_PUBLIC_APP_URL || 'https://nsgpriyanshu.vercel.app/',
-    ogImage: '/assets/og-main.png',
+    siteUrl: process.env.NEXT_PUBLIC_APP_URL || 'https://nsgpriyanshu.vercel.app',
+    ogImage: '/assets/og-main.png', 
     twitterImage: '/assets/og-main.png',
   },
 }
