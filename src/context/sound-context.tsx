@@ -29,11 +29,15 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
   const clickSoundRef = useRef<HTMLAudioElement | null>(null)
   const bgmSoundRef = useRef<HTMLAudioElement | null>(null)
   const isBgmPlayingRef = useRef(false)
+  const isSoundOnRef = useRef(isSoundOn)
+  const suppressNextClickRef = useRef(false)
+  const lastClickTimeRef = useRef(0)
 
+  // Create audio elements and register a single click handler once on mount.
   useEffect(() => {
     setIsMounted(true)
 
-    // Load audio files
+    // Load audio files once
     clickSoundRef.current = new Audio('/sounds/click_one.wav')
     clickSoundRef.current.volume = 0.5
 
@@ -41,23 +45,44 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
     bgmSoundRef.current.volume = 0.5
     bgmSoundRef.current.loop = true
 
-    // Play click sound on every click, if sound is ON
-    const handleClick = () => {
-      if (isSoundOn) {
-        if (clickSoundRef.current) {
-          clickSoundRef.current.currentTime = 0
-          clickSoundRef.current.play().catch(err => console.warn('Click sound blocked:', err))
-        }
+    // Use a click handler that reads the latest `isSoundOn` via ref
+    const handleClick = (e: MouseEvent) => {
+      const now = Date.now()
 
-        if (bgmSoundRef.current && !isBgmPlayingRef.current) {
-          bgmSoundRef.current
-            .play()
-            .then(() => {
-              isBgmPlayingRef.current = true
-              console.log('BGM started')
-            })
-            .catch(err => console.warn('BGM blocked:', err))
-        }
+      // If sound is disabled, do nothing immediately
+      if (!isSoundOnRef.current) return
+
+      // If a click was handled very recently, skip to avoid double-play
+      if (now - lastClickTimeRef.current < 150) return
+
+      // If toggle requested suppression for the next click, allow exactly one play
+      if (suppressNextClickRef.current) {
+        suppressNextClickRef.current = false
+      }
+
+      lastClickTimeRef.current = now
+
+      if (clickSoundRef.current) {
+        clickSoundRef.current.currentTime = 0
+        clickSoundRef.current.play().catch(err => console.warn('Click sound blocked:', err))
+      }
+
+      // Dispatch a custom event with click coordinates for visual feedback (ripple)
+      try {
+        const detail = { x: e.clientX, y: e.clientY }
+        document.dispatchEvent(new CustomEvent('app:click', { detail }))
+      } catch (err) {
+        // ignore
+      }
+
+      if (bgmSoundRef.current && !isBgmPlayingRef.current) {
+        bgmSoundRef.current
+          .play()
+          .then(() => {
+            isBgmPlayingRef.current = true
+            console.log('BGM started')
+          })
+          .catch(err => console.warn('BGM blocked:', err))
       }
     }
 
@@ -71,36 +96,44 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
         isBgmPlayingRef.current = false
       }
     }
-  }, [isSoundOn]) // React to sound state
+  }, [])
+
+  // Keep a ref in sync with the current `isSoundOn` so handlers can read latest value.
+  useEffect(() => {
+    isSoundOnRef.current = isSoundOn
+  }, [isSoundOn])
 
   const toggleSound = () => {
-    setIsSoundOn(prev => {
-      const newState = !prev
-      localStorage.setItem('soundOn', newState.toString())
+    const newState = !isSoundOn
+    setIsSoundOn(newState)
+    localStorage.setItem('soundOn', newState.toString())
+    // Ensure handlers read the latest sound state immediately
+    isSoundOnRef.current = newState
 
-      if (newState) {
-        // Sound turned ON: play BGM if not already playing
-        if (bgmSoundRef.current && !isBgmPlayingRef.current) {
-          bgmSoundRef.current
-            .play()
-            .then(() => {
-              isBgmPlayingRef.current = true
-              console.log('BGM started via toggle')
-            })
-            .catch(err => console.warn('BGM blocked on toggle:', err))
-        }
-      } else {
-        // Sound turned OFF: pause BGM
-        if (bgmSoundRef.current) {
-          bgmSoundRef.current.pause()
-          bgmSoundRef.current.currentTime = 0
-          isBgmPlayingRef.current = false
-          console.log('BGM paused via toggle')
-        }
+    // If toggle is triggered by user click, suppress duplicate click sound
+    // so the click plays only once (handled by the document click listener).
+    suppressNextClickRef.current = true
+
+    if (newState) {
+      // Sound turned ON: try to play BGM (should succeed if called from a user gesture)
+      if (bgmSoundRef.current && !isBgmPlayingRef.current) {
+        bgmSoundRef.current
+          .play()
+          .then(() => {
+            isBgmPlayingRef.current = true
+            console.log('BGM started via toggle')
+          })
+          .catch(err => console.warn('BGM blocked on toggle:', err))
       }
-
-      return newState
-    })
+    } else {
+      // Sound turned OFF: pause BGM
+      if (bgmSoundRef.current) {
+        bgmSoundRef.current.pause()
+        bgmSoundRef.current.currentTime = 0
+        isBgmPlayingRef.current = false
+        console.log('BGM paused via toggle')
+      }
+    }
   }
 
   if (!isMounted) return null

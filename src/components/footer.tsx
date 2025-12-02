@@ -1,9 +1,12 @@
 'use client'
 
+import { motion, useReducedMotion } from 'framer-motion'
 import { socialLinks } from '@/constants/social-link'
 import AnimationContainer from './global/animation-container'
 
 export default function Footer() {
+  const reduce = useReducedMotion()
+
   return (
     <AnimationContainer
       animation="fadeDown"
@@ -24,15 +27,17 @@ export default function Footer() {
           <p>Social Handles:</p>
           <div className="flex gap-4">
             {socialLinks.map(link => (
-              <a
+              <motion.a
                 key={link.href}
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
+                whileHover={reduce ? {} : { y: -3 }}
+                whileTap={reduce ? {} : { scale: 0.98 }}
                 className="hover:text-foreground transition-colors"
               >
                 {link.label}
-              </a>
+              </motion.a>
             ))}
           </div>
         </div>

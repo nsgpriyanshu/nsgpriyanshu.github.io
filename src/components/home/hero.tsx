@@ -1,8 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import Image from 'next/image'
 import useSound from 'use-sound'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import About from './about'
 import AnimationContainer from '../global/animation-container'
 import { useSoundContext } from '@/context/sound-context'
@@ -11,6 +12,19 @@ export default function Hero() {
   const { isSoundOn } = useSoundContext()
   const [isAboutOpen, setIsAboutOpen] = useState(false)
   const [playClick] = useSound('/sounds/click_one.wav', { volume: 1.0 })
+
+  // Interactive name variants on mouse movement
+  const nameVariants = [
+    { line1: 'ŊʂƓ', line2: 'Priyanshu' },
+    { line1: 'Priyanshu', line2: '' },
+    { line1: 'PS', line2: '' },
+    { line1: 'CEO', line2: 'Go Beyond' },
+    // { line1: 'Go', line2: 'Beyond' },
+  ]
+  const [currentName, setCurrentName] = useState(nameVariants[0])
+  const idxRef = useRef(0)
+  const lastChangeRef = useRef(0)
+  const reduce = useReducedMotion()
 
   const handleClick = () => {
     if (isSoundOn) playClick()
@@ -34,10 +48,50 @@ export default function Hero() {
             />
           </div>
 
-          <h1 className="text-primary mb-6 text-4xl font-bold md:text-6xl">
-            ŊʂƓ
-            <br />
-            Priyanshu
+          <h1
+            className="text-primary mb-6 text-4xl font-bold md:text-6xl"
+            onMouseMove={() => {
+              // throttle changes to ~200ms
+              const now = Date.now()
+              if (now - lastChangeRef.current < 200) return
+              lastChangeRef.current = now
+
+              idxRef.current = (idxRef.current + 1) % nameVariants.length
+              setCurrentName(nameVariants[idxRef.current])
+            }}
+            onMouseEnter={() => {
+              // start cycling from next
+              idxRef.current = 0
+            }}
+            onMouseLeave={() => {
+              // revert to default
+              idxRef.current = 0
+              setCurrentName(nameVariants[0])
+            }}
+          >
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={currentName.line1}
+                initial={reduce ? {} : { opacity: 0, y: 6 }}
+                animate={reduce ? {} : { opacity: 1, y: 0 }}
+                exit={reduce ? {} : { opacity: 0, y: -6 }}
+                transition={{ duration: 0.22 }}
+                className="block"
+              >
+                {currentName.line1}
+              </motion.span>
+
+              <motion.span
+                key={currentName.line2}
+                initial={reduce ? {} : { opacity: 0, y: 6 }}
+                animate={reduce ? {} : { opacity: 1, y: 0 }}
+                exit={reduce ? {} : { opacity: 0, y: -6 }}
+                transition={{ duration: 0.22 }}
+                className="block"
+              >
+                {currentName.line2}
+              </motion.span>
+            </AnimatePresence>
           </h1>
 
           <p className="text-muted-foreground mx-auto mb-8 max-w-lg text-lg md:text-xl">

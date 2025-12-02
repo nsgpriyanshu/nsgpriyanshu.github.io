@@ -1,4 +1,6 @@
 import BlurCursor from '@/components/global/blur-cursor'
+import PageTransitionWrapper from '@/components/global/page-transitions'
+import ClickPulse from '@/components/global/click-pulse'
 import { SoundProvider } from '@/context/sound-context'
 import { cn } from '@/lib/utils'
 import '@/styles/globals.css'
@@ -29,7 +31,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           disableTransitionOnChange
         >
           <SoundProvider>
-            {children}
+            <PageTransitionWrapper>{children}</PageTransitionWrapper>
+            <ClickPulse />
             <BlurCursor />
             <Toaster richColors={true} theme="dark" />
           </SoundProvider>
