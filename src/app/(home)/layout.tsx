@@ -36,9 +36,9 @@ export const metadata: Metadata = {
 
 export default function HomeLayout({ children }: { children: React.ReactNode }) {
   return (
-    <main className="relative min-h-screen w-full px-4 py-8 sm:px-6">
+    <main className="relative flex min-h-screen w-full flex-col justify-between sm:px-6 lg:px-0 lg:py-0">
       <Header />
-      {children}
+      <div className="flex-1">{children}</div>
       <Footer />
     </main>
   )
