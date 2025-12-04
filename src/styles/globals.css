@@ -193,4 +193,40 @@ html {
     background-size: 1000px 100%;
     animation: shimmer 2s infinite;
   }
+
+  /* Performance optimizations */
+  .will-change-transform {
+    will-change: transform;
+  }
+
+  .will-change-opacity {
+    will-change: opacity;
+  }
+
+  .will-change-auto {
+    will-change: auto;
+  }
+
+  /* GPU acceleration for smooth animations */
+  .gpu-accelerate {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  /* Optimize scrolling performance */
+  .contain-layout {
+    contain: layout style paint;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }

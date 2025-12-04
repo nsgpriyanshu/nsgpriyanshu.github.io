@@ -1,5 +1,6 @@
 import Footer from '@/components/footer'
 import Header from '@/components/header'
+import GoldenSpiralBackground from '@/components/golden-spiral-background'
 import { Metadata } from 'next'
 
 const siteName = process.env.NEXT_PUBLIC_APP_NAME || 'nsgpriyanshu'
@@ -37,6 +38,8 @@ export const metadata: Metadata = {
 export default function HomeLayout({ children }: { children: React.ReactNode }) {
   return (
     <main className="relative flex min-h-screen w-full flex-col justify-between sm:px-6 lg:px-0 lg:py-0">
+      {/* Golden ratio background (center, fixed, parallax) */}
+      <GoldenSpiralBackground />
       <Header />
       <div className="flex-1">{children}</div>
       <Footer />
