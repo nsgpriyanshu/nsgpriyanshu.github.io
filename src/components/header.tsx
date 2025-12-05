@@ -56,7 +56,7 @@ export default function Header() {
     <AnimationContainer delay={0.5} animation="fadeDown">
       <header
         className={`sticky top-0 z-40 mx-auto w-full max-w-5xl px-4 py-4 transition-all duration-300 sm:px-6 ${
-          isScrolled ? 'bg-primary/5 dark:bg-background/50 rounded-b-2xl backdrop-blur-md' : ''
+          isScrolled ? 'bg-primary/5 dark:bg-background/50 rounded-b-2xl backdrop-blur-sm' : ''
         }`}
         role="banner"
       >
@@ -72,7 +72,10 @@ export default function Header() {
               role="status"
               aria-live="polite"
             >
-              Based in <span className="decoration-muted underline underline-offset-4">India</span>
+              Based in{' '}
+              <span className="text-foreground decoration-muted underline underline-offset-4">
+                India
+              </span>
             </motion.div>
 
             <ModeToggle />
@@ -81,7 +84,7 @@ export default function Header() {
               onClick={toggleSound}
               whileTap={reduce ? {} : { scale: 0.95 }}
               whileHover={reduce ? {} : { x: 2 }}
-              className="text-muted-foreground decoration-muted hover:text-foreground focus-visible:ring-primary dark:focus-visible:ring-offset-background rounded-sm text-sm underline underline-offset-4 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+              className="text-muted-foreground decoration-muted hover:text-primary focus-visible:ring-primary dark:focus-visible:ring-offset-background rounded-sm text-sm underline underline-offset-4 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
               aria-label={`${isSoundOn ? 'Disable' : 'Enable'} sound effects`}
             >
               {isSoundOn ? 'Disable Sound' : 'Enable Sound'}
@@ -90,7 +93,7 @@ export default function Header() {
 
           {/* CENTER — LOCAL TIME & DATE */}
           <div className="flex flex-col items-center">
-            <span className="text-muted-foreground text-xs tracking-wider">{localDate}</span>
+            <span className="text-muted-foreground/70 text-xs tracking-wider">{localDate}</span>
             <motion.span
               className="text-primary text-sm font-semibold"
               initial={{ opacity: 0 }}
@@ -114,7 +117,7 @@ export default function Header() {
                   whileHover={reduce ? {} : { y: -3, x: 2 }}
                   whileTap={reduce ? {} : { scale: 0.95 }}
                   className={`focus-visible:ring-primary dark:focus-visible:ring-offset-background relative rounded-sm px-1 py-0.5 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
-                    isActive ? 'text-primary font-semibold' : 'hover:text-foreground'
+                    isActive ? 'text-primary font-semibold' : 'hover:text-primary'
                   }`}
                   aria-current={isActive ? 'page' : undefined}
                 >

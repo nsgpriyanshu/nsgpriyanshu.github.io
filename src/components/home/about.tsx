@@ -30,12 +30,12 @@ interface AboutProps {
 export default function About({ onClose }: AboutProps) {
   return (
     <Dialog open onOpenChange={onClose}>
-      <DialogContent className="border-primary/10 bg-primary/10 dark:border-primary/10 dark:bg-background/10 w-96 rounded-2xl border shadow-lg backdrop-blur-md md:w-2xl">
+      <DialogContent className="border-primary/10 bg-primary/10 dark:border-primary/10 dark:bg-background/10 w-96 rounded-2xl border shadow-lg backdrop-blur-sm md:w-2xl">
         <div className="scrollbar-hidden relative h-[500px] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-foreground text-3xl font-bold">About Me</DialogTitle>
           </DialogHeader>
-          <div className="text-muted-foreground mt-4 text-sm">
+          <div className="text-muted-foreground/70 mt-4 text-sm">
             <p>
               Hey there! I’m <span className="text-primary font-medium">ŊʂƓ PRIYANSHU</span>, a
               B.Tech CSE student and the CEO of{' '}
@@ -125,7 +125,7 @@ export default function About({ onClose }: AboutProps) {
               Featured Projects
             </DialogTitle>
           </DialogHeader>
-          <div className="text-muted-foreground mt-4 space-y-3 text-sm">
+          <div className="text-muted-foreground/70 mt-4 space-y-3 text-sm">
             {featuredProjects.map(project => (
               <div
                 key={project.githubUrl}
@@ -150,7 +150,7 @@ export default function About({ onClose }: AboutProps) {
                       <span>{project.name}</span>
                     )}
                   </span>
-                  <FaGithub className="text-foreground/80 text-lg" />
+                  <FaGithub className="text-muted-foreground text-lg" />
                 </div>
                 <p className="mt-1 text-xs">{project.description}</p>
               </div>

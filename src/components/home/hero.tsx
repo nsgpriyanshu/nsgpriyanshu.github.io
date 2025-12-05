@@ -142,7 +142,7 @@ export default function Hero() {
           <AnimationContainer animation="scaleUp" delay={2} className="inline-block">
             <button
               onClick={() => setIsAboutOpen(true)}
-              className="border-border bg-background/20 text-primary hover:bg-primary/10 hover:text-primary focus-visible:ring-primary dark:focus-visible:ring-offset-background rounded-xl border px-6 py-2 text-sm backdrop-blur-md transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 sm:text-base"
+              className="border-border bg-background/20 text-primary hover:bg-primary/10 hover:text-primary focus-visible:ring-primary dark:focus-visible:ring-offset-background rounded-xl border px-6 py-2 text-sm backdrop-blur-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 sm:text-base"
               aria-label="Open about me modal"
             >
               Explore
@@ -158,7 +158,7 @@ export default function Hero() {
             Want to connect with me?{' '}
             <a
               href="https://contact-priyanshu-ps.vercel.app/"
-              className="text-primary hover:text-primary/80 focus-visible:ring-primary dark:focus-visible:ring-offset-background rounded-sm px-1 underline underline-offset-4 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+              className="text-primary hover:text-primary focus-visible:ring-primary dark:focus-visible:ring-offset-background rounded-sm px-1 underline underline-offset-4 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Send a message (opens in new tab)"

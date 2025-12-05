@@ -99,7 +99,7 @@ export default function UploadGalleryPage() {
 
       {/* Title */}
       <div className="space-y-1">
-        <label htmlFor="title" className="text-muted-foreground text-sm">
+        <label htmlFor="title" className="text-muted-foreground/70 text-sm">
           Image Title
         </label>
         <Input
@@ -112,7 +112,7 @@ export default function UploadGalleryPage() {
 
       {/* Photographer */}
       <div className="space-y-1">
-        <label htmlFor="photographer" className="text-muted-foreground text-sm">
+        <label htmlFor="photographer" className="text-muted-foreground/70 text-sm">
           Photographer Name
         </label>
         <Input
@@ -125,7 +125,7 @@ export default function UploadGalleryPage() {
 
       {/* Location */}
       <div className="space-y-1">
-        <label htmlFor="location" className="text-muted-foreground text-sm">
+        <label htmlFor="location" className="text-muted-foreground/70 text-sm">
           Location (Optional)
         </label>
         <Input
@@ -138,7 +138,7 @@ export default function UploadGalleryPage() {
 
       {/* Tags */}
       <div className="space-y-1">
-        <label htmlFor="tags" className="text-muted-foreground text-sm">
+        <label htmlFor="tags" className="text-muted-foreground/70 text-sm">
           Tags (press Enter to add)
         </label>
         <Input
@@ -171,7 +171,7 @@ export default function UploadGalleryPage() {
 
       {/* Image Upload */}
       <div className="space-y-2">
-        <label htmlFor="image" className="text-muted-foreground text-sm">
+        <label htmlFor="image" className="text-muted-foreground/70 text-sm">
           Upload Image
         </label>
         <Input id="image" type="file" accept="image/*" onChange={handleImageChange} />

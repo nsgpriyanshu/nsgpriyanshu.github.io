@@ -1,6 +1,7 @@
 'use client'
 
 import { motion, useReducedMotion } from 'framer-motion'
+import { IoDocumentText } from 'react-icons/io5'
 import { socialLinks } from '@/constants/social-link'
 import AnimationContainer from './global/animation-container'
 
@@ -18,24 +19,25 @@ export default function Footer() {
         <div className="text-muted-foreground flex flex-col items-start gap-2 text-sm">
           <div className="flex items-center gap-2">
             <span>© {new Date().getFullYear()}</span>
-            <span>Developed by nsgpriyanshu</span>
+            <span className="text-muted-foreground/70">Developed by nsgpriyanshu</span>
           </div>
         </div>
 
-        {/* Center — Text-only Resume Link */}
+        {/* Center — Document Icon + Resume Link */}
         <motion.a
           href="/resume.pdf"
           download
           whileHover={reduce ? {} : { y: -2 }}
           whileTap={reduce ? {} : { scale: 0.98 }}
-          className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+          className="text-muted-foreground hover:text-primary flex flex-col items-center gap-1 transition-colors"
         >
-          Download Resume
+          <IoDocumentText className="text-lg md:text-xl" />
+          <span className="text-xs md:text-sm">Resume</span>
         </motion.a>
 
         {/* Right side */}
         <div className="text-muted-foreground flex flex-col items-end gap-2 text-sm">
-          <p>Social Handles:</p>
+          <p className="text-muted-foreground/70">Social Handles:</p>
           <div className="flex gap-4">
             {socialLinks.map(link => (
               <motion.a
@@ -45,7 +47,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 whileHover={reduce ? {} : { y: -3 }}
                 whileTap={reduce ? {} : { scale: 0.98 }}
-                className="hover:text-foreground transition-colors"
+                className="hover:text-primary transition-colors"
               >
                 {link.label}
               </motion.a>

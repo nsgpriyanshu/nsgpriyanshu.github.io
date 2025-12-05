@@ -80,7 +80,7 @@ export default function LandingPage() {
         <div className="mb-4 flex flex-row items-center justify-between gap-4">
           <div className="flex flex-col items-start">
             <h1 className="text-foreground text-4xl font-bold sm:text-left">Blogs</h1>
-            <p className="text-muted-foreground mb-2 text-sm">Read the insights, shared by me</p>
+            <p className="text-muted-foreground/70 mb-2 text-sm">Read the insights, shared by me</p>
           </div>
 
           {isAuthenticated && (
@@ -131,13 +131,13 @@ export default function LandingPage() {
                 onClick={() => router.push(`/blog/${blog.slug}`)}
                 className="hover:bg-primary/10 cursor-pointer rounded-lg p-2 transition-colors"
               >
-                <div className="text-muted-foreground mb-2 text-xs">
+                <div className="text-muted-foreground/50 mb-2 text-xs">
                   {format(new Date(blog.created_at), 'dd MMM yyyy')}
                 </div>
                 <h2 className="text-foreground mb-1 text-xl font-semibold">{blog.title}</h2>
-                <div className="text-muted-foreground mb-2 flex items-center gap-1 text-xs">
+                <div className="text-muted-foreground/70 mb-2 flex items-center gap-1 text-xs">
                   By {blog.author_name}
-                  <RiVerifiedBadgeFill className="text-muted-foreground flex items-center gap-1 text-xs" />
+                  <RiVerifiedBadgeFill className="text-muted-foreground/70 flex items-center gap-1 text-xs" />
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {blog.tags.map(tag => (
@@ -181,11 +181,11 @@ export default function LandingPage() {
       {/* Confirmation Modal */}
       {showDeleteConfirm && (
         <div className="bg-background/10 fixed inset-0 z-50 flex items-center justify-center">
-          <div className="border-primary/10 bg-primary/10 dark:border-primary/10 dark:bg-background/10 w-96 rounded-2xl border p-6 text-center shadow-lg backdrop-blur-md md:w-2xl">
+          <div className="border-primary/10 bg-primary/10 dark:border-primary/10 dark:bg-background/10 w-96 rounded-2xl border p-6 text-center shadow-lg backdrop-blur-sm md:w-2xl">
             <div className="flex flex-col items-center">
               <AlertTriangle className="text-destructive mb-4 h-8 w-8" />
               <h3 className="text-foreground mb-2 text-lg font-semibold">Confirm Delete</h3>
-              <p className="text-muted-foreground mb-6">
+              <p className="text-muted-foreground/70 mb-6">
                 Are you sure you want to delete this blog?
               </p>
               <div className="flex justify-center gap-4">

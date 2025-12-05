@@ -89,7 +89,7 @@ export default function UploadBlogPage() {
       <h1 className="text-3xl font-bold">Write a Blog</h1>
 
       <div className="space-y-2">
-        <label htmlFor="title" className="text-muted-foreground text-sm">
+        <label htmlFor="title" className="text-muted-foreground/70 text-sm">
           Blog Title
         </label>
         <Input
@@ -102,7 +102,7 @@ export default function UploadBlogPage() {
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="tags" className="text-muted-foreground text-sm">
+        <label htmlFor="tags" className="text-muted-foreground/70 text-sm">
           Tags (press Enter to add)
         </label>
         <Input
@@ -135,7 +135,7 @@ export default function UploadBlogPage() {
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="editor" className="text-muted-foreground text-sm">
+        <label htmlFor="editor" className="text-muted-foreground/70 text-sm">
           Blog Content
         </label>
         <TiptapEditor content={content} setContent={setContent} />

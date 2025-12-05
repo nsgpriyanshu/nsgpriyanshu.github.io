@@ -49,7 +49,7 @@ const MenuBar = ({ editor }: MenuBarProps) => {
             {currentLabel}
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="border-primary/10 bg-primary/10 dark:border-primary/10 dark:bg-background/10 boredr text-muted-foreground w-[120px] rounded-lg border p-1 text-xs shadow-xl backdrop-blur-md">
+        <DropdownMenuContent className="border-primary/10 bg-primary/10 dark:border-primary/10 dark:bg-background/10 boredr text-muted-foreground w-[120px] rounded-lg border p-1 text-xs shadow-xl backdrop-blur-sm">
           <DropdownMenuItem
             onClick={() => editor.chain().focus().setParagraph().run()}
             className={cn(
@@ -96,7 +96,7 @@ const MenuBar = ({ editor }: MenuBarProps) => {
             {currentColor === 'No Highlight' ? 'Highlight' : currentColor}
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="border-primary/10 bg-primary/10 dark:border-primary/10 dark:bg-background/10 w-[140px] rounded-lg p-1 text-xs shadow-xl backdrop-blur-md">
+        <DropdownMenuContent className="border-primary/10 bg-primary/10 dark:border-primary/10 dark:bg-background/10 w-[140px] rounded-lg p-1 text-xs shadow-xl backdrop-blur-sm">
           <DropdownMenuItem
             onClick={() => editor.chain().focus().unsetHighlight().run()}
             className={cn(
@@ -175,7 +175,7 @@ const MenuBar = ({ editor }: MenuBarProps) => {
 
   return (
     <AnimationContainer animation="fadeUp" delay={0.2}>
-      <div className="bg-background/60 border-border flex flex-wrap gap-1 rounded-xl border p-2 backdrop-blur-md">
+      <div className="bg-background/60 border-border flex flex-wrap gap-1 rounded-xl border p-2 backdrop-blur-sm">
         <HeadingDropdown />
         {buttons.map(({ label, mark, command, disabled }, i) => {
           const isActive = mark ? editor.isActive(mark) : false

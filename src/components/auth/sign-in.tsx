@@ -42,7 +42,7 @@ export default function SignIn() {
   return (
     <Wrapper className="flex min-h-screen items-center justify-center py-12">
       <AnimationContainer animation="fadeUp" delay={0.2} className="w-auto">
-        <div className="border-primary/20 bg-primary/5 dark:bg-background/20 dark:border-primary/20 relative grid grid-cols-1 overflow-hidden rounded-[30px] border backdrop-blur-lg">
+        <div className="border-primary/20 bg-primary/5 dark:bg-background/20 dark:border-primary/20 relative grid grid-cols-1 overflow-hidden rounded-[30px] border backdrop-blur-sm">
           <div className="flex items-center justify-center px-6 py-8">
             <form onSubmit={handleSubmit} className="w-full max-w-xs space-y-4">
               <div className="space-y-2 text-left">
@@ -75,7 +75,7 @@ export default function SignIn() {
 
               <Button
                 type="submit"
-                className="bg-primary/10 hover:bg-primary/20 text-foreground border-primary/20 border backdrop-blur-sm transition-colors"
+                className="bg-primary/10 hover:bg-primary/20 text-foreground border-primary/20 border backdrop-blur-xs transition-colors"
               >
                 <LogIn className="mr-2 h-4 w-4" />
                 Sign In

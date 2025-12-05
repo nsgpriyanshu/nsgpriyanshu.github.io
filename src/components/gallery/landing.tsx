@@ -145,17 +145,17 @@ export default function GalleryPage() {
                 />
               </div>
               <h2 className="text-foreground text-lg font-semibold">{item.title}</h2>
-              <p className="text-muted-foreground flex items-center gap-1 text-sm">
+              <p className="text-muted-foreground/70 flex items-center gap-1 text-sm">
                 By{' '}
                 <span className="text-muted-foreground flex items-center gap-1 font-medium">
                   {item.photographer_name}
-                  <RiVerifiedBadgeFill className="text-muted-foreground h-4 w-4" />
+                  <RiVerifiedBadgeFill className="text-muted-foreground/70 h-4 w-4" />
                 </span>{' '}
                 • {format(new Date(item.created_at), 'dd MMM yyyy')}
               </p>
 
               {item.location && (
-                <p className="text-muted-foreground flex items-center gap-1 text-xs">
+                <p className="text-muted-foreground/50 flex items-center gap-1 text-xs">
                   <LucideMapPin size={14} className="text-primary" />
                   {item.location}
                 </p>
@@ -198,7 +198,7 @@ export default function GalleryPage() {
 
       {/* Glassmorphic Dialog for Image Preview */}
       <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
-        <DialogContent className="border-primary/10 bg-primary/10 dark:border-primary/10 dark:bg-background/10 w-full max-w-3xl rounded-2xl border shadow-2xl backdrop-blur-md">
+        <DialogContent className="border-primary/10 bg-primary/10 dark:border-primary/10 dark:bg-background/10 w-full max-w-3xl rounded-2xl border shadow-2xl backdrop-blur-sm">
           {selectedImage && (
             <>
               <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg">
@@ -210,13 +210,13 @@ export default function GalleryPage() {
                   priority
                 />
               </div>
-              <div className="text-muted-foreground mt-4 space-y-2 text-sm">
+              <div className="text-muted-foreground/70 mt-4 space-y-2 text-sm">
                 <h2 className="text-foreground text-2xl font-bold">{selectedImage.title}</h2>
-                <p>
+                <p className="text-muted-foreground/70">
                   Shot by{' '}
                   <span className="text-foreground flex items-center gap-1 font-medium">
                     {selectedImage.photographer_name}{' '}
-                    <RiVerifiedBadgeFill className="text-foreground h-4 w-4" />
+                    <RiVerifiedBadgeFill className="text-muted-foreground h-4 w-4" />
                   </span>{' '}
                   On: {format(new Date(selectedImage.created_at), 'dd MMM yyyy')}
                 </p>
@@ -246,7 +246,7 @@ export default function GalleryPage() {
       {/* Confirmation Dialog for Delete */}
       {confirmDelete && targetToDelete && (
         <div className="bg-background/10 fixed inset-0 z-50 flex items-center justify-center">
-          <div className="border-primary/10 bg-primary/10 dark:border-primary/10 dark:bg-background/10 w-96 rounded-2xl border p-6 text-center shadow-lg backdrop-blur-md md:w-2xl">
+          <div className="border-primary/10 bg-primary/10 dark:border-primary/10 dark:bg-background/10 w-96 rounded-2xl border p-6 text-center shadow-lg backdrop-blur-sm md:w-2xl">
             <div className="flex flex-col items-center">
               <AlertTriangle className="text-destructive mb-4 h-8 w-8" />
               <h3 className="text-foreground mb-2 text-lg font-semibold">Confirm Delete</h3>
