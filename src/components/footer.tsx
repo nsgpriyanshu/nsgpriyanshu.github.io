@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, useReducedMotion } from 'framer-motion'
-import { IoDocumentText } from 'react-icons/io5'
+//import { IoDocumentText } from 'react-icons/io5'
 import { socialLinks } from '@/constants/social-link'
 import AnimationContainer from './global/animation-container'
 
@@ -16,14 +16,14 @@ export default function Footer() {
     >
       <div className="flex flex-row items-center justify-between gap-4">
         {/* Left side */}
-        <div className="text-muted-foreground flex flex-col items-start gap-1 text-sm">
-          <div className="flex items-center gap-1">
+        <div className="text-muted-foreground flex flex-col items-start gap-2 text-sm">
+          <div className="flex items-center gap-2">
             <span>© {new Date().getFullYear()}</span>
             <span className="text-muted-foreground/70">Developed by nsgpriyanshu</span>
           </div>
         </div>
 
-        {/* Center — Document Icon + Resume Link */}
+        {/* Center — Document Icon + Resume Link
         <motion.a
           href="/resume.pdf"
           download
@@ -33,12 +33,12 @@ export default function Footer() {
         >
           <IoDocumentText className="text-lg md:text-xl" />
           <span className="text-xs md:text-sm">Resume</span>
-        </motion.a>
+        </motion.a> */}
 
         {/* Right side */}
-        <div className="text-muted-foreground flex flex-col items-end gap-1 text-sm">
+        <div className="text-muted-foreground flex flex-col items-end gap-2 text-sm">
           <p className="text-muted-foreground/70">Social Handles:</p>
-          <div className="flex gap-1">
+          <div className="flex gap-4">
             {socialLinks.map(link => (
               <motion.a
                 key={link.href}
