@@ -16,8 +16,8 @@ export default function Footer() {
     >
       <div className="flex flex-row items-center justify-between gap-4">
         {/* Left side */}
-        <div className="text-muted-foreground flex flex-col items-start gap-2 text-sm">
-          <div className="flex items-center gap-2">
+        <div className="text-muted-foreground flex flex-col items-start gap-1 text-sm">
+          <div className="flex items-center gap-1">
             <span>© {new Date().getFullYear()}</span>
             <span className="text-muted-foreground/70">Developed by nsgpriyanshu</span>
           </div>
@@ -36,9 +36,9 @@ export default function Footer() {
         </motion.a>
 
         {/* Right side */}
-        <div className="text-muted-foreground flex flex-col items-end gap-2 text-sm">
+        <div className="text-muted-foreground flex flex-col items-end gap-1 text-sm">
           <p className="text-muted-foreground/70">Social Handles:</p>
-          <div className="flex gap-4">
+          <div className="flex gap-1">
             {socialLinks.map(link => (
               <motion.a
                 key={link.href}
