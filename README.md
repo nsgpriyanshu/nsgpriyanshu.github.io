@@ -2,7 +2,7 @@
 
 ## Introduction
 
-<img src="https://raw.githubusercontent.com/nsgpriyanshu/nsgpriyanshu.github.io/refs/heads/main/public/assets/og_main.png" alt="OG_Image" width="600" height="300"/>
+<img src="https://raw.githubusercontent.com/nsgpriyanshu/nsgpriyanshu.github.io/main/public/assets/og-main.png" alt="OG_Image" />
 
 Welcome to my portfolio monorepo! This collection showcases multiple iterations of my portfolio, each meticulously crafted with distinct technologies, frameworks, and design themes. Each version not only highlights my evolving skills but also reflects my commitment to innovation and creativity. By drawing inspiration from a variety of sources and incorporating diverse concepts, I aim to demonstrate how embracing variety can lead to unique solutions and meaningful impacts in the tech landscape.
 
