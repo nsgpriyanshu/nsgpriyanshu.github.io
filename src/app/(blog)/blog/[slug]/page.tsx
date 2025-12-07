@@ -7,6 +7,7 @@ import AnimationContainer from '@/components/global/animation-container'
 import { createClient } from '@/lib/supabase/client'
 import { Badge } from '@/components/ui/badge'
 import { format } from 'date-fns'
+import { readingTimeFromHtml } from '@/lib/reading-time'
 import parse from 'html-react-parser'
 import { RiVerifiedBadgeFill } from 'react-icons/ri'
 
@@ -103,8 +104,13 @@ export default function BlogDetailPage() {
           </div>
         )}
 
+        {/* Meta */}
+        <div className="text-muted-foreground mb-2 text-sm">
+          {format(new Date(blog.created_at), 'dd MMM yyyy')} · {readingTimeFromHtml(blog.content)}
+        </div>
+
         {/* Separator */}
-        <hr className="border-primary/10 my-6 border-t" />
+        <hr className="border-primary/10 my-4 border-t" />
 
         {/* Content */}
         <div className="prose prose-sm dark:prose-invert mb-6 max-w-none">

@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import AnimationContainer from '@/components/global/animation-container'
 import { format } from 'date-fns'
+import { readingTimeFromHtml } from '@/lib/reading-time'
 import { createClient } from '@/lib/supabase/client'
 import { Trash2, AlertTriangle, X, Check } from 'lucide-react'
 import { RiVerifiedBadgeFill } from 'react-icons/ri'
@@ -132,7 +133,7 @@ export default function LandingPage() {
                 className="hover:bg-primary/10 cursor-pointer rounded-lg p-2 transition-colors"
               >
                 <div className="text-muted-foreground/50 mb-2 text-xs">
-                  {format(new Date(blog.created_at), 'dd MMM yyyy')}
+                  {format(new Date(blog.created_at), 'dd MMM yyyy')} · {readingTimeFromHtml(blog.content)}
                 </div>
                 <h2 className="text-foreground mb-1 text-xl font-semibold">{blog.title}</h2>
                 <div className="text-muted-foreground/70 mb-2 flex items-center gap-1 text-xs">
