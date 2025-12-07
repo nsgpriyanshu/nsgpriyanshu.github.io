@@ -62,49 +62,51 @@ function GalleryCard({
       initial={{ opacity: 0, y: 30, scale: 0.95 }}
       animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 30, scale: 0.95 }}
       transition={{ duration: 0.6, delay: (index % 3) * 0.08 }}
-      className="group relative h-60 w-full overflow-hidden rounded-lg"
+      onClick={() => onSelect(item)}
+      className="group relative h-56 w-full cursor-pointer overflow-hidden rounded-lg sm:h-64 md:h-72"
+      role="button"
+      tabIndex={0}
+      onKeyDown={e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          onSelect(item)
+        }
+      }}
     >
       <Image
         src={normalizeImageUrl(item.image_path)}
         alt={item.title}
         fill
-        className="object-cover transition-transform duration-500 group-hover:scale-105"
+        className="object-cover transition-transform duration-500 group-hover:scale-110 group-active:scale-95 sm:group-hover:scale-105"
       />
 
-      {/* Overlay on hover */}
+      {/* Overlay - visible on mobile, on hover on desktop */}
       <motion.div
-        className="from-background/90 to-background/20 absolute inset-0 flex flex-col justify-end bg-gradient-to-t p-4 opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100 dark:from-black/70 dark:to-black/20"
+        className="from-background/90 to-background/20 absolute inset-0 flex flex-col justify-end bg-gradient-to-t p-3 opacity-100 backdrop-blur-sm transition-opacity duration-300 sm:opacity-0 sm:group-hover:opacity-100 dark:from-black/70 dark:to-black/20"
         initial={{ opacity: 0 }}
         whileHover={{ opacity: 1 }}
       >
-        <h3 className="text-foreground mb-1 text-sm font-semibold">{item.title}</h3>
+        <h3 className="text-foreground mb-1 line-clamp-2 text-sm font-semibold">{item.title}</h3>
         {item.location && (
           <div className="text-muted-foreground mb-2 flex items-center gap-1 text-xs">
-            <LucideMapPin className="h-3 w-3" />
-            {item.location}
+            <LucideMapPin className="h-3 w-3 flex-shrink-0" />
+            <span className="line-clamp-1">{item.location}</span>
           </div>
         )}
         <div className="flex items-center justify-between">
           <span className="text-muted-foreground/70 text-xs">
             {format(new Date(item.created_at), 'dd MMM yyyy')}
           </span>
-          <button
-            onClick={e => {
-              e.stopPropagation()
-              onSelect(item)
-            }}
-            className="text-foreground hover:text-primary border-border hover:border-primary rounded border px-2 py-1 text-xs transition-colors"
-          >
-            View
-          </button>
         </div>
       </motion.div>
 
       {/* Delete button for authenticated users */}
       {isAuth && (
         <button
-          onClick={() => onDelete(item)}
-          className="bg-destructive/20 hover:bg-destructive/40 absolute top-2 right-2 rounded-full p-2 opacity-0 transition-colors group-hover:opacity-100"
+          onClick={e => {
+            e.stopPropagation()
+            onDelete(item)
+          }}
+          className="bg-destructive/20 hover:bg-destructive/40 absolute top-2 right-2 rounded-full p-2 opacity-0 transition-colors group-hover:opacity-100 sm:opacity-0"
         >
           <Trash2 className="text-destructive h-4 w-4" />
         </button>
@@ -242,7 +244,7 @@ export default function LandingPage() {
       {/* Image Detail Modal */}
       {selectedImage && (
         <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
-          <DialogContent className="max-w-2xl">
+          <DialogContent className="border-primary/10 bg-primary/10 dark:border-primary/10 dark:bg-background/10 max-w-2xl backdrop-blur-sm">
             <div className="space-y-4">
               <div className="relative h-96 w-full overflow-hidden rounded-lg backdrop-blur-md">
                 <Image
