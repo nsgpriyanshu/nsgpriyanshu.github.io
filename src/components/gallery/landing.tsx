@@ -12,6 +12,8 @@ import { format } from 'date-fns'
 import { useRouter } from 'next/navigation'
 import { LucideMapPin, Trash2, AlertTriangle, X, Check } from 'lucide-react'
 import { RiVerifiedBadgeFill } from 'react-icons/ri'
+import { motion } from 'framer-motion'
+import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 interface GalleryItem {
   id: string
@@ -23,7 +25,95 @@ interface GalleryItem {
   created_at: string
 }
 
-export default function GalleryPage() {
+function GalleryCard({
+  item,
+  index,
+  isAuth,
+  onSelect,
+  onDelete,
+}: {
+  item: GalleryItem
+  index: number
+  isAuth: boolean
+  onSelect: (item: GalleryItem) => void
+  onDelete: (item: GalleryItem) => void
+}) {
+  const { ref, isInView } = useScrollAnimation({ threshold: 0.2, triggerOnce: true })
+
+  const normalizeImageUrl = (path: string) => {
+    if (!path) return ''
+    if (path.startsWith('http') || path.startsWith('data:')) return path
+
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
+    if (!supabaseUrl) return path
+
+    // If path is just a filename, construct full Supabase storage URL
+    if (!path.includes('/')) {
+      return `${supabaseUrl}/storage/v1/object/public/gallery/${path}`
+    }
+
+    // Otherwise, assume it's already a relative path
+    return `${supabaseUrl}/${path}`
+  }
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 30, scale: 0.95 }}
+      animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 30, scale: 0.95 }}
+      transition={{ duration: 0.6, delay: (index % 3) * 0.08 }}
+      className="group relative h-60 w-full overflow-hidden rounded-lg"
+    >
+      <Image
+        src={normalizeImageUrl(item.image_path)}
+        alt={item.title}
+        fill
+        className="object-cover transition-transform duration-500 group-hover:scale-105"
+      />
+
+      {/* Overlay on hover */}
+      <motion.div
+        className="from-background/90 to-background/20 absolute inset-0 flex flex-col justify-end bg-gradient-to-t p-4 opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100 dark:from-black/70 dark:to-black/20"
+        initial={{ opacity: 0 }}
+        whileHover={{ opacity: 1 }}
+      >
+        <h3 className="text-foreground mb-1 text-sm font-semibold">{item.title}</h3>
+        {item.location && (
+          <div className="text-muted-foreground mb-2 flex items-center gap-1 text-xs">
+            <LucideMapPin className="h-3 w-3" />
+            {item.location}
+          </div>
+        )}
+        <div className="flex items-center justify-between">
+          <span className="text-muted-foreground/70 text-xs">
+            {format(new Date(item.created_at), 'dd MMM yyyy')}
+          </span>
+          <button
+            onClick={e => {
+              e.stopPropagation()
+              onSelect(item)
+            }}
+            className="text-foreground hover:text-primary border-border hover:border-primary rounded border px-2 py-1 text-xs transition-colors"
+          >
+            View
+          </button>
+        </div>
+      </motion.div>
+
+      {/* Delete button for authenticated users */}
+      {isAuth && (
+        <button
+          onClick={() => onDelete(item)}
+          className="bg-destructive/20 hover:bg-destructive/40 absolute top-2 right-2 rounded-full p-2 opacity-0 transition-colors group-hover:opacity-100"
+        >
+          <Trash2 className="text-destructive h-4 w-4" />
+        </button>
+      )}
+    </motion.div>
+  )
+}
+
+export default function LandingPage() {
   const supabase = createClient()
   const router = useRouter()
 
@@ -57,6 +147,20 @@ export default function GalleryPage() {
     checkAuth()
   }, [supabase])
 
+  const handleDelete = async () => {
+    if (!targetToDelete) return
+
+    const { error } = await supabase.from('gallery').delete().eq('id', targetToDelete.id)
+
+    if (!error) {
+      setGallery(prev => prev.filter(item => item.id !== targetToDelete.id))
+      setConfirmDelete(false)
+      setTargetToDelete(null)
+    } else {
+      console.error('Delete failed:', error.message)
+    }
+  }
+
   const filteredGallery = gallery.filter(item => {
     const matchesSearch = item.title.toLowerCase().includes(searchTerm.toLowerCase())
     const matchesTag = selectedTag ? item.tags.includes(selectedTag) : true
@@ -65,53 +169,38 @@ export default function GalleryPage() {
 
   const allTags = Array.from(new Set(gallery.flatMap(item => item.tags)))
 
-  const getImageUrl = (path: string) => {
-    const { data } = supabase.storage.from('gallery').getPublicUrl(path)
-    return data.publicUrl
-  }
-
-  const handleDelete = async () => {
-    if (!targetToDelete) return
-    const { error } = await supabase.from('gallery').delete().eq('id', targetToDelete.id)
-
-    if (error) {
-      console.error('Failed to delete:', error)
-    } else {
-      setGallery(prev => prev.filter(item => item.id !== targetToDelete.id))
-    }
-
-    setConfirmDelete(false)
-    setTargetToDelete(null)
-  }
-
   return (
-    <div className="mx-auto w-full max-w-5xl px-4 py-10 sm:px-6">
+    <div>
       <AnimationContainer animation="fadeUp" delay={0.1}>
-        <div className="mb-4 flex flex-row items-center justify-between gap-4">
+        <div className="mb-6 flex flex-row items-center justify-between gap-4">
           <div className="flex flex-col items-start">
             <h1 className="text-foreground text-4xl font-bold">Gallery</h1>
-            <p className="text-muted-foreground text-sm">
-              A showcase of my best photographic shots.
-            </p>
+            <p className="text-muted-foreground/70 text-sm">Visual moments, memories & designs</p>
           </div>
+
           {isAuthenticated && (
-            <Button onClick={() => router.push('/gallery/upload')}>Upload Photo</Button>
+            <Button
+              className="bg-primary text-primary-foreground hover:bg-primary/90"
+              onClick={() => router.push('/gallery/upload')}
+            >
+              Upload
+            </Button>
           )}
         </div>
 
         <div className="mb-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-between">
           <Input
             type="text"
-            placeholder="Search photos by title..."
+            placeholder="Search gallery..."
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
-            className="max-w-md"
+            className="bg-input border-border text-foreground placeholder:text-muted-foreground max-w-md border"
           />
           <div className="mt-2 flex flex-wrap gap-2 sm:mt-0">
             <Badge
               variant={selectedTag === '' ? 'default' : 'outline'}
               onClick={() => setSelectedTag('')}
-              className="hover:bg-primary hover:text-primary-foreground cursor-pointer transition"
+              className="cursor-pointer"
             >
               All
             </Badge>
@@ -120,7 +209,7 @@ export default function GalleryPage() {
                 key={tag}
                 variant={selectedTag === tag ? 'default' : 'outline'}
                 onClick={() => setSelectedTag(tag)}
-                className="hover:bg-primary hover:text-primary-foreground cursor-pointer transition"
+                className="cursor-pointer"
               >
                 {tag}
               </Badge>
@@ -129,129 +218,87 @@ export default function GalleryPage() {
         </div>
       </AnimationContainer>
 
-      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {filteredGallery.map(item => (
-          <AnimationContainer key={item.id} animation="fadeUp" delay={0.15}>
-            <div className="group bg-primary/5 hover:bg-primary/10 rounded-xl p-3 shadow transition-all duration-200">
-              <div
-                className="relative mb-3 aspect-[4/3] w-full cursor-pointer overflow-hidden rounded-lg"
-                onClick={() => setSelectedImage(item)}
-              >
-                <Image
-                  src={getImageUrl(item.image_path)}
-                  alt={item.title}
-                  fill
-                  className="rounded-lg object-cover transition-transform duration-200 group-hover:scale-105"
-                />
-              </div>
-              <h2 className="text-foreground text-lg font-semibold">{item.title}</h2>
-              <p className="text-muted-foreground/70 flex items-center gap-1 text-sm">
-                By{' '}
-                <span className="text-muted-foreground flex items-center gap-1 font-medium">
-                  {item.photographer_name}
-                  <RiVerifiedBadgeFill className="text-muted-foreground/70 h-4 w-4" />
-                </span>{' '}
-                • {format(new Date(item.created_at), 'dd MMM yyyy')}
-              </p>
-
-              {item.location && (
-                <p className="text-muted-foreground/50 flex items-center gap-1 text-xs">
-                  <LucideMapPin size={14} className="text-primary" />
-                  {item.location}
-                </p>
-              )}
-              <div className="mt-2 flex flex-wrap gap-2">
-                {item.tags.map(tag => (
-                  <Badge
-                    key={tag}
-                    variant="secondary"
-                    className="bg-muted text-muted-foreground text-xs"
-                  >
-                    {tag}
-                  </Badge>
-                ))}
-              </div>
-
-              {isAuthenticated && (
-                <div className="mt-3 flex justify-end">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="text-destructive hover:bg-destructive/10"
-                    onClick={() => {
-                      setTargetToDelete(item)
-                      setConfirmDelete(true)
-                    }}
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </div>
-              )}
-            </div>
-          </AnimationContainer>
+      {/* Gallery Grid */}
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {filteredGallery.map((item, index) => (
+          <GalleryCard
+            key={item.id}
+            item={item}
+            index={index}
+            isAuth={isAuthenticated}
+            onSelect={setSelectedImage}
+            onDelete={item => {
+              setTargetToDelete(item)
+              setConfirmDelete(true)
+            }}
+          />
         ))}
-
-        {filteredGallery.length === 0 && (
-          <p className="text-muted-foreground col-span-full text-center">No images found.</p>
-        )}
       </div>
 
-      {/* Glassmorphic Dialog for Image Preview */}
-      <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
-        <DialogContent className="border-primary/10 bg-primary/10 dark:border-primary/10 dark:bg-background/10 w-full max-w-3xl rounded-2xl border shadow-2xl backdrop-blur-sm">
-          {selectedImage && (
-            <>
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg">
+      {filteredGallery.length === 0 && (
+        <p className="text-muted-foreground py-12 text-center">No images found.</p>
+      )}
+
+      {/* Image Detail Modal */}
+      {selectedImage && (
+        <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
+          <DialogContent className="max-w-2xl">
+            <div className="space-y-4">
+              <div className="relative h-96 w-full overflow-hidden rounded-lg backdrop-blur-md">
                 <Image
-                  src={getImageUrl(selectedImage.image_path)}
+                  src={
+                    selectedImage.image_path
+                      ? selectedImage.image_path.startsWith('http') ||
+                        selectedImage.image_path.startsWith('data:')
+                        ? selectedImage.image_path
+                        : selectedImage.image_path.includes('/')
+                          ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/${selectedImage.image_path}`
+                          : `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/gallery/${selectedImage.image_path}`
+                      : ''
+                  }
                   alt={selectedImage.title}
                   fill
-                  className="rounded-lg border object-cover"
-                  priority
+                  className="rounded-lg object-cover"
                 />
               </div>
-              <div className="text-muted-foreground/70 mt-4 space-y-2 text-sm">
-                <h2 className="text-foreground text-2xl font-bold">{selectedImage.title}</h2>
-                <p className="text-muted-foreground/70">
-                  Shot by{' '}
-                  <span className="text-foreground flex items-center gap-1 font-medium">
-                    {selectedImage.photographer_name}{' '}
-                    <RiVerifiedBadgeFill className="text-muted-foreground h-4 w-4" />
-                  </span>{' '}
-                  On: {format(new Date(selectedImage.created_at), 'dd MMM yyyy')}
-                </p>
+              <div>
+                <h2 className="text-foreground mb-2 text-2xl font-bold">{selectedImage.title}</h2>
                 {selectedImage.location && (
-                  <p className="flex items-center gap-1">
-                    <LucideMapPin size={16} className="text-primary" />
+                  <div className="text-muted-foreground mb-3 flex items-center gap-1">
+                    <LucideMapPin className="h-4 w-4" />
                     {selectedImage.location}
-                  </p>
+                  </div>
                 )}
-                <div className="flex flex-wrap gap-2">
+                <div className="mb-3 flex flex-wrap gap-2">
                   {selectedImage.tags.map(tag => (
-                    <Badge
-                      key={tag}
-                      variant="secondary"
-                      className="bg-muted text-muted-foreground text-xs"
-                    >
+                    <Badge key={tag} variant="secondary">
                       {tag}
                     </Badge>
                   ))}
                 </div>
+                <div className="text-muted-foreground flex items-center gap-2 text-sm">
+                  <span>{format(new Date(selectedImage.created_at), 'PPP')}</span>
+                  <span>•</span>
+                  <span className="flex items-center gap-1">
+                    By {selectedImage.photographer_name}
+                    <RiVerifiedBadgeFill className="h-3 w-3" />
+                  </span>
+                </div>
               </div>
-            </>
-          )}
-        </DialogContent>
-      </Dialog>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
 
-      {/* Confirmation Dialog for Delete */}
-      {confirmDelete && targetToDelete && (
+      {/* Confirmation Modal */}
+      {confirmDelete && (
         <div className="bg-background/10 fixed inset-0 z-50 flex items-center justify-center">
           <div className="border-primary/10 bg-primary/10 dark:border-primary/10 dark:bg-background/10 w-96 rounded-2xl border p-6 text-center shadow-lg backdrop-blur-sm md:w-2xl">
             <div className="flex flex-col items-center">
               <AlertTriangle className="text-destructive mb-4 h-8 w-8" />
               <h3 className="text-foreground mb-2 text-lg font-semibold">Confirm Delete</h3>
-              <p className="text-muted-foreground mb-6">
-                Are you sure you want to delete this photo?
+              <p className="text-muted-foreground/70 mb-6">
+                Are you sure you want to delete this image?
               </p>
               <div className="flex justify-center gap-4">
                 <Button

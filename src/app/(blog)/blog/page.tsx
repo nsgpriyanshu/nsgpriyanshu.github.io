@@ -1,6 +1,6 @@
 import LandingPage from '@/components/blog/landing'
 
-const BlogPage = () => {
+const Page = () => {
   return (
     <div className="relative flex w-full flex-col">
       <section className="w-full">
@@ -10,4 +10,4 @@ const BlogPage = () => {
   )
 }
 
-export default BlogPage
+export default Page

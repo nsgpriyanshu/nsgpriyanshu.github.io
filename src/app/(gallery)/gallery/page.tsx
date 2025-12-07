@@ -1,6 +1,6 @@
 import LandingPage from '@/components/gallery/landing'
 
-const GalleryPage = () => {
+const Page = () => {
   return (
     <div className="relative flex w-full flex-col">
       <section className="w-full">
@@ -10,4 +10,4 @@ const GalleryPage = () => {
   )
 }
 
-export default GalleryPage
+export default Page

@@ -20,7 +20,7 @@ interface Blog {
   tags: string[]
 }
 
-export default function BlogDetailPage() {
+export default function Page() {
   const params = useParams()
   const router = useRouter()
   const slug = params?.slug as string

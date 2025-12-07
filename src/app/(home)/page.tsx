@@ -1,6 +1,6 @@
 import Hero from '@/components/home/hero'
 
-const HomePage = () => {
+const Page = () => {
   return (
     <div className="flex max-h-screen flex-col">
       <section>
@@ -10,4 +10,4 @@ const HomePage = () => {
   )
 }
 
-export default HomePage
+export default Page

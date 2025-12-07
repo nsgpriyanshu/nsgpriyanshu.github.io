@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 }
 
-const BlogUploadPage = () => {
+const Page = () => {
   return (
     <div className="relative flex w-full flex-col">
       <section className="w-full">
@@ -50,4 +50,4 @@ const BlogUploadPage = () => {
   )
 }
 
-export default BlogUploadPage
+export default Page

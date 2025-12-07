@@ -9,8 +9,10 @@ import AnimationContainer from '@/components/global/animation-container'
 import { format } from 'date-fns'
 import { readingTimeFromHtml } from '@/lib/reading-time'
 import { createClient } from '@/lib/supabase/client'
-import { Trash2, AlertTriangle, X, Check } from 'lucide-react'
+import { Trash2, AlertTriangle, X, Check, Clock } from 'lucide-react'
 import { RiVerifiedBadgeFill } from 'react-icons/ri'
+import { motion } from 'framer-motion'
+import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 interface Blog {
   id: number
@@ -20,6 +22,71 @@ interface Blog {
   created_at: string
   tags: string[]
   author_name: string
+}
+
+function BlogCard({
+  blog,
+  index,
+  isAuth,
+  onDelete,
+}: {
+  blog: Blog
+  index: number
+  isAuth: boolean
+  onDelete: () => void
+}) {
+  const router = useRouter()
+  const { ref, isInView } = useScrollAnimation({ threshold: 0.15, triggerOnce: true })
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 20 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      transition={{ duration: 0.5, delay: index * 0.05 }}
+    >
+      <div
+        onClick={() => router.push(`/blog/${blog.slug}`)}
+        className="hover:bg-primary/10 cursor-pointer rounded-lg p-2 transition-all duration-300 hover:translate-x-1"
+      >
+        <div className="text-muted-foreground/50 mb-2 text-xs">
+          {format(new Date(blog.created_at), 'dd MMM yyyy')} ·{' '}
+          <span className="inline-flex items-center gap-1">
+            <Clock className="text-muted-foreground/80 h-3 w-3" />
+            {readingTimeFromHtml(blog.content)}
+          </span>
+        </div>
+        <h2 className="text-foreground mb-1 text-xl font-semibold">{blog.title}</h2>
+        <div className="text-muted-foreground/70 mb-2 flex items-center gap-1 text-xs">
+          By {blog.author_name}
+          <RiVerifiedBadgeFill className="text-muted-foreground/70 h-3 w-3" />
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {blog.tags.map(tag => (
+            <Badge key={tag} variant="secondary" className="bg-muted text-muted-foreground text-xs">
+              {tag}
+            </Badge>
+          ))}
+        </div>
+      </div>
+
+      {isAuth && (
+        <div className="mt-2 flex justify-end">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="text-destructive hover:bg-destructive/10"
+            onClick={e => {
+              e.stopPropagation()
+              onDelete()
+            }}
+          >
+            <Trash2 className="h-4 w-4" />
+          </Button>
+        </div>
+      )}
+    </motion.div>
+  )
 }
 
 export default function LandingPage() {
@@ -51,7 +118,7 @@ export default function LandingPage() {
 
     fetchBlogs()
     checkAuth()
-  }, [])
+  }, [supabase])
 
   const handleDelete = async () => {
     if (selectedBlogId === null) return
@@ -76,12 +143,12 @@ export default function LandingPage() {
   const allTags = Array.from(new Set(blogs.flatMap(blog => blog.tags)))
 
   return (
-    <div className="bg-background text-foreground mx-auto w-full max-w-5xl px-4 py-10 sm:px-6">
+    <div>
       <AnimationContainer animation="fadeUp" delay={0.1}>
-        <div className="mb-4 flex flex-row items-center justify-between gap-4">
+        <div className="mb-6 flex flex-row items-center justify-between gap-4">
           <div className="flex flex-col items-start">
             <h1 className="text-foreground text-4xl font-bold sm:text-left">Blogs</h1>
-            <p className="text-muted-foreground/70 mb-2 text-sm">Read the insights, shared by me</p>
+            <p className="text-muted-foreground/70 text-sm">Read the insights, shared by me</p>
           </div>
 
           {isAuthenticated && (
@@ -124,58 +191,24 @@ export default function LandingPage() {
         </div>
       </AnimationContainer>
 
-      <div className="grid gap-6">
+      <div className="space-y-6">
         {filteredBlogs.map((blog, index) => (
           <div key={blog.id}>
-            <AnimationContainer animation="fadeUp" delay={0.2}>
-              <div
-                onClick={() => router.push(`/blog/${blog.slug}`)}
-                className="hover:bg-primary/10 cursor-pointer rounded-lg p-2 transition-colors"
-              >
-                <div className="text-muted-foreground/50 mb-2 text-xs">
-                  {format(new Date(blog.created_at), 'dd MMM yyyy')} · {readingTimeFromHtml(blog.content)}
-                </div>
-                <h2 className="text-foreground mb-1 text-xl font-semibold">{blog.title}</h2>
-                <div className="text-muted-foreground/70 mb-2 flex items-center gap-1 text-xs">
-                  By {blog.author_name}
-                  <RiVerifiedBadgeFill className="text-muted-foreground/70 flex items-center gap-1 text-xs" />
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {blog.tags.map(tag => (
-                    <Badge
-                      key={tag}
-                      variant="secondary"
-                      className="bg-muted text-muted-foreground text-xs"
-                    >
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-
-              {/* Delete icon for authenticated users */}
-              {isAuthenticated && (
-                <div className="mt-2 flex justify-end">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="text-destructive hover:bg-destructive/10"
-                    onClick={() => {
-                      setSelectedBlogId(blog.id)
-                      setShowDeleteConfirm(true)
-                    }}
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </div>
-              )}
-            </AnimationContainer>
-            {index < filteredBlogs.length - 1 && <hr className="border-primary/10 my-6 border-t" />}
+            <BlogCard
+              blog={blog}
+              index={index}
+              isAuth={isAuthenticated}
+              onDelete={() => {
+                setSelectedBlogId(blog.id)
+                setShowDeleteConfirm(true)
+              }}
+            />
+            {index < filteredBlogs.length - 1 && <hr className="border-primary/10 my-6" />}
           </div>
         ))}
 
         {filteredBlogs.length === 0 && (
-          <p className="text-muted-foreground text-center">No blogs found.</p>
+          <p className="text-muted-foreground py-8 text-center">No blogs found.</p>
         )}
       </div>
 

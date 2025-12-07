@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 }
 
-const SignUpPage = () => {
+const Page = () => {
   return (
     <div className="relative flex w-full flex-col">
       <section className="w-full">
@@ -43,4 +43,4 @@ const SignUpPage = () => {
   )
 }
 
-export default SignUpPage
+export default Page
