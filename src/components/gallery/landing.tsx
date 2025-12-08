@@ -14,6 +14,7 @@ import { LucideMapPin, Trash2, AlertTriangle, X, Check } from 'lucide-react'
 import { RiVerifiedBadgeFill } from 'react-icons/ri'
 import { motion } from 'framer-motion'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
+import { Separator } from '@/components/ui/separator'
 
 interface GalleryItem {
   id: string
@@ -244,7 +245,7 @@ export default function LandingPage() {
       {/* Image Detail Modal */}
       {selectedImage && (
         <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
-          <DialogContent className="border-primary/10 bg-primary/10 dark:border-primary/10 dark:bg-background/10 max-w-2xl backdrop-blur-sm">
+          <DialogContent className="border-primary/10 bg-primary/10 dark:border-primary/10 dark:bg-background/10 w-[95%] backdrop-blur-sm md:w-2xl">
             <div className="space-y-4">
               <div className="relative h-96 w-full overflow-hidden rounded-lg backdrop-blur-md">
                 <Image
@@ -280,9 +281,10 @@ export default function LandingPage() {
                 </div>
                 <div className="text-muted-foreground flex items-center gap-2 text-sm">
                   <span>{format(new Date(selectedImage.created_at), 'PPP')}</span>
-                  <span>•</span>
+                  <Separator orientation="vertical" />
+                  <span>Shot by</span>
                   <span className="flex items-center gap-1">
-                    By {selectedImage.photographer_name}
+                    {selectedImage.photographer_name}
                     <RiVerifiedBadgeFill className="h-3 w-3" />
                   </span>
                 </div>
