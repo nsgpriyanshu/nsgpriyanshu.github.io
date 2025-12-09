@@ -128,7 +128,7 @@ export default function About({ onClose }: AboutProps) {
           <div className="text-muted-foreground/70 mt-4 space-y-3 text-sm">
             {featuredProjects.map(project => (
               <div
-                key={project.githubUrl}
+                key={project.name}
                 className={`block rounded-lg border px-4 py-3 transition-all ${
                   project.private
                     ? 'border-primary/10 hover:border-primary/20 bg-primary/5 hover:bg-primary/10 dark:hover:bg-background/20'

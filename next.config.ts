@@ -4,9 +4,6 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
   : ''
 
 const nextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   images: {
     remotePatterns: supabaseUrl
       ? [

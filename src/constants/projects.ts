@@ -23,11 +23,6 @@ export const featuredProjects = [
     description: 'A modern note-management platform for students.',
   },
   {
-    name: 'MathOEase - Closed Source',
-    githubUrl: 'https://github.com/nsgpriyanshu',
-    description: 'A personal resource management app for teachers, with academic functionalities.',
-  },
-  {
     name: 'nsDocs - Open Source',
     githubUrl: 'https://github.com/nsgpriyanshu/nsdocs',
     description: 'A production level discord app guide, with a focus on TypeScript and Discord.js.',
