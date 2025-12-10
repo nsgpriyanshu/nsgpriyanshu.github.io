@@ -37,16 +37,22 @@ export default function About({ onClose }: AboutProps) {
           </DialogHeader>
           <div className="text-muted-foreground/70 mt-4 text-sm">
             <p>
+              {' '}
               Hey there! I’m <span className="text-primary font-medium">ŊʂƓ PRIYANSHU</span>, a
               B.Tech CSE student and the CEO of{' '}
               <span className="text-primary font-semibold">Creator's World</span> — a creative space
-              for creative people. I love writing clean code, building beautiful websites, and
-              pushing the boundaries of front-end development using{' '}
+              for creative people. I enjoy building clean, functional, and beautiful websites, and
+              yes, I usually do it through{' '}
+              <span className="text-primary font-semibold">
+                (vive coding or smart copy–pasting)
+              </span>{' '}
+              with the help of AI. I’m being honest because that’s how I actually work — combining
+              logic, creativity, and AI-assisted development to make great things. I work with{' '}
               <span className="text-primary font-semibold">Next.js</span>,{' '}
               <span className="text-primary font-semibold">Tailwind CSS</span>, and{' '}
-              <span className="text-primary font-semibold">TypeScript</span>. I’ve worked on Discord
-              bots, developer tools, and open-source projects — all while blending creativity with
-              precision. Let’s connect, collaborate, and create something meaningful together!
+              <span className="text-primary font-semibold">TypeScript</span>, and I’ve built Discord
+              bots, developer tools, and open-source projects. Let’s connect, collaborate, and
+              create something meaningful together!{' '}
             </p>
           </div>
 
