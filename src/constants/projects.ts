@@ -1,8 +1,20 @@
 export const featuredProjects = [
   {
-    name: 'nsTypocolors - Open Source',
+    name: 'nsTypoColors - Open Source',
     githubUrl: 'https://github.com/nsgpriyanshu/nstypocolors',
-    description: 'A TypeScript color package specially for TypeScript developers.',
+    description: 'Minimal color and gradient logging utilities for modern TypeScript projects.',
+    private: 'false',
+  },
+    {
+    name: 'nsCore - Open Source',
+    githubUrl: 'https://github.com/nsgpriyanshu/nscore',
+    description: 'A production-ready Discord app/bot core built with TypeScript and Discord.js.',
+    private: 'false',
+  },
+    {
+    name: 'nsDocs - Open Source',
+    githubUrl: 'https://github.com/nsgpriyanshu/nsdocs',
+    description: 'A centralized documentation platform for open-source projects built and maintained by nsg piyanshu.',
     private: 'false',
   },
   {
@@ -12,20 +24,8 @@ export const featuredProjects = [
     private: 'false',
   },
   {
-    name: 'nsCore - Open Source',
-    githubUrl: 'https://github.com/nsgpriyanshu/nscore',
-    description: 'This is an informative open source discord app',
-    private: 'false',
-  },
-  {
     name: 'NoteEase - Closed Source',
     githubUrl: 'https://github.com/nsgpriyanshu',
     description: 'A modern note-management platform for students.',
-  },
-  {
-    name: 'nsDocs - Open Source',
-    githubUrl: 'https://github.com/nsgpriyanshu/nsdocs',
-    description: 'A production level discord app guide, with a focus on TypeScript and Discord.js.',
-    private: 'false',
   },
 ]
