@@ -5,16 +5,17 @@ export const featuredProjects = [
     description: 'Minimal color and gradient logging utilities for modern TypeScript projects.',
     private: 'false',
   },
-    {
+  {
     name: 'nsCore - Open Source',
     githubUrl: 'https://github.com/nsgpriyanshu/nscore',
     description: 'A production-ready Discord app/bot core built with TypeScript and Discord.js.',
     private: 'false',
   },
-    {
+  {
     name: 'nsDocs - Open Source',
     githubUrl: 'https://github.com/nsgpriyanshu/nsdocs',
-    description: 'A centralized documentation platform for open-source projects built and maintained by nsg piyanshu.',
+    description:
+      'A centralized documentation platform for open-source projects built and maintained by nsg piyanshu.',
     private: 'false',
   },
   {

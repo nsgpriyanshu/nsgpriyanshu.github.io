@@ -48,12 +48,10 @@ function GalleryCard({
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
     if (!supabaseUrl) return path
 
-    // If path is just a filename, construct full Supabase storage URL
     if (!path.includes('/')) {
       return `${supabaseUrl}/storage/v1/object/public/gallery/${path}`
     }
 
-    // Otherwise, assume it's already a relative path
     return `${supabaseUrl}/${path}`
   }
 
@@ -80,7 +78,7 @@ function GalleryCard({
         className="object-cover transition-transform duration-500 group-hover:scale-110 group-active:scale-95 sm:group-hover:scale-105"
       />
 
-      {/* Overlay - visible on mobile, on hover on desktop */}
+      {/* Overlay */}
       <motion.div
         className="from-background/90 to-background/20 absolute inset-0 flex flex-col justify-end bg-gradient-to-t p-3 opacity-100 backdrop-blur-sm transition-opacity duration-300 sm:opacity-0 sm:group-hover:opacity-100 dark:from-black/70 dark:to-black/20"
         initial={{ opacity: 0 }}
@@ -100,17 +98,20 @@ function GalleryCard({
         </div>
       </motion.div>
 
-      {/* Delete button for authenticated users */}
       {isAuth && (
-        <button
-          onClick={e => {
-            e.stopPropagation()
-            onDelete(item)
-          }}
-          className="bg-destructive/20 hover:bg-destructive/40 absolute top-2 right-2 rounded-full p-2 opacity-0 transition-colors group-hover:opacity-100 sm:opacity-0"
-        >
-          <Trash2 className="text-destructive h-4 w-4" />
-        </button>
+        <div className="absolute top-2 right-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="text-destructive hover:bg-destructive/10"
+            onClick={e => {
+              e.stopPropagation()
+              onDelete(item)
+            }}
+          >
+            <Trash2 className="h-4 w-4" />
+          </Button>
+        </div>
       )}
     </motion.div>
   )
@@ -294,7 +295,7 @@ export default function LandingPage() {
         </Dialog>
       )}
 
-      {/* Confirmation Modal */}
+      {/* ✅ Confirmation Modal */}
       {confirmDelete && (
         <div className="bg-background/10 fixed inset-0 z-50 flex items-center justify-center">
           <div className="border-primary/10 bg-primary/10 dark:border-primary/10 dark:bg-background/10 w-96 rounded-2xl border p-6 text-center shadow-lg backdrop-blur-sm md:w-2xl">
