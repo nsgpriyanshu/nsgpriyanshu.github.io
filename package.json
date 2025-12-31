@@ -1,5 +1,6 @@
 {
   "name": "nsgpriyanshu",
+  "description": "This is my official portfolio.",
   "version": "3.1.0",
   "private": true,
   "scripts": {
@@ -51,7 +52,6 @@
     "use-sound": "^5.0.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.8.1",
     "@commitlint/config-angular": "^19.8.1",
     "@eslint/eslintrc": "^3",
     "@favware/cliff-jumper": "^3.0.3",
