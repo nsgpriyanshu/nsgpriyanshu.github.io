@@ -18,6 +18,7 @@ import {
   SiReact,
   SiFramer,
   SiNextui,
+  SiPostgresql,
 } from 'react-icons/si'
 import { FaGithub } from 'react-icons/fa'
 import { featuredProjects } from '@/constants/projects'
@@ -106,7 +107,7 @@ export default function About({ onClose }: AboutProps) {
             <div>
               <p className="text-primary mb-2 text-center text-sm font-semibold">Database</p>
               <div className="flex justify-center gap-4">
-                {[SiSupabase, SiMysql].map((Icon, i) => (
+                {[SiSupabase, SiMysql, SiPostgresql].map((Icon, i) => (
                   <motion.div whileHover={{ scale: 1.2 }} key={i}>
                     <Icon className="hover:text-primary transition-colors" />
                   </motion.div>
