@@ -7,7 +7,7 @@ import {
   SiPython,
   SiC,
   SiHtml5,
-  SiCss3,
+  SiCss,
   SiTailwindcss,
   SiNodedotjs,
   SiMysql,
@@ -17,7 +17,7 @@ import {
   SiNextdotjs,
   SiReact,
   SiFramer,
-  SiNextui,
+  SiHeroui,
   SiPostgresql,
 } from 'react-icons/si'
 import { FaGithub } from 'react-icons/fa'
@@ -32,7 +32,7 @@ export default function About({ onClose }: AboutProps) {
   return (
     <Dialog open onOpenChange={onClose}>
       <DialogContent className="border-primary/10 bg-primary/10 dark:border-primary/10 dark:bg-background/10 w-96 rounded-2xl border shadow-lg backdrop-blur-sm md:w-2xl">
-        <div className="scrollbar-hidden relative h-[500px] overflow-y-auto">
+        <div className="scrollbar-hidden relative h-125 overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-foreground text-3xl font-bold">About Me</DialogTitle>
           </DialogHeader>
@@ -65,7 +65,7 @@ export default function About({ onClose }: AboutProps) {
             <div>
               <p className="text-primary mb-2 text-center text-sm font-semibold">Languages</p>
               <div className="flex flex-wrap justify-center gap-4">
-                {[SiTypescript, SiJavascript, SiPython, SiC, SiHtml5, SiCss3].map((Icon, i) => (
+                {[SiTypescript, SiJavascript, SiPython, SiC, SiHtml5, SiCss].map((Icon, i) => (
                   <motion.div whileHover={{ scale: 1.2 }} key={i}>
                     <Icon className="hover:text-primary transition-colors" />
                   </motion.div>
@@ -96,7 +96,7 @@ export default function About({ onClose }: AboutProps) {
             <div>
               <p className="text-primary mb-2 text-center text-sm font-semibold">UI / Motion</p>
               <div className="flex justify-center gap-4">
-                {[SiShadcnui, SiFramer, SiNextui].map((Icon, i) => (
+                {[SiShadcnui, SiFramer, SiHeroui].map((Icon, i) => (
                   <motion.div whileHover={{ scale: 1.2 }} key={i}>
                     <Icon className="hover:text-primary transition-colors" />
                   </motion.div>
