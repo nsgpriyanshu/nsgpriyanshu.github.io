@@ -2,6 +2,47 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.2.0](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/compare/3.1.0...3.2.0) - (2026-03-03)
+
+## Bug Fixes
+
+- Patch update only ([54e46e2](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/54e46e2fcf2ad219006ed0df74ad674561dc3014))
+- Delete button problem in gallery card ([e762b89](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/e762b8965e86728e6f0c020b2f22166c3eec2951))
+- Update the project description ([b8106ff](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/b8106ff3d7a919d39b6d27b8927e9fd0c4d6fb4f))
+- Some minor bugs ([ca1ef04](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/ca1ef04863d43743700dca83ce5aeaab6ebdd525))
+- Minor bugs ([fdcbb06](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/fdcbb06f64fbb7d0b4807a54fab443673035fcd1))
+- Hero shadow bug ([a809bdb](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/a809bdb9046f437f9451843eb256a1321ad2b1fa))
+
+## Features
+
+- Upgrade to nextjs 16 ([289f607](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/289f6072807034802561ae8dfaa6ad5af945a18f))
+- Enhnace the ui/ux, update naming convention ([d17fbc2](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/d17fbc2e043ef72073225bb6d8cc2090680bbdf9))
+- Optimized performance, improve ui/ux ([131ac9c](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/131ac9c17fd1f3e34c3ef5a9d503b6ad41180f10))
+- Improved overall ui/ux, add new animations and micro-interaction ([ef697d9](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/ef697d9d8db25ecd31370b0050ef43838ee422cb))
+- Enhance ux ([69862b2](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/69862b22b5141e2c570f625fe736f528510d6c10))
+
+## Non Code changes
+
+- Add pgsql icon only ([474c1b3](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/474c1b36f347857e68e2ca8e7d7b574fdcf1b3c3))
+- **deps:** Update deps only ([ee522e0](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/ee522e0449d2fc91232ac22bbca9a7fb54a84910))
+- Minor bugs ([5568100](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/5568100dad8f290bd46b414b3369245768da2bf2))
+- Add reading time in blog ([1e9de0b](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/1e9de0b9f89d1b26d409dcb9a82b39a53ffac7b7))
+- Security updates ([bbae2a0](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/bbae2a01b65487b68c236a8f3adbcb473e77218d))
+- Small bug fix ([565bae4](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/565bae459e51a91da3a539bec8fc8b438ef85274))
+- Small bug fix ([1bf181b](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/1bf181b8cb4546f80dbcb307242e30b8197e1e36))
+- Og bugs v2 ([563cd3e](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/563cd3e4b5a5132d8432a12e4c59764a94673ff9))
+- Og bugs ([db0873e](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/db0873e1a9e7ebdac4b99eafe56dd6d7a31598ac))
+
+## Styling
+
+- Small para change ([de4b8a6](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/de4b8a6cb971c0da28c9f77ad8945a00b403efe3))
+- Update some minor components ([3c0816d](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/3c0816d7af57787591eae796afb8eda53becc7a0))
+- Upadate the full colors inconsistancy and orders ([3ac37ad](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/3ac37ade728f73afa08b1492099246e36dcdcd2b))
+
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
 # [3.1.0](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/compare/2.2.1...3.1.0) - (2025-07-12)
 
 ## Bug Fixes
