@@ -1,5 +1,11 @@
 export const featuredProjects = [
   {
+    name: 'PriyoScript - Open Source',
+    githubUrl: 'https://github.com/nsgpriyanshu/PriyoScript',
+    description: 'An emotional interpreted programming language.',
+    private: 'false',
+  },
+  {
     name: 'nsTypoColors - Open Source',
     githubUrl: 'https://github.com/nsgpriyanshu/nstypocolors',
     description: 'Minimal color and gradient logging utilities for modern TypeScript projects.',
