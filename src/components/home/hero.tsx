@@ -53,10 +53,10 @@ export default function Hero() {
   }
 
   return (
-    <div
+    <section
       className="flex h-auto w-full flex-col items-center justify-center px-4 py-6 sm:px-6"
       onClick={handleClick}
-      role="main"
+      aria-labelledby="hero-title"
     >
       {/* Hero Section - Horizontal Layout */}
       <AnimationContainer
@@ -67,10 +67,12 @@ export default function Hero() {
         {/* Left Side: Name & Quote */}
         <div className="flex flex-col items-center text-center md:flex-1 md:items-start md:text-left">
           <h1
+            id="hero-title"
             ref={nameElementRef}
             className="text-primary focus-visible:ring-primary dark:focus-visible:ring-offset-background mb-6 cursor-pointer rounded-sm px-2 py-1 text-4xl font-bold focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 md:text-6xl lg:text-7xl"
             tabIndex={0}
             aria-label="Name variant selector. Use arrow keys or space to cycle through variants"
+            aria-describedby="hero-title-help"
             onMouseMove={() => {
               if (reduce) return
               // throttle changes to ~200ms
@@ -124,6 +126,9 @@ export default function Hero() {
             <br />
             back to the Past
           </p>
+          <p id="hero-title-help" className="sr-only">
+            The heading is interactive and cycles between name variants on hover or keyboard input.
+          </p>
         </div>
 
         {/* Right Side: Image & Button */}
@@ -157,7 +162,7 @@ export default function Hero() {
           <p>
             Want to connect with me?{' '}
             <a
-              href="https://contact-priyanshu-ps.vercel.app/"
+              href="https://nsmail.vercel.app/"
               className="text-primary hover:text-primary focus-visible:ring-primary dark:focus-visible:ring-offset-background rounded-sm px-1 underline underline-offset-4 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
               target="_blank"
               rel="noopener noreferrer"
@@ -171,6 +176,6 @@ export default function Hero() {
 
       {/* About Modal */}
       {isAboutOpen && <About onClose={() => setIsAboutOpen(false)} />}
-    </div>
+    </section>
   )
 }

@@ -1,48 +1,20 @@
 import UploadGalleryPage from '@/components/gallery/upload'
-import { Metadata } from 'next'
+import { generateMetadata, siteConfig } from '@/utils'
 
-const siteName = process.env.NEXT_PUBLIC_APP_NAME || 'nsgpriyanshu'
-const siteUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://nsgpriyanshu.vercel.app'
-
-export const metadata: Metadata = {
-  title: `Upload to Gallery – Share Visual Work | ${siteName}`,
-  description: `Showcase your creativity by uploading photographs, designs, or artwork to your personal gallery on ${siteName}.`,
-  keywords: [
-    'gallery upload',
-    'upload artwork',
-    'share designs',
-    'creative work',
-    'visual portfolio',
-    'nsgpriyanshu',
-  ],
-  openGraph: {
-    title: `Upload to Gallery – Showcase Your Visuals | ${siteName}`,
-    description: `Add photos, designs, and creative visuals to your personal gallery on ${siteName}. A space to express visually.`,
-    url: `${siteUrl}gallery/upload`,
-    images: [
-      {
-        url: '/assets/gallery-pload-og.png', // Use or create this OG image
-        width: 1200,
-        height: 630,
-        alt: `Upload to Gallery – ${siteName}`,
-      },
-    ],
-    type: 'website',
-    siteName,
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: `Upload Visuals – Gallery | ${siteName}`,
-    description: `Upload and share personal visuals, photos, and creative projects directly to the gallery on ${siteName}.`,
-    images: ['/assets/gallery-pload-og.png'],
-  },
-  metadataBase: new URL(siteUrl),
-}
+export const metadata = generateMetadata({
+  title: `Upload to Gallery | ${siteConfig.name}`,
+  description:
+    'Add photography, artwork, or design work to the gallery with titles, tags, and location details.',
+  path: '/gallery/upload',
+  image: siteConfig.images.gallery,
+  keywords: ['gallery upload', 'upload photography', 'visual portfolio'],
+  noIndex: true,
+})
 
 const Page = () => {
   return (
     <div className="relative flex w-full flex-col">
-      <section className="w-full">
+      <section className="w-full" aria-labelledby="gallery-upload-heading">
         <UploadGalleryPage />
       </section>
     </div>

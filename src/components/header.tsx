@@ -25,7 +25,6 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Update time & date every second
   useEffect(() => {
     const updateTime = () => {
       const now = new Date()
@@ -64,7 +63,6 @@ export default function Header() {
           className="flex flex-row items-center justify-between gap-4"
           aria-label="Main navigation"
         >
-          {/* LEFT SIDE */}
           <div className="flex flex-col items-start gap-2">
             <motion.div
               className="text-muted-foreground text-sm"
@@ -91,8 +89,7 @@ export default function Header() {
             </motion.button>
           </div>
 
-          {/* CENTER — LOCAL TIME & DATE */}
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center" aria-label="Current local date and time">
             <span className="text-muted-foreground/70 text-xs tracking-wider">{localDate}</span>
             <motion.span
               className="text-primary text-sm font-semibold"
@@ -104,7 +101,6 @@ export default function Header() {
             </motion.span>
           </div>
 
-          {/* RIGHT SIDE — NAVIGATION */}
           <div className="text-muted-foreground flex flex-col gap-3 text-sm">
             {navigationLinks.map(link => {
               const isActive =
@@ -120,6 +116,7 @@ export default function Header() {
                     isActive ? 'text-primary font-semibold' : 'hover:text-primary'
                   }`}
                   aria-current={isActive ? 'page' : undefined}
+                  aria-label={`Go to ${link.label}`}
                 >
                   {link.label}
 

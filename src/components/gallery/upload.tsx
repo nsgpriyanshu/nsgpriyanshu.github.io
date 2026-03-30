@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { ImageUpIcon, Loader2Icon, X } from 'lucide-react'
 import Image from 'next/image'
+import { useAppHaptics } from '@/hooks/use-app-haptics'
 
 export default function UploadGalleryPage() {
   const [title, setTitle] = useState('')
@@ -22,6 +23,7 @@ export default function UploadGalleryPage() {
 
   const router = useRouter()
   const supabase = createClient()
+  const { error: hapticError, success: hapticSuccess } = useAppHaptics()
 
   const addTag = () => {
     const trimmed = tagInput.trim()
@@ -45,6 +47,7 @@ export default function UploadGalleryPage() {
 
   const handleUpload = async () => {
     if (!title.trim() || !image || !photographerName.trim()) {
+      hapticError()
       toast.error('Title, image, and photographer name are required')
       return
     }
@@ -59,6 +62,7 @@ export default function UploadGalleryPage() {
     } = await supabase.auth.getUser()
 
     if (userError || !user) {
+      hapticError()
       toast.error('User not authenticated')
       setLoading(false)
       return
@@ -67,6 +71,7 @@ export default function UploadGalleryPage() {
     const { error: uploadError } = await supabase.storage.from('gallery').upload(imagePath, image)
 
     if (uploadError) {
+      hapticError()
       toast.error(`Failed to upload image: ${uploadError.message}`)
       setLoading(false)
       return
@@ -83,9 +88,11 @@ export default function UploadGalleryPage() {
     ])
 
     if (insertError) {
+      hapticError()
       toast.error(`Failed to save gallery entry: ${insertError.message}`)
       await supabase.storage.from('gallery').remove([imagePath])
     } else {
+      hapticSuccess()
       toast.success('Image uploaded successfully!')
       router.push('/gallery')
     }
@@ -94,8 +101,18 @@ export default function UploadGalleryPage() {
   }
 
   return (
-    <div className="mx-auto mt-10 w-full max-w-3xl space-y-6 px-4">
-      <h1 className="text-foreground text-3xl font-bold">Upload to Gallery</h1>
+    <section
+      className="mx-auto mt-10 w-full max-w-3xl space-y-6 px-4"
+      aria-labelledby="gallery-upload-heading"
+    >
+      <div className="space-y-2">
+        <h1 id="gallery-upload-heading" className="text-foreground text-3xl font-bold">
+          Upload to Gallery
+        </h1>
+        <p id="gallery-upload-description" className="text-muted-foreground text-sm">
+          Add a visual with descriptive metadata so it is easier to browse and discover.
+        </p>
+      </div>
 
       {/* Title */}
       <div className="space-y-1">
@@ -146,6 +163,7 @@ export default function UploadGalleryPage() {
           placeholder="Add tags like nature, portrait, etc."
           value={tagInput}
           onChange={e => setTagInput(e.target.value)}
+          aria-describedby="gallery-tags-help"
           onKeyDown={e => {
             if (e.key === 'Enter') {
               e.preventDefault()
@@ -153,20 +171,24 @@ export default function UploadGalleryPage() {
             }
           }}
         />
-        <div className="flex flex-wrap gap-2 pt-1">
+        <p id="gallery-tags-help" className="text-muted-foreground text-xs">
+          Press Enter to add a tag. Remove tags using the small close buttons.
+        </p>
+        <ul className="flex flex-wrap gap-2 pt-1" aria-label="Selected image tags">
           {tags.map(tag => (
-            <Badge
-              key={tag}
-              variant="secondary"
-              className="hover:bg-primary hover:text-background flex items-center gap-1 text-xs transition"
-            >
-              {tag}
-              <button onClick={() => removeTag(tag)}>
-                <X className="h-3 w-3" />
-              </button>
-            </Badge>
+            <li key={tag}>
+              <Badge
+                variant="secondary"
+                className="hover:bg-primary hover:text-background flex items-center gap-1 text-xs transition"
+              >
+                {tag}
+                <button aria-label={`Remove ${tag} tag`} onClick={() => removeTag(tag)}>
+                  <X className="h-3 w-3" aria-hidden="true" />
+                </button>
+              </Badge>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
 
       {/* Image Upload */}
@@ -174,12 +196,21 @@ export default function UploadGalleryPage() {
         <label htmlFor="image" className="text-muted-foreground/70 text-sm">
           Upload Image
         </label>
-        <Input id="image" type="file" accept="image/*" onChange={handleImageChange} />
+        <Input
+          id="image"
+          type="file"
+          accept="image/*"
+          aria-describedby="gallery-image-help"
+          onChange={handleImageChange}
+        />
+        <p id="gallery-image-help" className="text-muted-foreground text-xs">
+          Choose a single image file to preview before upload.
+        </p>
         {image && imagePreview && (
           <div className="border-primary/10 bg-primary/5 mt-3 overflow-hidden rounded-lg border p-2">
             <Image
               src={imagePreview}
-              alt="Preview"
+              alt={`Preview of ${title || 'selected image'}`}
               width={800}
               height={600}
               className="h-auto w-full rounded-lg object-cover"
@@ -196,16 +227,16 @@ export default function UploadGalleryPage() {
       >
         {loading ? (
           <>
-            <Loader2Icon className="h-4 w-4 animate-spin" />
+            <Loader2Icon className="h-4 w-4 animate-spin" aria-hidden="true" />
             Uploading...
           </>
         ) : (
           <>
-            <ImageUpIcon className="h-4 w-4" />
+            <ImageUpIcon className="h-4 w-4" aria-hidden="true" />
             Upload Image
           </>
         )}
       </Button>
-    </div>
+    </section>
   )
 }

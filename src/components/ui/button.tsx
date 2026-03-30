@@ -37,16 +37,19 @@ function Button({
   variant,
   size,
   asChild = false,
+  'data-haptic': dataHaptic = 'tap',
   ...props
 }: React.ComponentProps<'button'> &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean
+    'data-haptic'?: string
   }) {
   const Comp = asChild ? Slot : 'button'
 
   return (
     <Comp
       data-slot="button"
+      data-haptic={dataHaptic}
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
     />

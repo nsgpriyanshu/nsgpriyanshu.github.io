@@ -60,6 +60,7 @@ export function ModeToggle() {
       className="text-muted-foreground decoration-muted hover:text-primary focus-visible:ring-primary dark:focus-visible:ring-offset-background cursor-pointer rounded-sm text-sm underline underline-offset-4 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
       onClick={handleThemeToggle}
       aria-label={`Switch to ${getNextTheme()} mode. Currently using ${getThemeText()}`}
+      aria-live="polite"
       title={getThemeText()}
     >
       {getThemeText()}

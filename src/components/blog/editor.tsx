@@ -31,7 +31,7 @@ interface MenuBarProps {
 const MenuBar = ({ editor }: MenuBarProps) => {
   if (!editor) return null
 
-  const HeadingDropdown = () => {
+  const renderHeadingDropdown = () => {
     const levels = [1, 2, 3, 4]
     const currentLevel = editor.isActive('paragraph')
       ? 0
@@ -44,6 +44,8 @@ const MenuBar = ({ editor }: MenuBarProps) => {
           <Button
             variant="outline"
             size="sm"
+            aria-label="Choose heading level"
+            title="Choose heading level"
             className="bg-secondary text-muted-foreground hover:bg-primary hover:text-primary border-border h-8 rounded-lg border px-2 text-xs"
           >
             {currentLabel}
@@ -76,7 +78,7 @@ const MenuBar = ({ editor }: MenuBarProps) => {
     )
   }
 
-  const HighlightDropdown = () => {
+  const renderHighlightDropdown = () => {
     const colors = [
       { value: '#FFFF00', label: 'Yellow' },
       { value: '#FF0000', label: 'Red' },
@@ -91,6 +93,8 @@ const MenuBar = ({ editor }: MenuBarProps) => {
           <Button
             variant="outline"
             size="sm"
+            aria-label="Choose highlight color"
+            title="Choose highlight color"
             className="bg-secondary text-muted-foreground hover:text-primary hover:bg-primary border-border h-8 rounded-lg border px-2 text-xs"
           >
             {currentColor === 'No Highlight' ? 'Highlight' : currentColor}
@@ -123,10 +127,12 @@ const MenuBar = ({ editor }: MenuBarProps) => {
     )
   }
 
-  const ImageUploadButton = () => (
+  const imageUploadButton = (
     <Button
       size="sm"
       variant="outline"
+      aria-label="Upload an image into the editor"
+      title="Upload an image"
       onClick={() => {
         const input = document.createElement('input')
         input.type = 'file'
@@ -176,13 +182,15 @@ const MenuBar = ({ editor }: MenuBarProps) => {
   return (
     <AnimationContainer animation="fadeUp" delay={0.2}>
       <div className="bg-background/60 border-border flex flex-wrap gap-1 rounded-xl border p-2 backdrop-blur-sm">
-        <HeadingDropdown />
+        {renderHeadingDropdown()}
         {buttons.map(({ label, mark, command, disabled }, i) => {
           const isActive = mark ? editor.isActive(mark) : false
           const canRun = command || (mark && editor.can().chain().focus().toggleMark?.(mark).run())
           return (
             <Button
               key={i}
+              aria-label={label}
+              title={label}
               onClick={() =>
                 command
                   ? typeof command === 'function'
@@ -212,8 +220,8 @@ const MenuBar = ({ editor }: MenuBarProps) => {
             </Button>
           )
         })}
-        <ImageUploadButton />
-        <HighlightDropdown />
+        {imageUploadButton}
+        {renderHighlightDropdown()}
       </div>
     </AnimationContainer>
   )
@@ -246,6 +254,7 @@ export default function TiptapEditor({ content, setContent }: EditorProps) {
       <div className="border-border bg-background rounded-2xl border p-4">
         <EditorContent
           editor={editor}
+          aria-label="Blog post content editor"
           className="prose prose-sm text-foreground dark:prose-invert min-h-[300px] max-w-full"
         />
         <MenuBar editor={editor} />

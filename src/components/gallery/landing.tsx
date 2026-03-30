@@ -15,6 +15,7 @@ import { RiVerifiedBadgeFill } from 'react-icons/ri'
 import { motion } from 'framer-motion'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 import { Separator } from '@/components/ui/separator'
+import { useAppHaptics } from '@/hooks/use-app-haptics'
 
 interface GalleryItem {
   id: string
@@ -62,11 +63,14 @@ function GalleryCard({
       animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 30, scale: 0.95 }}
       transition={{ duration: 0.6, delay: (index % 3) * 0.08 }}
       onClick={() => onSelect(item)}
+      data-haptic="tap"
       className="group relative h-56 w-full cursor-pointer overflow-hidden rounded-lg sm:h-64 md:h-72"
       role="button"
       tabIndex={0}
+      aria-label={`Open gallery item ${item.title}`}
       onKeyDown={e => {
         if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
           onSelect(item)
         }
       }}
@@ -104,6 +108,7 @@ function GalleryCard({
             variant="ghost"
             size="icon"
             className="text-destructive hover:bg-destructive/10"
+            aria-label={`Delete gallery item ${item.title}`}
             onClick={e => {
               e.stopPropagation()
               onDelete(item)
@@ -128,6 +133,7 @@ export default function LandingPage() {
   const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null)
   const [confirmDelete, setConfirmDelete] = useState(false)
   const [targetToDelete, setTargetToDelete] = useState<GalleryItem | null>(null)
+  const { error: hapticError, success: hapticSuccess } = useAppHaptics()
 
   useEffect(() => {
     const fetchGallery = async () => {
@@ -157,10 +163,12 @@ export default function LandingPage() {
     const { error } = await supabase.from('gallery').delete().eq('id', targetToDelete.id)
 
     if (!error) {
+      hapticSuccess()
       setGallery(prev => prev.filter(item => item.id !== targetToDelete.id))
       setConfirmDelete(false)
       setTargetToDelete(null)
     } else {
+      hapticError()
       console.error('Delete failed:', error.message)
     }
   }
@@ -174,11 +182,13 @@ export default function LandingPage() {
   const allTags = Array.from(new Set(gallery.flatMap(item => item.tags)))
 
   return (
-    <div>
+    <section aria-labelledby="gallery-heading">
       <AnimationContainer animation="fadeUp" delay={0.1}>
         <div className="mb-6 flex flex-row items-center justify-between gap-4">
           <div className="flex flex-col items-start">
-            <h1 className="text-foreground text-4xl font-bold">Gallery</h1>
+            <h1 id="gallery-heading" className="text-foreground text-4xl font-bold">
+              Gallery
+            </h1>
             <p className="text-muted-foreground/70 text-sm">Visual moments, memories & designs</p>
           </div>
 
@@ -196,26 +206,36 @@ export default function LandingPage() {
           <Input
             type="text"
             placeholder="Search gallery..."
+            aria-label="Search gallery items"
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
             className="bg-input border-border text-foreground placeholder:text-muted-foreground max-w-md border"
           />
-          <div className="mt-2 flex flex-wrap gap-2 sm:mt-0">
-            <Badge
-              variant={selectedTag === '' ? 'default' : 'outline'}
-              onClick={() => setSelectedTag('')}
-              className="cursor-pointer"
-            >
-              All
+          <div
+            className="mt-2 flex flex-wrap gap-2 sm:mt-0"
+            role="group"
+            aria-label="Filter gallery by tag"
+          >
+            <Badge asChild variant={selectedTag === '' ? 'default' : 'outline'}>
+              <button
+                onClick={() => setSelectedTag('')}
+                data-haptic="selection"
+                className="cursor-pointer"
+                aria-pressed={selectedTag === ''}
+              >
+                All
+              </button>
             </Badge>
             {allTags.map(tag => (
-              <Badge
-                key={tag}
-                variant={selectedTag === tag ? 'default' : 'outline'}
-                onClick={() => setSelectedTag(tag)}
-                className="cursor-pointer"
-              >
-                {tag}
+              <Badge key={tag} asChild variant={selectedTag === tag ? 'default' : 'outline'}>
+                <button
+                  onClick={() => setSelectedTag(tag)}
+                  data-haptic="selection"
+                  className="cursor-pointer"
+                  aria-pressed={selectedTag === tag}
+                >
+                  {tag}
+                </button>
               </Badge>
             ))}
           </div>
@@ -246,7 +266,10 @@ export default function LandingPage() {
       {/* Image Detail Modal */}
       {selectedImage && (
         <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
-          <DialogContent className="border-primary/10 bg-primary/10 dark:border-primary/10 dark:bg-background/10 w-[95%] backdrop-blur-sm md:w-2xl">
+          <DialogContent
+            className="border-primary/10 bg-primary/10 dark:border-primary/10 dark:bg-background/10 w-[95%] backdrop-blur-sm md:w-2xl"
+            aria-describedby="gallery-dialog-description"
+          >
             <div className="space-y-4">
               <div className="relative h-96 w-full overflow-hidden rounded-lg backdrop-blur-md">
                 <Image
@@ -273,6 +296,10 @@ export default function LandingPage() {
                     {selectedImage.location}
                   </div>
                 )}
+                <p id="gallery-dialog-description" className="sr-only">
+                  Detailed view of the selected gallery item, including title, tags, location, and
+                  photographer.
+                </p>
                 <div className="mb-3 flex flex-wrap gap-2">
                   {selectedImage.tags.map(tag => (
                     <Badge key={tag} variant="secondary">
@@ -327,6 +354,6 @@ export default function LandingPage() {
           </div>
         </div>
       )}
-    </div>
+    </section>
   )
 }

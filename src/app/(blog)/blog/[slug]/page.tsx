@@ -1,134 +1,89 @@
-'use client'
+import { notFound } from 'next/navigation'
+import { createClient } from '@/lib/supabase/server'
+import StructuredData from '@/components/seo/structured-data'
+import BlogPostPage, { type BlogPost } from '@/components/blog/post-page'
+import { absoluteUrl, generateMetadata as buildMetadata, siteConfig } from '@/utils'
 
-import { useEffect, useState } from 'react'
-import { useParams, useRouter } from 'next/navigation'
-import { Loader2, ArrowLeft, PenToolIcon } from 'lucide-react'
-import AnimationContainer from '@/components/global/animation-container'
-import { createClient } from '@/lib/supabase/client'
-import { Badge } from '@/components/ui/badge'
-import { format } from 'date-fns'
-import { readingTimeFromHtml } from '@/lib/reading-time'
-import parse from 'html-react-parser'
-import { RiVerifiedBadgeFill } from 'react-icons/ri'
+async function getBlog(slug: string): Promise<BlogPost | null> {
+  if (!slug || !/^[a-z0-9-]+$/.test(slug)) return null
 
-interface Blog {
-  title: string
-  slug: string
-  content: string
-  created_at: string
-  author_name: string
-  tags: string[]
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('blog')
+    .select('title, slug, content, created_at, author_name, tags')
+    .eq('slug', slug)
+    .single()
+
+  if (error || !data) return null
+  return data
 }
 
-export default function Page() {
-  const params = useParams()
-  const router = useRouter()
-  const slug = params?.slug as string
-  const [blog, setBlog] = useState<Blog | null>(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const fetchBlog = async () => {
-      if (!slug || !/^[a-z0-9-]+$/.test(slug)) {
-        setLoading(false)
-        return
-      }
-
-      const supabase = createClient()
-      const { data, error } = await supabase
-        .from('blog')
-        .select('title, slug, content, created_at, author_name, tags')
-        .eq('slug', slug)
-        .single()
-
-      if (error || !data) {
-        console.error('Error fetching blog:', error?.message)
-        setLoading(false)
-        return
-      }
-
-      setBlog(data)
-      setLoading(false)
-    }
-
-    fetchBlog()
-  }, [slug])
-
-  if (loading) {
-    return (
-      <div className="text-foreground flex h-screen items-center justify-center">
-        <Loader2 className="animate-spin" />
-      </div>
-    )
-  }
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const blog = await getBlog(slug)
 
   if (!blog) {
-    return (
-      <div className="text-muted-foreground flex h-screen items-center justify-center">
-        Blog not found.
-      </div>
-    )
+    return buildMetadata({
+      title: `Post Not Found | ${siteConfig.name}`,
+      description: 'The requested blog post could not be found.',
+      path: `/blog/${slug}`,
+      image: siteConfig.images.blog,
+      noIndex: true,
+    })
   }
 
+  const excerpt = blog.content
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, 155)
+
+  return buildMetadata({
+    title: `${blog.title} | ${siteConfig.name}`,
+    description: excerpt || `Read ${blog.title} on ${siteConfig.name}.`,
+    path: `/blog/${blog.slug}`,
+    image: siteConfig.images.blog,
+    keywords: blog.tags,
+    type: 'article',
+  })
+}
+
+export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const blog = await getBlog(slug)
+
+  if (!blog) notFound()
+
+  const excerpt = blog.content
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, 155)
+
   return (
-    <AnimationContainer
-      animation="fadeUp"
-      delay={0.1}
-      className="bg-primary/5 text-foreground mx-auto max-w-3xl rounded-lg p-6 transition-colors"
-    >
-      <div>
-        {/* Return to Blog Link */}
-        <button
-          onClick={() => router.push('/blog')}
-          className="text-foreground mb-6 flex items-center gap-2 text-sm font-medium hover:underline"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Return to Blog
-        </button>
-
-        {/* Heading */}
-        <h1 className="text-foreground mb-4 text-3xl font-bold md:text-4xl">{blog.title}</h1>
-
-        {/* Tags */}
-        {blog.tags && blog.tags.length > 0 && (
-          <div className="mb-4 flex flex-wrap gap-2">
-            {blog.tags.map(tag => (
-              <Badge
-                key={tag}
-                variant="secondary"
-                className="bg-muted text-muted-foreground text-xs"
-              >
-                {tag}
-              </Badge>
-            ))}
-          </div>
-        )}
-
-        {/* Meta */}
-        <div className="text-muted-foreground mb-2 text-sm">
-          {format(new Date(blog.created_at), 'dd MMM yyyy')} · {readingTimeFromHtml(blog.content)}
-        </div>
-
-        {/* Separator */}
-        <hr className="border-primary/10 my-4 border-t" />
-
-        {/* Content */}
-        <div className="prose prose-sm dark:prose-invert mb-6 max-w-none">
-          {parse(blog.content)}
-        </div>
-
-        {/* Separator */}
-        <hr className="border-primary/10 my-6 border-t" />
-
-        {/* Author and Date */}
-        <div className="text-muted-foreground flex items-center gap-2 text-sm">
-          <PenToolIcon className="h-4 w-4" />
-          <span className="text-foreground flex items-center gap-1 font-medium">
-            {blog.author_name || 'Anonymous'}
-            <RiVerifiedBadgeFill className="text-primary h-4 w-4" />
-          </span>
-        </div>
-      </div>
-    </AnimationContainer>
+    <>
+      <StructuredData
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'BlogPosting',
+          headline: blog.title,
+          description: excerpt,
+          datePublished: blog.created_at,
+          dateModified: blog.created_at,
+          url: absoluteUrl(`/blog/${blog.slug}`),
+          mainEntityOfPage: absoluteUrl(`/blog/${blog.slug}`),
+          author: {
+            '@type': 'Person',
+            name: blog.author_name || siteConfig.creator,
+          },
+          publisher: {
+            '@type': 'Person',
+            name: siteConfig.creator,
+          },
+          keywords: blog.tags.join(', '),
+        }}
+      />
+      <BlogPostPage blog={blog} />
+    </>
   )
 }

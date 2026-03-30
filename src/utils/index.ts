@@ -1,3 +1,3 @@
-import { generateMetadata } from './metadata'
+import { absoluteUrl, generateMetadata, siteConfig } from './metadata'
 
-export { generateMetadata }
+export { absoluteUrl, generateMetadata, siteConfig }

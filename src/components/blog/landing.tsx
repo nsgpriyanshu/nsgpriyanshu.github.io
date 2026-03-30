@@ -13,6 +13,7 @@ import { Trash2, AlertTriangle, X, Check, Clock } from 'lucide-react'
 import { RiVerifiedBadgeFill } from 'react-icons/ri'
 import { motion } from 'framer-motion'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
+import { useAppHaptics } from '@/hooks/use-app-haptics'
 
 interface Blog {
   id: number
@@ -41,13 +42,25 @@ function BlogCard({
   return (
     <motion.div
       ref={ref}
+      role="article"
+      aria-labelledby={`blog-title-${blog.id}`}
       initial={{ opacity: 0, y: 20 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
       transition={{ duration: 0.5, delay: index * 0.05 }}
     >
       <div
         onClick={() => router.push(`/blog/${blog.slug}`)}
+        onKeyDown={e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            router.push(`/blog/${blog.slug}`)
+          }
+        }}
+        data-haptic="tap"
         className="hover:bg-primary/10 cursor-pointer rounded-lg p-2 transition-all duration-300 hover:translate-x-1"
+        role="button"
+        tabIndex={0}
+        aria-label={`Open blog post ${blog.title}`}
       >
         <div className="text-muted-foreground/50 mb-2 text-xs">
           {format(new Date(blog.created_at), 'dd MMM yyyy')} ·{' '}
@@ -56,7 +69,9 @@ function BlogCard({
             {readingTimeFromHtml(blog.content)}
           </span>
         </div>
-        <h2 className="text-foreground mb-1 text-xl font-semibold">{blog.title}</h2>
+        <h2 id={`blog-title-${blog.id}`} className="text-foreground mb-1 text-xl font-semibold">
+          {blog.title}
+        </h2>
         <div className="text-muted-foreground/70 mb-2 flex items-center gap-1 text-xs">
           By {blog.author_name}
           <RiVerifiedBadgeFill className="text-muted-foreground/70 h-3 w-3" />
@@ -76,6 +91,7 @@ function BlogCard({
             variant="ghost"
             size="icon"
             className="text-destructive hover:bg-destructive/10"
+            aria-label={`Delete blog post ${blog.title}`}
             onClick={e => {
               e.stopPropagation()
               onDelete()
@@ -98,6 +114,7 @@ export default function LandingPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [selectedBlogId, setSelectedBlogId] = useState<number | null>(null)
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
+  const { error: hapticError, success: hapticSuccess } = useAppHaptics()
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -126,10 +143,12 @@ export default function LandingPage() {
     const { error } = await supabase.from('blog').delete().eq('id', selectedBlogId)
 
     if (!error) {
+      hapticSuccess()
       setBlogs(prev => prev.filter(blog => blog.id !== selectedBlogId))
       setShowDeleteConfirm(false)
       setSelectedBlogId(null)
     } else {
+      hapticError()
       console.error('Delete failed:', error.message)
     }
   }
@@ -143,11 +162,13 @@ export default function LandingPage() {
   const allTags = Array.from(new Set(blogs.flatMap(blog => blog.tags)))
 
   return (
-    <div>
+    <section aria-labelledby="blog-list-heading">
       <AnimationContainer animation="fadeUp" delay={0.1}>
         <div className="mb-6 flex flex-row items-center justify-between gap-4">
           <div className="flex flex-col items-start">
-            <h1 className="text-foreground text-4xl font-bold sm:text-left">Blogs</h1>
+            <h1 id="blog-list-heading" className="text-foreground text-4xl font-bold sm:text-left">
+              Blogs
+            </h1>
             <p className="text-muted-foreground/70 text-sm">Read the insights, shared by me</p>
           </div>
 
@@ -165,26 +186,36 @@ export default function LandingPage() {
           <Input
             type="text"
             placeholder="Search blogs..."
+            aria-label="Search blog posts"
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
             className="bg-input border-border text-foreground placeholder:text-muted-foreground max-w-md border"
           />
-          <div className="mt-2 flex flex-wrap gap-2 sm:mt-0">
-            <Badge
-              variant={selectedTag === '' ? 'default' : 'outline'}
-              onClick={() => setSelectedTag('')}
-              className="cursor-pointer"
-            >
-              All
+          <div
+            className="mt-2 flex flex-wrap gap-2 sm:mt-0"
+            role="group"
+            aria-label="Filter by tag"
+          >
+            <Badge asChild variant={selectedTag === '' ? 'default' : 'outline'}>
+              <button
+                onClick={() => setSelectedTag('')}
+                data-haptic="selection"
+                className="cursor-pointer"
+                aria-pressed={selectedTag === ''}
+              >
+                All
+              </button>
             </Badge>
             {allTags.map(tag => (
-              <Badge
-                key={tag}
-                variant={selectedTag === tag ? 'default' : 'outline'}
-                onClick={() => setSelectedTag(tag)}
-                className="cursor-pointer"
-              >
-                {tag}
+              <Badge key={tag} asChild variant={selectedTag === tag ? 'default' : 'outline'}>
+                <button
+                  onClick={() => setSelectedTag(tag)}
+                  data-haptic="selection"
+                  className="cursor-pointer"
+                  aria-pressed={selectedTag === tag}
+                >
+                  {tag}
+                </button>
               </Badge>
             ))}
           </div>
@@ -244,6 +275,6 @@ export default function LandingPage() {
           </div>
         </div>
       )}
-    </div>
+    </section>
   )
 }

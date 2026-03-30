@@ -1,82 +1,133 @@
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 
-const siteConfig = {
-  siteName: process.env.NEXT_PUBLIC_APP_NAME || 'nsgpriyanshu',
-  siteDescription: process.env.NEXT_PUBLIC_APP_DESCRIPTION || 'My personal portfolio website',
-  siteKeywords:
+const fallbackSiteUrl = 'https://nsgpriyanshu.vercel.app'
+
+export const siteConfig = {
+  name: process.env.NEXT_PUBLIC_APP_NAME || 'nsgpriyanshu',
+  shortName: 'nsgpriyanshu',
+  description:
+    process.env.NEXT_PUBLIC_APP_DESCRIPTION ||
+    'Portfolio, writing, and visual work from Priyanshu, a developer and creative builder based in India.',
+  keywords: (
     process.env.NEXT_PUBLIC_APP_KEYWORDS ||
-    'portfolio, developer, nsgpriyanshu, web developer, software engineer',
-  links: {
-    discord: 'https://discord.gg/VUMVuArkst',
-    twitter: '@nsgpriyanshu',
-    siteUrl: process.env.NEXT_PUBLIC_APP_URL || 'https://nsgpriyanshu.vercel.app',
-    ogImage: '/assets/og-main.png',
-    twitterImage: '/assets/og-main.png',
+    'portfolio, developer, software engineer, frontend, blog, gallery, nsgpriyanshu'
+  )
+    .split(',')
+    .map(keyword => keyword.trim())
+    .filter(Boolean),
+  creator: 'Priyanshu',
+  author: 'Priyanshu',
+  locale: 'en_US',
+  siteUrl: process.env.NEXT_PUBLIC_APP_URL || fallbackSiteUrl,
+  twitter: '@nsgpriyanshu',
+  icons: {
+    icon: '/icons/favicon.ico',
+    apple: '/icons/favicon.ico',
+  },
+  images: {
+    default: '/assets/og-main.png',
+    home: '/assets/og-main.png',
+    blog: '/assets/og-blog.png',
+    gallery: '/assets/og-gallery.png',
+    signIn: '/assets/og-signin.png',
+    signUp: '/assets/og-signup.png',
   },
 }
 
-export const generateMetadata = ({
-  title = `${siteConfig.siteName} - Home`,
-  description = siteConfig.siteDescription,
-  image = siteConfig.links.ogImage,
-  icons = [
-    {
-      rel: 'apple-touch-icon',
-      sizes: '32x32',
-      url: '/icons/favicon.ico',
-    },
-    {
-      rel: 'icon',
-      sizes: '32x32',
-      url: '/icons/favicon.ico',
-    },
-  ],
-  noIndex = false,
-}: {
-  title?: string
-  description?: string
-  image?: string | null
-  icons?: Metadata['icons']
+export function absoluteUrl(path = '/') {
+  return new URL(path, siteConfig.siteUrl).toString()
+}
+
+type PageMetadataInput = {
+  title: string
+  description: string
+  path?: string
+  image?: string
+  keywords?: string[]
+  type?: 'website' | 'article'
   noIndex?: boolean
-} = {}): Metadata => {
-  const baseUrl = siteConfig.links.siteUrl
-  const ogImageUrl = image?.startsWith('http') ? image : `${baseUrl}${image}`
-  const twitterImageUrl = image?.startsWith('http') ? image : `${baseUrl}${image}`
+}
+
+export function generateMetadata({
+  title,
+  description,
+  path = '/',
+  image = siteConfig.images.default,
+  keywords = [],
+  type = 'website',
+  noIndex = false,
+}: PageMetadataInput): Metadata {
+  const url = absoluteUrl(path)
+  const imageUrl = image.startsWith('http') ? image : absoluteUrl(image)
+  const mergedKeywords = Array.from(new Set([...siteConfig.keywords, ...keywords]))
 
   return {
+    metadataBase: new URL(siteConfig.siteUrl),
     title,
     description,
-    icons,
-    keywords: siteConfig.siteKeywords,
-    ...(noIndex && { robots: { index: false, follow: false } }),
+    applicationName: siteConfig.name,
+    alternates: {
+      canonical: path,
+    },
+    authors: [{ name: siteConfig.author, url: siteConfig.siteUrl }],
+    creator: siteConfig.creator,
+    publisher: siteConfig.name,
+    keywords: mergedKeywords,
+    category: 'technology',
+    icons: {
+      icon: siteConfig.icons.icon,
+      apple: siteConfig.icons.apple,
+    },
+    robots: noIndex
+      ? {
+          index: false,
+          follow: false,
+          googleBot: {
+            index: false,
+            follow: false,
+            'max-image-preview': 'none',
+            'max-snippet': 0,
+          },
+        }
+      : {
+          index: true,
+          follow: true,
+          googleBot: {
+            index: true,
+            follow: true,
+            'max-image-preview': 'large',
+            'max-snippet': -1,
+            'max-video-preview': -1,
+          },
+        },
     openGraph: {
-      title: siteConfig.siteName,
-      description: siteConfig.siteDescription,
-      url: baseUrl,
-      type: 'website',
-      locale: 'en_US',
-      siteName: siteConfig.siteName,
+      type,
+      locale: siteConfig.locale,
+      url,
+      title,
+      description,
+      siteName: siteConfig.name,
       images: [
         {
-          url: ogImageUrl,
+          url: imageUrl,
           width: 1200,
           height: 630,
-          alt: siteConfig.siteName,
+          alt: title,
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: siteConfig.siteName,
-      description: siteConfig.siteDescription,
+      title,
+      description,
+      site: siteConfig.twitter,
+      creator: siteConfig.twitter,
       images: [
         {
-          url: twitterImageUrl,
-          alt: siteConfig.siteName,
+          url: imageUrl,
+          alt: title,
         },
       ],
-      site: siteConfig.links.twitter,
-      creator: siteConfig.links.twitter,
     },
   }
 }

@@ -1,10 +1,11 @@
 import BlurCursor from '@/components/global/blur-cursor'
+import HapticsProvider from '@/components/global/haptics-provider'
 import PageTransitionWrapper from '@/components/global/page-transitions'
 import ClickPulse from '@/components/global/click-pulse'
 import { SoundProvider } from '@/context/sound-context'
 import { cn } from '@/lib/utils'
 import '@/styles/globals.css'
-import { generateMetadata } from '@/utils'
+import { generateMetadata, siteConfig } from '@/utils'
 import { ThemeProvider } from 'next-themes'
 import { Geist_Mono } from 'next/font/google'
 import { Toaster } from 'sonner'
@@ -14,7 +15,13 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 })
 
-export const metadata = generateMetadata()
+export const metadata = generateMetadata({
+  title: `${siteConfig.name} | Developer Portfolio, Blog, and Gallery`,
+  description: siteConfig.description,
+  path: '/',
+  image: siteConfig.images.home,
+  keywords: ['developer portfolio', 'frontend developer', 'creative technologist'],
+})
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -31,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           disableTransitionOnChange
         >
           <SoundProvider>
+            <HapticsProvider />
             <PageTransitionWrapper>{children}</PageTransitionWrapper>
             <ClickPulse />
             <BlurCursor />
