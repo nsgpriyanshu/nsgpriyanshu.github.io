@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.3.0](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/compare/3.2.0...3.3.0) - (2026-03-30)
+
+## Bug Fixes
+
+- Server bug ([909e096](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/909e09673e1e1f852d3010c1ab2ee1cb4632a022))
+
+## Features
+
+- **ui/ux:** Enhance the ux experience ([351e040](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/commit/351e04005cd80388e02a57a363ca653e3a244e45))
+
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
 # [3.2.0](https://github.com/nsgpriyanshu/nsgpriyanshu.github.io/compare/3.1.0...3.2.0) - (2026-03-03)
 
 ## Bug Fixes
