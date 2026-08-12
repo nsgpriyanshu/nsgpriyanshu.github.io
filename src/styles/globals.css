@@ -172,6 +172,9 @@ html {
   margin-top: 1.5em;
   margin-bottom: 0.5em;
 }
+.prose img {
+  border-radius: var(--radius-lg);
+}
 .prose.dark\:prose-invert h1,
 .prose.dark\:prose-invert h2,
 .prose.dark\:prose-invert h3,

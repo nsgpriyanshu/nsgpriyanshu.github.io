@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { ArrowLeft, PenToolIcon } from 'lucide-react'
+import { ArrowLeft, ClockIcon, PenToolIcon } from 'lucide-react'
 import AnimationContainer from '@/components/global/animation-container'
 import { Badge } from '@/components/ui/badge'
 import { format } from 'date-fns'
@@ -54,11 +54,14 @@ export default function BlogPostPage({ blog }: { blog: BlogPost }) {
             </ul>
           )}
 
-          <p className="text-muted-foreground mb-2 text-sm" aria-label="Post metadata">
+          <p
+            className="text-muted-foreground mb-2 flex items-center gap-2 text-sm"
+            aria-label="Post metadata"
+          >
             <time dateTime={blog.created_at}>
               {format(new Date(blog.created_at), 'dd MMM yyyy')}
             </time>
-            {' � '}
+            <ClockIcon className="h-4 w-4" aria-hidden="true" />
             {readingTimeFromHtml(blog.content)}
           </p>
         </header>
