@@ -43,11 +43,7 @@ export default function About({ onClose }: AboutProps) {
               B.Tech CSE student and the CEO of{' '}
               <span className="text-primary font-semibold">Creator's World</span> — a creative space
               for creative people. I enjoy building clean, functional, and beautiful websites, and
-              yes, I usually do it through{' '}
-              <span className="text-primary font-semibold">
-                (vive coding or smart copy–pasting)
-              </span>{' '}
-              with the help of AI. I’m being honest because that’s how I actually work — combining
+              yes, I usually do it with the help of AI. I’m being honest because that’s how I actually work — combining
               logic, creativity, and AI-assisted development to make great things. I work with{' '}
               <span className="text-primary font-semibold">Next.js</span>,{' '}
               <span className="text-primary font-semibold">Tailwind CSS</span>, and{' '}
